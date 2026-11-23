@@ -3,18 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Olimpo Pizzaria — Cardápio Digital</title>
-  <meta name="description" content="Cardápio artesanal da Olimpo Pizzaria. Fermentação natural e ingredientes selecionados.">
+  <title>Olimpo Pizzas Delivery — Fraiburgo, SC</title>
+  <meta name="description" content="Cardápio digital da Olimpo Pizzas Delivery em Fraiburgo - SC. Pizzas artesanais, calzones e combos.">
   
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍕</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- ==========================================
-       1. CABEÇALHO MINIMALISTA
-       ========================================== -->
+  <!-- Luz ambiental animada sutil -->
+  <div class="ambient-glow" aria-hidden="true"></div>
+
+  <!-- 1. HEADER GLASSMORPHISM -->
   <header class="site-header">
     <div class="container">
       <div class="header-inner">
@@ -22,39 +23,47 @@
           <div class="brand-mark">
             <i class="fa-solid fa-bolt"></i>
           </div>
-          <span class="brand-name" id="headerStoreName">Olimpo</span>
+          <div class="brand-stack">
+            <span class="brand-name" id="headerStoreName">Olimpo</span>
+            <span class="brand-city">Fraiburgo · SC</span>
+          </div>
         </a>
 
-        <div class="status-pill open" id="storeStatusBadge">
-          <span class="status-dot"></span>
-          <span id="storeStatusText">Aberto</span>
+        <div class="header-right">
+          <a href="#" target="_blank" class="icon-pill" id="headerMapBtn" title="Ver localização no mapa">
+            <i class="fa-solid fa-location-dot"></i>
+          </a>
+          <div class="status-pill open" id="storeStatusBadge">
+            <span class="status-dot"></span>
+            <span id="storeStatusText">Aberto</span>
+          </div>
         </div>
       </div>
     </div>
   </header>
 
-  <!-- ==========================================
-       2. CABEÇALHO EDITORIAL
-       ========================================== -->
+  <!-- 2. HERO EDITORIAL CON ANIMACIÓN DE ENTRADA -->
   <section class="hero-minimal">
     <div class="container">
-      <p class="hero-eyebrow">Cardápio Artesanal</p>
-      <h1 class="hero-title">Sabores dignos do <span>Olimpo</span></h1>
-      <p class="hero-subtitle" id="heroDescription">
-        Fermentação natural lenta, ingredientes nobres e forno de pedra.
-      </p>
+      <div class="hero-reveal">
+        <span class="hero-eyebrow">Pizzas Delivery · São José</span>
+        <h1 class="hero-title">Sabores dignos do <span>Olimpo</span></h1>
+        <p class="hero-subtitle" id="heroDescription">
+          Pizzas artesanais, calzones e combos exclusivos preparados na hora em Fraiburgo.
+        </p>
 
-      <div class="meta-bar">
-        <span><i class="fa-regular fa-clock"></i> <strong id="infoOpenHours">Ter a Dom · 18h às 23h45</strong></span>
-        <span class="meta-sep">•</span>
-        <span><i class="fa-solid fa-motorcycle"></i> <strong id="infoDeliveryTime">35–50 min</strong></span>
+        <div class="meta-bar">
+          <span><i class="fa-regular fa-clock"></i> <strong id="infoOpenHours">Ter a Dom · 18h30 às 23h30</strong></span>
+          <span class="meta-sep">•</span>
+          <span><i class="fa-solid fa-motorcycle"></i> <strong id="infoDeliveryTime">40–55 min</strong></span>
+          <span class="meta-sep">•</span>
+          <span><i class="fa-solid fa-bag-shopping"></i> Mín. <strong id="infoMinOrder">R$ 24,00</strong></span>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ==========================================
-       3. BUSCA E CATEGORIAS STICKY
-       ========================================== -->
+  <!-- 3. BUSCADOR Y CATEGORÍAS STICKY -->
   <div class="sticky-controls">
     <div class="container">
       <div class="search-minimal">
@@ -62,7 +71,7 @@
         <input 
           type="text" 
           id="searchInput" 
-          placeholder="Buscar sabor ou ingrediente..." 
+          placeholder="Buscar pizza, calzone ou ingrediente..." 
           autocomplete="off"
         >
         <button class="search-clear" id="searchClearBtn" aria-label="Limpar">
@@ -71,23 +80,19 @@
       </div>
 
       <nav class="categories-strip" id="categoriesBar" aria-label="Categorias">
-        <!-- Preenchido via app.js -->
+        <!-- Renderizado via app.js -->
       </nav>
     </div>
   </div>
 
-  <!-- ==========================================
-       4. LISTAGEM DO CARDÁPIO
-       ========================================== -->
+  <!-- 4. LISTADO DEL CARDÁPIO -->
   <main class="container">
     <div id="productsContainer">
       <!-- Renderizado via app.js -->
     </div>
   </main>
 
-  <!-- ==========================================
-       5. MODAL DE DETALHES E PREÇOS DO ITEM
-       ========================================== -->
+  <!-- 5. MODAL DE DETALLES DEL PRODUCTO -->
   <div class="modal-overlay" id="productModalOverlay">
     <div class="modal-card">
       <button class="btn-close-floating" id="btnCloseModal" aria-label="Fechar">
@@ -99,17 +104,15 @@
       </div>
 
       <div class="modal-content">
-        <span class="modal-cat" id="modalProductCategory">Pizzas Especiais</span>
-        <h2 class="modal-title" id="modalProductName">Nome da Pizza</h2>
+        <span class="modal-cat" id="modalProductCategory">Pizzas</span>
+        <h2 class="modal-title" id="modalProductName">Nome do Produto</h2>
         <p class="modal-desc" id="modalProductDescription"></p>
 
-        <!-- Tabela limpa de tamanhos e preços -->
         <div id="modalSizesContainer">
-          <h3 class="modal-label">Tamanhos & Valores</h3>
+          <h3 class="modal-label">Tamanhos & Sabores</h3>
           <div class="sizes-list" id="modalSizesGrid"></div>
         </div>
 
-        <!-- Preço único (para bebidas/combos) -->
         <div id="modalFixedPriceContainer" style="display: none;">
           <div class="fixed-price-row">
             <span>Valor</span>
@@ -117,9 +120,8 @@
           </div>
         </div>
 
-        <!-- Nota de Meio a Meio e Bordas -->
         <div class="modal-notes" id="modalExtrasNote">
-          <p><i class="fa-solid fa-circle-half-stroke"></i> Disponível opção <strong>Meia a Meia</strong> (2 sabores).</p>
+          <p><i class="fa-solid fa-pizza-slice"></i> Monte com até <strong>3 sabores</strong> (Média) ou <strong>4 sabores</strong> (Grande).</p>
           <p id="modalCrustsSummary"></p>
         </div>
 
@@ -131,18 +133,24 @@
     </div>
   </div>
 
-  <!-- ==========================================
-       6. RODAPÉ MINIMALISTA
-       ========================================== -->
+  <!-- 6. FOOTER CON DATOS DE FRAIBURGO -->
   <footer class="site-footer">
     <div class="container">
-      <div class="footer-logo">Olimpo Pizzaria</div>
+      <div class="footer-logo">Olimpo Pizzas Delivery</div>
+      <p class="footer-address" id="footerAddress">Rua Olavo Bilac, 303 · São José, Fraiburgo - SC</p>
       <p class="footer-info">Taxa de entrega padrão: <strong id="infoDeliveryFee">R$ 7,00</strong></p>
-      <a href="#" target="_blank" class="footer-whats-link" id="footerWhatsAppBtn">
-        <i class="fa-brands fa-whatsapp"></i> Falar com o atendimento
-      </a>
+
+      <div class="footer-actions">
+        <a href="#" target="_blank" class="footer-whats-link" id="footerWhatsAppBtn">
+          <i class="fa-brands fa-whatsapp"></i> <span id="footerPhoneText">(49) 9915-6336</span>
+        </a>
+        <a href="#" target="_blank" class="footer-map-link" id="footerMapBtn">
+          <i class="fa-solid fa-location-dot"></i> Como chegar
+        </a>
+      </div>
+
       <p class="footer-copy">
-        &copy; <span id="currentYear"></span> Olimpo Pizzaria · <a href="admin.html">Acesso restrito</a>
+        &copy; <span id="currentYear"></span> Olimpo Pizzas Delivery · Fraiburgo/SC · <a href="admin.html">Painel</a>
       </p>
     </div>
   </footer>

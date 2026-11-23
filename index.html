@@ -32,21 +32,14 @@
   <meta name="twitter:description" content="🍕 Onde os deuses pedem pizza! 📍 Fraiburgo | SC">
   <meta name="twitter:image" content="https://ix-xixsystems.github.io/olimpo/banner.jpg">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
   <link rel="preload" as="image" href="logo.png" fetchpriority="high">
   <link rel="preload" as="image" href="zeus.png" fetchpriority="high">
-
   <link rel="icon" type="image/png" href="logo.png">
 
-  <!-- Carga no bloqueante de fuentes e iconos -->
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
-  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  </noscript>
+  <!-- Carga asíncrona de fuente Cinzel solo para títulos (el resto usa fuente nativa instantánea) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
 
   <style>
     :root {
@@ -66,7 +59,7 @@
       --text-3: #6B7280;
 
       --font-display: 'Cinzel', Georgia, serif;
-      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+      --font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
       --ease: cubic-bezier(0.16, 1, 0.3, 1);
     }
 
@@ -89,8 +82,6 @@
       color: var(--text);
       line-height: 1.5;
       -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      text-rendering: optimizeSpeed;
       overflow-x: hidden;
       overscroll-behavior-y: none;
       min-height: 100dvh;
@@ -101,6 +92,12 @@
     button, input { font-family: inherit; color: inherit; border: none; outline: none; background: none; }
     button { cursor: pointer; touch-action: manipulation; -webkit-user-select: none; user-select: none; }
     a { color: inherit; text-decoration: none; touch-action: manipulation; }
+
+    .ico {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
 
     .container {
       width: 100%;
@@ -113,18 +110,15 @@
     }
 
     /* =========================================
-       1. HEADER ACELERADO POR HARDWARE
+       1. HEADER ULTRA LIGERO (SIN BLUR COSTOSO)
        ========================================= */
     .site-header {
       position: sticky;
       top: 0;
       z-index: 100;
       padding-top: env(safe-area-inset-top);
-      background: rgba(7, 8, 10, 0.88);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      background: rgba(7, 8, 10, 0.96);
       border-bottom: 1px solid var(--border);
-      transform: translateZ(0);
     }
 
     .header-inner {
@@ -167,16 +161,14 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.88rem;
       color: var(--text-2);
-      transition: transform 0.2s var(--ease), border-color 0.2s ease, color 0.2s ease;
+      transition: transform 0.15s ease, border-color 0.15s ease, color 0.15s ease;
     }
 
     .nav-circle-btn:active { transform: scale(0.9); }
 
     @media (hover: hover) {
       .nav-circle-btn:hover {
-        transform: translateY(-2px);
         border-color: var(--border-gold);
         color: var(--gold);
       }
@@ -196,14 +188,13 @@
     }
 
     /* =========================================
-       2. HERO MODERNO CON LOGO INSTANTÁNEO Y ZEUS
+       2. HERO CON LOGO INSTANTÁNEO Y ZEUS
        ========================================= */
     .hero-profile {
       position: relative;
-      padding: 2.2rem 0 1.95rem;
+      padding: 2.2rem 0 1.9rem;
       text-align: center;
       overflow: hidden;
-      contain: layout style paint;
     }
 
     .zeus-backdrop {
@@ -221,68 +212,47 @@
       position: absolute;
       top: -30px;
       left: 50%;
-      width: 440px;
-      height: 440px;
+      width: 420px;
+      height: 420px;
       border-radius: 50%;
       background: radial-gradient(circle, rgba(245, 197, 24, 0.18) 0%, rgba(245, 197, 24, 0.04) 45%, transparent 70%);
       transform: translate3d(-50%, 0, 0);
-      will-change: transform, opacity;
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
-      animation: zeusAuraPulse 8s ease-in-out infinite alternate;
-    }
-
-    @keyframes zeusAuraPulse {
-      0% { opacity: 0.6; transform: translate3d(-50%, 0, 0) scale(0.95); }
-      100% { opacity: 1; transform: translate3d(-50%, -6px, 0) scale(1.06); }
     }
 
     .zeus-figure {
-      width: min(430px, 95vw);
+      width: min(420px, 94vw);
       height: auto;
       margin-top: -10px;
       opacity: 0.34;
       -webkit-mask-image: linear-gradient(to bottom, #000 45%, rgba(0, 0, 0, 0.35) 78%, transparent 100%);
       mask-image: linear-gradient(to bottom, #000 45%, rgba(0, 0, 0, 0.35) 78%, transparent 100%);
       will-change: transform;
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
-      animation: zeusDivineDrift 11s ease-in-out infinite alternate;
+      animation: zeusDivineDrift 12s ease-in-out infinite alternate;
     }
 
     @keyframes zeusDivineDrift {
-      0% { transform: translate3d(0px, 0px, 0) scale(1); }
-      50% { transform: translate3d(5px, -9px, 0) scale(1.03); }
-      100% { transform: translate3d(-5px, -3px, 0) scale(1.045); }
+      0% { transform: translate3d(0, 0, 0) scale(1); }
+      100% { transform: translate3d(0, -8px, 0) scale(1.035); }
     }
 
     .zeus-vignette {
       position: absolute;
       inset: 0;
-      background: radial-gradient(circle at 50% 48%, rgba(7, 8, 10, 0.28) 0%, rgba(7, 8, 10, 0.9) 85%);
+      background: radial-gradient(circle at 50% 48%, rgba(7, 8, 10, 0.25) 0%, rgba(7, 8, 10, 0.92) 85%);
       z-index: 1;
       pointer-events: none;
     }
 
-    /* Contenedor del Logo: Visible desde 0ms (sin fade-in que haga ver la carga) */
     .logo-stage {
       position: relative;
-      width: 124px;
-      height: 124px;
-      margin: 0 auto 1.15rem;
+      width: 122px;
+      height: 122px;
+      margin: 0 auto 1.1rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      will-change: transform;
-      animation: logoFloat 6s ease-in-out infinite alternate;
     }
 
-    @keyframes logoFloat {
-      0% { transform: translate3d(0, 0px, 0); }
-      100% { transform: translate3d(0, -5px, 0); }
-    }
-
-    /* Anillo orbital dorado giratorio moderno */
     .logo-orbit {
       position: absolute;
       inset: 0;
@@ -290,17 +260,17 @@
       padding: 2px;
       background: conic-gradient(
         from 0deg,
-        rgba(245, 197, 24, 0.85) 0deg,
-        rgba(251, 225, 112, 0.2) 90deg,
+        rgba(245, 197, 24, 0.9) 0deg,
+        rgba(251, 225, 112, 0.15) 90deg,
         rgba(245, 197, 24, 0.05) 180deg,
-        rgba(251, 225, 112, 0.2) 270deg,
-        rgba(245, 197, 24, 0.85) 360deg
+        rgba(251, 225, 112, 0.15) 270deg,
+        rgba(245, 197, 24, 0.9) 360deg
       );
       -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
       -webkit-mask-composite: xor;
       mask-composite: exclude;
       will-change: transform;
-      animation: orbitSpin 8s linear infinite;
+      animation: orbitSpin 9s linear infinite;
       pointer-events: none;
     }
 
@@ -308,48 +278,44 @@
       to { transform: rotate(360deg); }
     }
 
-    /* Segundo aro fino estático con brillo sutil */
     .logo-halo {
       position: absolute;
       inset: 4px;
       border-radius: 50%;
-      border: 1px solid rgba(245, 197, 24, 0.22);
-      box-shadow: 0 0 26px rgba(245, 197, 24, 0.2);
+      border: 1px solid rgba(245, 197, 24, 0.25);
+      box-shadow: 0 0 24px rgba(245, 197, 24, 0.18);
       pointer-events: none;
     }
 
     .logo-frame {
       position: relative;
-      width: 112px;
-      height: 112px;
+      width: 110px;
+      height: 110px;
       border-radius: 50%;
       overflow: hidden;
       background: #07080A;
-      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.92);
-      transform: translateZ(0);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.9);
     }
 
     .logo-frame img {
-      width: 112px;
-      height: 112px;
+      width: 110px;
+      height: 110px;
       object-fit: cover;
       transform: scale(1.03);
-      opacity: 1;
     }
 
-    /* Destello metálico periódico sobre el logo */
     .logo-sheen {
       position: absolute;
       inset: 0;
-      background: linear-gradient(115deg, transparent 28%, rgba(255, 255, 255, 0.32) 50%, transparent 72%);
+      background: linear-gradient(115deg, transparent 28%, rgba(255, 255, 255, 0.28) 50%, transparent 72%);
       transform: translate3d(-150%, 0, 0);
       will-change: transform;
-      animation: sheenFlow 5s ease-in-out 0.4s infinite;
+      animation: sheenFlow 5.5s ease-in-out 0.5s infinite;
       pointer-events: none;
     }
 
     @keyframes sheenFlow {
-      0%, 58% { transform: translate3d(-150%, 0, 0); }
+      0%, 60% { transform: translate3d(-150%, 0, 0); }
       100% { transform: translate3d(150%, 0, 0); }
     }
 
@@ -358,22 +324,20 @@
       font-size: clamp(1.65rem, 5vw, 2.35rem);
       font-weight: 700;
       letter-spacing: 0.04em;
-      margin-bottom: 0.65rem;
+      margin-bottom: 0.6rem;
       background: linear-gradient(120deg, #FFFFFF 20%, #FBE170 70%, #F5C518 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      animation: textReveal 0.55s var(--ease) both;
     }
 
     .ig-bio-card {
       display: inline-flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.3rem;
+      gap: 0.28rem;
       font-size: 0.88rem;
       color: var(--text-2);
-      margin-bottom: 1.3rem;
-      animation: textReveal 0.55s var(--ease) 0.06s both;
+      margin-bottom: 1.25rem;
     }
 
     .bio-flags {
@@ -382,10 +346,10 @@
       gap: 6px;
       padding: 3px 11px;
       border-radius: 999px;
-      background: rgba(15, 17, 21, 0.85);
+      background: rgba(15, 17, 21, 0.9);
       border: 1px solid var(--border);
       font-size: 0.82rem;
-      margin-bottom: 0.12rem;
+      margin-bottom: 0.1rem;
     }
 
     .bio-tagline { color: var(--text); font-weight: 600; font-size: 0.95rem; }
@@ -397,7 +361,6 @@
       justify-content: center;
       flex-wrap: wrap;
       gap: 0.65rem;
-      animation: textReveal 0.55s var(--ease) 0.12s both;
     }
 
     .action-pill {
@@ -406,52 +369,35 @@
       gap: 8px;
       padding: 0.58rem 1.15rem;
       border-radius: 999px;
-      background: rgba(15, 17, 21, 0.9);
+      background: var(--surface);
       border: 1px solid rgba(255, 255, 255, 0.12);
       font-size: 0.82rem;
       font-weight: 600;
       color: var(--text);
-      transition: transform 0.2s var(--ease), border-color 0.2s ease, background-color 0.2s ease;
+      transition: transform 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
     }
 
-    .action-pill:active { transform: scale(0.94); }
+    .action-pill:active { transform: scale(0.95); }
 
     @media (hover: hover) {
       .action-pill:hover {
-        transform: translateY(-2px);
         background: var(--surface-hover);
         border-color: var(--border-gold);
       }
     }
 
-    .action-pill .icon-map { color: var(--gold); font-size: 0.92rem; }
-    .action-pill .icon-ig {
-      background: var(--ig-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      font-size: 1rem;
-    }
-
-    @keyframes textReveal {
-      from { opacity: 0; transform: translate3d(0, 8px, 0) scale(0.985); }
-      to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
-    }
-
     /* =========================================
-       3. BUSCADOR Y CATEGORÍAS STICKY
+       3. BUSCADOR Y CATEGORÍAS STICKY (SIN LAG)
        ========================================= */
     .sticky-bar {
       position: sticky;
       top: calc(58px + env(safe-area-inset-top));
       z-index: 90;
-      background: rgba(7, 8, 10, 0.94);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: rgba(7, 8, 10, 0.97);
       padding: 0.72rem 0 0.82rem;
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
-      margin-bottom: 1.65rem;
-      transform: translateZ(0);
+      margin-bottom: 1.6rem;
     }
 
     .search-box {
@@ -466,12 +412,12 @@
     }
 
     .search-box:focus-within { border-color: var(--border-gold); }
-    .search-box i { color: var(--text-3); font-size: 0.88rem; margin-right: 0.65rem; }
+    .search-box .ico { color: var(--text-3); margin-right: 0.65rem; }
     .search-box input { width: 100%; font-size: 16px; color: var(--text); }
     .search-box input::placeholder { color: var(--text-3); font-size: 0.86rem; }
 
     .search-clear { display: none; color: var(--text-3); padding: 0.35rem; }
-    .search-clear.active { display: block; }
+    .search-clear.active { display: flex; }
 
     .cats-scroll {
       display: flex;
@@ -490,10 +436,7 @@
       font-weight: 500;
       color: var(--text-2);
       border: 1px solid var(--border);
-      transition: background-color 0.18s ease, color 0.18s ease, transform 0.15s ease;
     }
-
-    .cat-btn:active { transform: scale(0.95); }
 
     .cat-btn.active {
       background: var(--text);
@@ -503,13 +446,9 @@
     }
 
     /* =========================================
-       4. CARDÁPIO (RENDERIZADO RÁPIDO)
+       4. CARDÁPIO
        ========================================= */
-    .menu-section {
-      margin-bottom: 2.25rem;
-      content-visibility: auto;
-      contain-intrinsic-size: auto 240px;
-    }
+    .menu-section { margin-bottom: 2.25rem; }
 
     .section-head {
       font-family: var(--font-display);
@@ -544,15 +483,13 @@
       border-radius: 14px;
       padding: 0.9rem;
       cursor: pointer;
-      contain: content;
-      transition: transform 0.18s var(--ease), background-color 0.18s ease, border-color 0.18s ease;
+      transition: transform 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
     }
 
     .item-card:active { transform: scale(0.98); background: var(--surface-hover); }
 
     @media (hover: hover) {
       .item-card:hover {
-        transform: translateY(-2px);
         background: var(--surface-hover);
         border-color: var(--border-gold);
       }
@@ -569,19 +506,19 @@
     .item-thumb img { width: 92px; height: 92px; object-fit: cover; }
 
     /* =========================================
-       5. MODAIS (NATIVOS IPHONE / ANDROID)
+       5. MODAIS
        ========================================= */
     .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.84);
+      background: rgba(0, 0, 0, 0.86);
       z-index: 200;
       display: flex;
       align-items: flex-end;
       justify-content: center;
       opacity: 0;
       visibility: hidden;
-      transition: opacity 0.22s ease, visibility 0.22s ease;
+      transition: opacity 0.2s ease, visibility 0.2s ease;
     }
 
     .modal-backdrop.active { opacity: 1; visibility: visible; }
@@ -597,9 +534,8 @@
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
       padding-bottom: max(1rem, env(safe-area-inset-bottom));
-      transform: translate3d(0, 28px, 0);
-      will-change: transform;
-      transition: transform 0.28s var(--ease);
+      transform: translate3d(0, 24px, 0);
+      transition: transform 0.25s var(--ease);
     }
 
     .modal-backdrop.active .modal-sheet { transform: translate3d(0, 0, 0); }
@@ -625,7 +561,7 @@
       width: 34px;
       height: 34px;
       border-radius: 50%;
-      background: rgba(7, 8, 10, 0.85);
+      background: rgba(7, 8, 10, 0.88);
       color: #fff;
       display: flex;
       align-items: center;
@@ -742,14 +678,6 @@
     }
 
     .footer-copy { font-size: 0.72rem; color: var(--text-3); }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-      }
-    }
   </style>
 </head>
 <body>
@@ -766,12 +694,12 @@
         </a>
 
         <div class="header-actions">
-          <button type="button" class="nav-circle-btn" id="btnOpenMapTop" title="Ver Localização">
-            <i class="fa-solid fa-location-dot"></i>
+          <button type="button" class="nav-circle-btn" id="btnOpenMapTop" title="Ver Localização" aria-label="Localização">
+            <svg class="ico" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
           </button>
 
-          <button type="button" class="nav-circle-btn" id="btnOpenIgTop" title="Ver Instagram">
-            <i class="fa-brands fa-instagram"></i>
+          <button type="button" class="nav-circle-btn" id="btnOpenIgTop" title="Ver Instagram" aria-label="Instagram">
+            <svg class="ico" viewBox="0 0 24 24" fill="currentColor"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg>
           </button>
 
           <span class="menu-badge">Cardápio</span>
@@ -780,7 +708,7 @@
     </div>
   </header>
 
-  <!-- 2. HERO CON LOGO INSTANTÁNEO Y ANILLO ORBITAL -->
+  <!-- 2. HERO CON LOGO INSTANTÁNEO -->
   <section class="hero-profile">
     <div class="zeus-backdrop" aria-hidden="true">
       <div class="zeus-aura"></div>
@@ -793,7 +721,7 @@
         <div class="logo-orbit" aria-hidden="true"></div>
         <div class="logo-halo" aria-hidden="true"></div>
         <div class="logo-frame">
-          <img src="logo.png" alt="Olimpo Pizzaria" width="112" height="112" fetchpriority="high" decoding="sync">
+          <img src="logo.png" alt="Olimpo Pizzaria" width="110" height="110" fetchpriority="high" decoding="sync">
           <div class="logo-sheen" aria-hidden="true"></div>
         </div>
       </div>
@@ -809,12 +737,12 @@
 
       <div class="social-pills-row">
         <button type="button" class="action-pill" id="btnOpenMapHero">
-          <i class="fa-solid fa-location-dot icon-map"></i>
+          <svg class="ico" style="color: var(--gold);" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
           <span>Localização</span>
         </button>
 
         <button type="button" class="action-pill" id="btnOpenIgHero">
-          <i class="fa-brands fa-instagram icon-ig"></i>
+          <svg class="ico" style="color: #E1306C;" viewBox="0 0 24 24" fill="currentColor"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg>
           <span>@olimpopizzaria_</span>
         </button>
       </div>
@@ -825,10 +753,10 @@
   <div class="sticky-bar">
     <div class="container">
       <div class="search-box">
-        <i class="fa-solid fa-magnifying-glass"></i>
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
         <input type="search" id="searchInput" placeholder="Buscar pizza, calzone ou ingrediente..." autocomplete="off">
         <button type="button" class="search-clear" id="searchClearBtn" aria-label="Limpar">
-          <i class="fa-solid fa-xmark"></i>
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
         </button>
       </div>
 
@@ -846,7 +774,7 @@
     <div class="modal-sheet">
       <div class="modal-handle"></div>
       <button type="button" class="modal-close" id="btnCloseModal" aria-label="Fechar">
-        <i class="fa-solid fa-xmark"></i>
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
       </button>
 
       <div class="modal-photo">
@@ -872,12 +800,12 @@
     </div>
   </div>
 
-  <!-- 6. MODAL PREVIA DE UBICACIÓN (CARGA DIFERIDA AL ABRIR) -->
+  <!-- 6. MODAL PREVIA DE UBICACIÓN -->
   <div class="modal-backdrop" id="mapModalOverlay">
     <div class="modal-sheet">
       <div class="modal-handle"></div>
       <button type="button" class="modal-close" id="btnCloseMapModal" aria-label="Fechar">
-        <i class="fa-solid fa-xmark"></i>
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
       </button>
 
       <div class="modal-body">
@@ -891,24 +819,24 @@
         <div class="embed-slot" id="mapEmbedSlot" style="height: 220px;"></div>
 
         <button type="button" class="btn-secondary-ghost" id="btnCopyAddress">
-          <i class="fa-regular fa-copy"></i>
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
           <span id="copyAddressLabel">Copiar Endereço</span>
         </button>
 
         <a href="https://www.google.com/maps/search/?api=1&query=Av+Adalberto+Smith+Burda+303+Sao+Jose+Fraiburgo+SC" target="_blank" rel="noopener" class="btn-primary-gold">
-          <i class="fa-solid fa-diamond-turn-right"></i>
+          <svg class="ico" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
           <span>Abrir no Google Maps</span>
         </a>
       </div>
     </div>
   </div>
 
-  <!-- 7. MODAL PREVIA DE INSTAGRAM (CARGA DIFERIDA AL ABRIR) -->
+  <!-- 7. MODAL PREVIA DE INSTAGRAM -->
   <div class="modal-backdrop" id="igModalOverlay">
     <div class="modal-sheet">
       <div class="modal-handle"></div>
       <button type="button" class="modal-close" id="btnCloseIgModal" aria-label="Fechar">
-        <i class="fa-solid fa-xmark"></i>
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
       </button>
 
       <div class="modal-body">
@@ -921,7 +849,7 @@
         <div class="embed-slot" id="igEmbedSlot" style="height: 310px; background: #ffffff;"></div>
 
         <a href="https://www.instagram.com/olimpopizzaria_/" target="_blank" rel="noopener" class="btn-primary-ig">
-          <i class="fa-brands fa-instagram" style="font-size: 1.1rem;"></i>
+          <svg class="ico" viewBox="0 0 24 24" fill="currentColor"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg>
           <span>Abrir no Instagram</span>
         </a>
       </div>
@@ -939,12 +867,12 @@
 
       <div class="footer-links">
         <button type="button" class="action-pill" id="btnOpenMapFooter">
-          <i class="fa-solid fa-location-dot icon-map"></i>
+          <svg class="ico" style="color: var(--gold);" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
           <span>Localização</span>
         </button>
 
         <button type="button" class="action-pill" id="btnOpenIgFooter">
-          <i class="fa-brands fa-instagram icon-ig"></i>
+          <svg class="ico" style="color: #E1306C;" viewBox="0 0 24 24" fill="currentColor"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg>
           <span>@olimpopizzaria_</span>
         </button>
       </div>
@@ -1215,4 +1143,3 @@
   </script>
 </body>
 </html>
-

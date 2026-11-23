@@ -9,169 +9,17 @@
   <link rel="preload" as="image" href="logo.png">
   <link rel="icon" type="image/png" href="logo.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="stylesheet" href="style.css?v=8">
+  <link rel="stylesheet" href="style.css?v=9">
 
   <style>
-    :root {
-      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-      --ease-spring: cubic-bezier(0.22, 1, 0.36, 1);
-    }
-
     /* =========================================================
-       ENTRADA SORPRENDENTE DEL LOGO (DIBUJO 360° + DESTELLO)
+       DISEÑO & ANIMACIONES ULTRA FLUIDAS (VISIBLES Y MODERNAS)
        ========================================================= */
-    .hero-minimal {
-      text-align: center !important;
-      padding: 2.2rem 0 1.6rem !important;
-      perspective: 1000px !important;
-      position: relative !important;
-    }
-
-    .hero-logo-stage {
-      position: relative !important;
-      width: 140px !important;
-      height: 140px !important;
-      margin: 0 auto 1.35rem !important;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      transform-style: preserve-3d !important;
-      cursor: pointer !important;
-    }
-
-    /* Destello radial dorado que explota suavemente al entrar */
-    .logo-entrance-burst {
-      position: absolute !important;
-      inset: -18px !important;
-      border-radius: 50% !important;
-      background: radial-gradient(circle, rgba(245, 197, 24, 0.45) 0%, rgba(245, 197, 24, 0.1) 45%, transparent 70%) !important;
-      animation: burstExpand 1.35s var(--ease-out-expo) forwards !important;
-      pointer-events: none !important;
-    }
-
-    @keyframes burstExpand {
-      0% { transform: scale(0.3); opacity: 0.95; }
-      100% { transform: scale(1.45); opacity: 0; }
-    }
-
-    /* Anillo SVG que se dibuja en 360° al cargar */
-    .logo-svg-ring {
-      position: absolute !important;
-      inset: 2px !important;
-      width: 136px !important;
-      height: 136px !important;
-      transform: rotate(-90deg) !important;
-      pointer-events: none !important;
-      z-index: 3 !important;
-    }
-
-    .logo-svg-ring circle {
-      fill: none !important;
-      stroke: url(#olimpoGoldGrad) !important;
-      stroke-width: 1.6 !important;
-      stroke-linecap: round !important;
-      stroke-dasharray: 410 !important;
-      stroke-dashoffset: 410 !important;
-      animation: drawRing360 1.25s var(--ease-out-expo) 0.1s forwards !important;
-    }
-
-    @keyframes drawRing360 {
-      to { stroke-dashoffset: 0; }
-    }
-
-    /* Órbita sutil continua */
-    .logo-orbit-outer {
-      position: absolute !important;
-      inset: 0 !important;
-      border-radius: 50% !important;
-      border: 1px solid rgba(245, 197, 24, 0.12) !important;
-      animation: orbitSpin 14s linear infinite !important;
-      pointer-events: none !important;
-    }
-
-    .logo-orbit-outer::before {
-      content: "" !important;
-      position: absolute !important;
-      top: -2.5px !important;
-      left: 50% !important;
-      transform: translateX(-50%) !important;
-      width: 5px !important;
-      height: 5px !important;
-      border-radius: 50% !important;
-      background: #FBE170 !important;
-      box-shadow: 0 0 10px 2px rgba(245, 197, 24, 0.9) !important;
-    }
-
-    @keyframes orbitSpin { to { transform: rotate(360deg); } }
-
-    /* Medallón del logo con aparición magnética */
-    .logo-medallion {
-      position: relative !important;
-      width: 118px !important;
-      height: 118px !important;
-      border-radius: 50% !important;
-      background: #000000 !important;
-      overflow: hidden !important;
-      z-index: 2 !important;
-      box-shadow: 0 16px 38px rgba(0, 0, 0, 0.9), 0 0 30px rgba(245, 197, 24, 0.2) !important;
-      animation: logoMagneticEnter 0.95s var(--ease-spring) both, smoothFloat 5s ease-in-out 1s infinite !important;
-      transition: transform 0.22s ease-out, box-shadow 0.3s ease !important;
-    }
-
-    @keyframes logoMagneticEnter {
-      0% { transform: scale(0.55) rotate(-14deg); }
-      70% { transform: scale(1.04) rotate(2deg); }
-      100% { transform: scale(1) rotate(0deg); }
-    }
-
-    @keyframes smoothFloat {
-      0%, 100% { transform: translateY(0) scale(1); }
-      50% { transform: translateY(-5px) scale(1.02); }
-    }
-
-    .hero-logo-img {
-      width: 118px !important;
-      height: 118px !important;
-      object-fit: cover !important;
-      transform: scale(1.04) !important;
-    }
-
-    .logo-sheen {
-      position: absolute !important;
-      inset: 0 !important;
-      background: linear-gradient(115deg, transparent 25%, rgba(255, 255, 255, 0.35) 50%, transparent 75%) !important;
-      transform: translateX(-150%) !important;
-      animation: liquidSheen 4.2s ease-in-out 0.6s infinite !important;
-      pointer-events: none !important;
-    }
-
-    @keyframes liquidSheen {
-      0%, 50% { transform: translateX(-150%); }
-      100% { transform: translateX(150%); }
-    }
-
-    /* Cascada fluida del texto */
-    .seq-1 { animation: slideDownSoft 0.6s var(--ease-out-expo) both; }
-    .seq-3 { animation: slideUpSoft 0.7s var(--ease-out-expo) 0.15s both; }
-    .seq-4 { animation: slideUpSoft 0.7s var(--ease-out-expo) 0.22s both; }
-    .seq-5 { animation: slideUpSoft 0.7s var(--ease-out-expo) 0.28s both; }
-    .seq-6 { animation: slideUpSoft 0.7s var(--ease-out-expo) 0.34s both; }
-
-    @keyframes slideDownSoft {
-      from { transform: translateY(-10px); }
-      to { transform: translateY(0); }
-    }
-    @keyframes slideUpSoft {
-      from { transform: translateY(16px); }
-      to { transform: translateY(0); }
-    }
-
-    /* Header limpio */
     .header-inner { height: 64px !important; display: flex !important; align-items: center !important; justify-content: space-between !important; gap: 8px !important; }
     .brand { display: flex !important; align-items: center !important; gap: 10px !important; min-width: 0 !important; }
     .header-logo-wrap {
       width: 38px !important; height: 38px !important; border-radius: 50% !important; overflow: hidden !important;
-      border: 1px solid rgba(245, 197, 24, 0.45) !important; background: #000 !important; flex-shrink: 0 !important;
+      border: 1px solid rgba(245, 197, 24, 0.5) !important; background: #000 !important; flex-shrink: 0 !important;
     }
     .header-logo-img { width: 38px !important; height: 38px !important; object-fit: cover !important; }
     .brand-stack { display: flex !important; flex-direction: column !important; line-height: 1.15 !important; }
@@ -182,22 +30,117 @@
       width: 32px !important; height: 32px !important; border-radius: 50% !important; background: #101216 !important;
       border: 1px solid rgba(255, 255, 255, 0.08) !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; flex-shrink: 0 !important;
     }
+
+    /* =========================================================
+       ESCENARIO DEL LOGO CON DOBLE ANILLO DE LUZ Y PULSO DORADO
+       ========================================================= */
+    .hero-minimal {
+      text-align: center !important;
+      padding: 2.3rem 0 1.6rem !important;
+      perspective: 1000px !important;
+    }
+
+    .hero-logo-stage {
+      position: relative !important;
+      width: 152px !important;
+      height: 152px !important;
+      margin: 0 auto 1.4rem !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      cursor: pointer !important;
+      user-select: none !important;
+    }
+
+    /* Resplandor dorado ambiental detrás del logo */
+    .logo-back-aura {
+      position: absolute !important;
+      inset: 8px !important;
+      border-radius: 50% !important;
+      background: radial-gradient(circle, rgba(245, 197, 24, 0.38) 0%, rgba(245, 197, 24, 0.08) 55%, transparent 75%) !important;
+      filter: blur(10px) !important;
+      animation: auraPulse 3.5s ease-in-out infinite alternate !important;
+      pointer-events: none !important;
+    }
+
+    @keyframes auraPulse {
+      0% { transform: scale(0.92); opacity: 0.65; }
+      100% { transform: scale(1.18); opacity: 1; }
+    }
+
+    /* Anillo exterior giratorio con estela de luz */
+    .logo-ring-1 {
+      position: absolute !important;
+      inset: 2px !important;
+      border-radius: 50% !important;
+      border: 2px solid transparent !important;
+      border-top-color: #FBE170 !important;
+      border-right-color: rgba(245, 197, 24, 0.45) !important;
+      animation: spinClockwise 3.2s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite !important;
+      pointer-events: none !important;
+    }
+
+    /* Anillo interior contra-rotatorio */
+    .logo-ring-2 {
+      position: absolute !important;
+      inset: 9px !important;
+      border-radius: 50% !important;
+      border: 1.5px solid transparent !important;
+      border-bottom-color: #F5C518 !important;
+      border-left-color: rgba(251, 225, 112, 0.5) !important;
+      animation: spinCounterClockwise 4.5s linear infinite !important;
+      pointer-events: none !important;
+    }
+
+    @keyframes spinClockwise { to { transform: rotate(360deg); } }
+    @keyframes spinCounterClockwise { to { transform: rotate(-360deg); } }
+
+    /* Medallón del logo */
+    .logo-medallion {
+      position: relative !important;
+      width: 120px !important;
+      height: 120px !important;
+      border-radius: 50% !important;
+      background: #000000 !important;
+      overflow: hidden !important;
+      z-index: 2 !important;
+      border: 1.5px solid rgba(245, 197, 24, 0.35) !important;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.9), 0 0 32px rgba(245, 197, 24, 0.25) !important;
+      will-change: transform !important;
+    }
+
+    .hero-logo-img {
+      width: 120px !important;
+      height: 120px !important;
+      object-fit: cover !important;
+      transform: scale(1.04) !important;
+    }
+
+    /* Destello brillante que cruza el logo */
+    .logo-sheen {
+      position: absolute !important;
+      inset: 0 !important;
+      background: linear-gradient(115deg, transparent 20%, rgba(255, 255, 255, 0.45) 50%, transparent 80%) !important;
+      transform: translateX(-160%) !important;
+      animation: sheenSweep 3.8s ease-in-out infinite !important;
+      pointer-events: none !important;
+    }
+
+    @keyframes sheenSweep {
+      0%, 45% { transform: translateX(-160%); }
+      100% { transform: translateX(160%); }
+    }
+
     .hero-subtitle { margin-left: auto !important; margin-right: auto !important; }
     .meta-bar { justify-content: center !important; }
 
-    /* =========================================================
-       SHIMMER SKELETON EN FOTOS + APARICIÓN INSTANTÁNEA
-       ========================================================= */
+    /* Shimmer en fotos mientras cargan */
     .menu-card-thumb {
-      background: linear-gradient(90deg, #14171D 25%, #1F242E 50%, #14171D 75%) !important;
+      background: linear-gradient(90deg, #14171D 25%, #222834 50%, #14171D 75%) !important;
       background-size: 200% 100% !important;
-      animation: skeletonShimmer 1.4s ease-in-out infinite !important;
+      animation: skeletonShimmer 1.3s ease-in-out infinite !important;
     }
-
-    .menu-card-thumb.loaded {
-      animation: none !important;
-      background: #14171D !important;
-    }
+    .menu-card-thumb.loaded { animation: none !important; background: #14171D !important; }
 
     @keyframes skeletonShimmer {
       0% { background-position: 200% 0; }
@@ -206,17 +149,12 @@
 
     .menu-card-thumb img {
       opacity: 0;
-      transform: scale(1.06);
-      transition: opacity 0.35s ease, transform 0.45s var(--ease-out-expo) !important;
+      transform: scale(1.08);
+      transition: opacity 0.35s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
     }
-
     .menu-card-thumb img.is-ready {
       opacity: 1 !important;
       transform: scale(1) !important;
-    }
-
-    .menu-card:hover .menu-card-thumb img.is-ready {
-      transform: scale(1.07) !important;
     }
 
     .footer-logo-wrap {
@@ -231,7 +169,7 @@
   <div class="ambient-glow" aria-hidden="true"></div>
 
   <!-- 1. HEADER -->
-  <header class="site-header seq-1">
+  <header class="site-header" data-anim="top">
     <div class="container">
       <div class="header-inner">
         <a href="index.html" class="brand">
@@ -290,38 +228,27 @@
     </div>
   </header>
 
-  <!-- 2. HERO CON LOGO ANIMADO DE ALTA PRECISIÓN -->
+  <!-- 2. HERO CON LOGO ANIMADO DE IMPACTO -->
   <section class="hero-minimal">
     <div class="container">
-      <div class="hero-logo-stage" id="heroLogoStage">
-        <div class="logo-entrance-burst" aria-hidden="true"></div>
-        <div class="logo-orbit-outer" aria-hidden="true"></div>
-
-        <!-- Anillo SVG dorado que se dibuja en 360° -->
-        <svg class="logo-svg-ring" viewBox="0 0 136 136" aria-hidden="true">
-          <defs>
-            <linearGradient id="olimpoGoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#FBE170"/>
-              <stop offset="50%" stop-color="#F5C518"/>
-              <stop offset="100%" stop-color="#B8860B"/>
-            </linearGradient>
-          </defs>
-          <circle cx="68" cy="68" r="65"/>
-        </svg>
+      <div class="hero-logo-stage" id="heroLogoStage" title="Toque no logo">
+        <div class="logo-back-aura" aria-hidden="true"></div>
+        <div class="logo-ring-1" aria-hidden="true"></div>
+        <div class="logo-ring-2" aria-hidden="true"></div>
 
         <div class="logo-medallion" id="heroLogoMedallion">
-          <img src="logo.png" alt="Olimpo Pizzas Delivery" width="118" height="118" fetchpriority="high" class="hero-logo-img">
+          <img src="logo.png" alt="Olimpo Pizzas Delivery" width="120" height="120" fetchpriority="high" class="hero-logo-img">
           <div class="logo-sheen" aria-hidden="true"></div>
         </div>
       </div>
 
-      <span class="hero-eyebrow seq-3">Pizzas Delivery · São José</span>
-      <h1 class="hero-title seq-4">Sabores dignos do <span>Olimpo</span></h1>
-      <p class="hero-subtitle seq-5" id="heroDescription">
+      <span class="hero-eyebrow" data-anim="up">Pizzas Delivery · São José</span>
+      <h1 class="hero-title" data-anim="up">Sabores dignos do <span>Olimpo</span></h1>
+      <p class="hero-subtitle" id="heroDescription" data-anim="up">
         Pizzas artesanais, calzones e combos exclusivos preparados na hora em Fraiburgo.
       </p>
 
-      <div class="meta-bar seq-5">
+      <div class="meta-bar" data-anim="up">
         <span><i class="fa-regular fa-clock"></i> <strong id="infoOpenHours">Ter a Dom · 18h30 às 23h30</strong></span>
         <span class="meta-sep">•</span>
         <span><i class="fa-solid fa-motorcycle"></i> <strong id="infoDeliveryTime">40–55 min</strong></span>
@@ -332,7 +259,7 @@
   </section>
 
   <!-- 3. BUSCADOR Y CATEGORÍAS STICKY -->
-  <div class="sticky-controls seq-6">
+  <div class="sticky-controls" data-anim="up">
     <div class="container">
       <div class="search-minimal">
         <i class="fa-solid fa-magnifying-glass"></i>
@@ -352,7 +279,7 @@
   </div>
 
   <!-- 4. LISTADO DEL CARDÁPIO -->
-  <main class="container">
+  <main class="container" data-anim="up">
     <div id="productsContainer"></div>
   </main>
 
@@ -452,35 +379,59 @@
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 
-  <script src="seed-data.js?v=8"></script>
-  <script src="firebase-config.js?v=8"></script>
-  <script src="app.js?v=8"></script>
+  <script src="seed-data.js?v=9"></script>
+  <script src="firebase-config.js?v=9"></script>
+  <script src="app.js?v=9"></script>
 
+  <!-- Motor de animaciones Web Animations API (100% fluido a 60fps en móvil) -->
   <script>
     (function () {
       const stage = document.getElementById("heroLogoStage");
       const medal = document.getElementById("heroLogoMedallion");
-      if (!stage || !medal) return;
 
-      function applyTilt(clientX, clientY) {
-        const rect = stage.getBoundingClientRect();
-        const x = (clientX - rect.left) / rect.width - 0.5;
-        const y = (clientY - rect.top) / rect.height - 0.5;
-        medal.style.animation = "none";
-        medal.style.transform = `rotateX(${(-y * 22).toFixed(1)}deg) rotateY(${(x * 22).toFixed(1)}deg) scale(1.06)`;
+      // 1. Animación de entrada espectacular del logo (zoom elástico + giro)
+      if (medal && medal.animate) {
+        medal.animate([
+          { transform: "scale(0.35) rotate(-28deg)", filter: "brightness(1.8)" },
+          { transform: "scale(1.12) rotate(6deg)", filter: "brightness(1.2)", offset: 0.68 },
+          { transform: "scale(0.97) rotate(-2deg)", filter: "brightness(1)", offset: 0.85 },
+          { transform: "scale(1) rotate(0deg)", filter: "brightness(1)" }
+        ], {
+          duration: 1100,
+          easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+          fill: "both"
+        });
       }
 
-      function resetTilt() {
-        medal.style.transform = "";
-        medal.style.animation = "smoothFloat 5s ease-in-out infinite";
-      }
+      // 2. Entrada en cascada de toda la página
+      const blocks = document.querySelectorAll("[data-anim]");
+      blocks.forEach((el, i) => {
+        if (!el.animate) return;
+        const fromY = el.getAttribute("data-anim") === "top" ? -18 : 26;
+        el.animate([
+          { transform: `translateY(${fromY}px) scale(0.98)` },
+          { transform: "translateY(0px) scale(1)" }
+        ], {
+          duration: 850,
+          delay: 90 + i * 75,
+          easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+          fill: "both"
+        });
+      });
 
-      stage.addEventListener("mousemove", (e) => applyTilt(e.clientX, e.clientY));
-      stage.addEventListener("mouseleave", resetTilt);
-      stage.addEventListener("touchmove", (e) => {
-        if (e.touches[0]) applyTilt(e.touches[0].clientX, e.touches[0].clientY);
-      }, { passive: true });
-      stage.addEventListener("touchend", resetTilt);
+      // 3. Giro 3D interactivo al tocar el logo
+      if (stage && medal && medal.animate) {
+        stage.addEventListener("click", () => {
+          medal.animate([
+            { transform: "perspective(800px) rotateY(0deg) scale(1)" },
+            { transform: "perspective(800px) rotateY(180deg) scale(1.12)", offset: 0.5 },
+            { transform: "perspective(800px) rotateY(360deg) scale(1)" }
+          ], {
+            duration: 800,
+            easing: "cubic-bezier(0.22, 1, 0.36, 1)"
+          });
+        });
+      }
     })();
   </script>
 </body>

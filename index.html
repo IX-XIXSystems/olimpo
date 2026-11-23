@@ -6,22 +6,21 @@
   <title>Olimpo Pizzas Delivery — Fraiburgo, SC</title>
   <meta name="description" content="Cardápio digital da Olimpo Pizzas Delivery em Fraiburgo - SC. Pizzas artesanais, calzones e combos.">
   
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+  <link rel="icon" type="image/png" href="logo.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <!-- ?v=3 força o navegador do celular a baixar o CSS novo imediatamente -->
-  <link rel="stylesheet" href="style.css?v=3">
+  <link rel="stylesheet" href="style.css?v=4">
 </head>
 <body>
 
   <div class="ambient-glow" aria-hidden="true"></div>
 
-  <!-- 1. HEADER ULTRA MINIMALISTA -->
+  <!-- 1. HEADER GLASSMORPHISM CON LOGO -->
   <header class="site-header">
     <div class="container">
       <div class="header-inner" style="display:flex;align-items:center;justify-content:space-between;height:62px;">
         <a href="index.html" class="brand" style="display:flex;align-items:center;gap:10px;">
-          <div class="brand-mark">
-            <i class="fa-solid fa-bolt"></i>
+          <div class="header-logo-wrap">
+            <img src="logo.png" alt="Olimpo Pizzas Delivery" class="header-logo-img">
           </div>
           <div class="brand-stack">
             <span class="brand-name" id="headerStoreName">Olimpo</span>
@@ -30,7 +29,7 @@
         </a>
 
         <div class="header-right" style="display:flex;align-items:center;gap:8px;">
-          <!-- Emblema Minimalista Diagonal: Brasil & Venezuela (tamanho travado em 24x24) -->
+          <!-- Emblema Minimalista Diagonal: Brasil & Venezuela -->
           <div class="union-emblem" title="Brasil & Venezuela" style="width:32px;height:32px;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;overflow:hidden;flex-shrink:0;">
             <svg width="24" height="24" style="width:24px;height:24px;display:block;" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Brasil e Venezuela">
               <defs>
@@ -45,14 +44,12 @@
                 </clipPath>
               </defs>
               <g clip-path="url(#circleMask)">
-                <!-- Metade Esquerda: Brasil -->
                 <g clip-path="url(#splitLeft)">
                   <rect width="36" height="36" fill="#009B3A"/>
                   <polygon points="15,5 28,18 15,31 2,18" fill="#FEDF00"/>
                   <circle cx="14" cy="18" r="6.2" fill="#002776"/>
                   <path d="M8.5,16.8 Q14,15 19.5,18.2" stroke="#FFFFFF" stroke-width="1.2" fill="none"/>
                 </g>
-                <!-- Metade Direita: Venezuela -->
                 <g clip-path="url(#splitRight)">
                   <rect width="36" height="12" y="0" fill="#FCE300"/>
                   <rect width="36" height="12" y="12" fill="#003893"/>
@@ -84,10 +81,20 @@
     </div>
   </header>
 
-  <!-- 2. HERO EDITORIAL -->
+  <!-- 2. HERO CON LOGO ANIMADO PROTAGONISTA -->
   <section class="hero-minimal">
     <div class="container">
       <div class="hero-reveal">
+        
+        <!-- Logo Espartano con Halo Giratorio, Flotación y Destello -->
+        <div class="hero-logo-stage">
+          <div class="logo-halo-ring" aria-hidden="true"></div>
+          <div class="logo-medallion">
+            <img src="logo.png" alt="Olimpo Pizzas Delivery" class="hero-logo-img">
+            <div class="logo-sheen" aria-hidden="true"></div>
+          </div>
+        </div>
+
         <span class="hero-eyebrow">Pizzas Delivery · São José</span>
         <h1 class="hero-title">Sabores dignos do <span>Olimpo</span></h1>
         <p class="hero-subtitle" id="heroDescription">
@@ -171,9 +178,13 @@
     </div>
   </div>
 
-  <!-- 6. FOOTER CON DATOS DE FRAIBURGO E EMBLEMA BRASIL + VENEZUELA -->
+  <!-- 6. FOOTER CON LOGO Y EMBLEMA BRASIL + VENEZUELA -->
   <footer class="site-footer">
     <div class="container">
+      <div class="footer-logo-wrap">
+        <img src="logo.png" alt="Olimpo Pizzas Delivery" class="footer-logo-img">
+      </div>
+
       <div class="footer-union-pill">
         <svg width="20" height="20" style="width:20px;height:20px;display:block;" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <defs>
@@ -222,8 +233,8 @@
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 
-  <script src="seed-data.js?v=3"></script>
-  <script src="firebase-config.js?v=3"></script>
-  <script src="app.js?v=3"></script>
+  <script src="seed-data.js?v=4"></script>
+  <script src="firebase-config.js?v=4"></script>
+  <script src="app.js?v=4"></script>
 </body>
 </html>

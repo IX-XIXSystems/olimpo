@@ -1,12 +1,24 @@
-document.addEventListener("DOMContentLoaded", async () => {
+document.addEventListener("DOMContentLoaded", () => {
+  const data = typeof SEED_DATA !== "undefined" ? SEED_DATA : { configuracoes: {}, categorias: [], produtos: [], bordas: [] };
+
   const state = {
-    configuracoes: {},
-    produtos: [],
-    bordas: [],
-    categorias: [],
+    configuracoes: JSON.parse(localStorage.getItem("olimpo_configuracoes_v1")) || data.configuracoes,
+    produtos: JSON.parse(localStorage.getItem("olimpo_produtos_v1")) || data.produtos,
+    bordas: JSON.parse(localStorage.getItem("olimpo_bordas_v1")) || data.bordas,
+    categorias: data.categorias || [],
     categoriaAtiva: "todas",
     termoBusca: ""
   };
+
+  // Si hay datos antiguos sin dirección de Fraiburgo, actualiza al instante
+  if (!state.configuracoes.endereco && data.configuracoes) {
+    state.configuracoes = data.configuracoes;
+    state.produtos = data.produtos;
+    state.bordas = data.bordas;
+    localStorage.setItem("olimpo_configuracoes_v1", JSON.stringify(data.configuracoes));
+    localStorage.setItem("olimpo_produtos_v1", JSON.stringify(data.produtos));
+    localStorage.setItem("olimpo_bordas_v1", JSON.stringify(data.bordas));
+  }
 
   const TAMANHOS_CONFIG = {
     brotinho: { nome: "Brotinho", detalhe: "25cm · até 2 sabores" },
@@ -59,49 +71,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   }
 
-  // Optimiza URLs de Unsplash para carga ultra rápida en móvil
-  function otimizarImagem(url, largura = 320) {
+  function otimizarImagem(url, largura = 240) {
     if (!url) return "logo.png";
     if (url.includes("images.unsplash.com")) {
-      return url.replace(/w=\d+/, `w=${largura}`).replace(/q=\d+/, "q=72");
+      return url.replace(/w=\d+/, `w=${largura}`).replace(/q=\d+/, "q=70");
     }
     return url;
-  }
-
-  async function inicializar() {
-    if (DOM.currentYear) DOM.currentYear.textContent = new Date().getFullYear();
-
-    const configSalva = await OlimpoDB.obterConfiguracoes();
-    if (!configSalva.endereco && typeof OlimpoDB.restaurarDadosFabrica === "function") {
-      OlimpoDB.restaurarDadosFabrica();
-    }
-
-    state.configuracoes = await OlimpoDB.obterConfiguracoes();
-    state.produtos = await OlimpoDB.obterProdutos();
-    state.bordas = await OlimpoDB.obterBordas();
-    state.categorias = (typeof SEED_DATA !== "undefined" && SEED_DATA.categorias) ? SEED_DATA.categorias : [];
-
-    renderizarInformacoesLoja();
-    renderizarCategorias();
-    renderizarProdutos();
-    registrarOuvintesTempoReal();
-    configurarEventos();
-  }
-
-  function registrarOuvintesTempoReal() {
-    OlimpoDB.ouvirAtualizacoes("configuracoes", (novasConfig) => {
-      state.configuracoes = novasConfig;
-      renderizarInformacoesLoja();
-    });
-
-    OlimpoDB.ouvirAtualizacoes("produtos", (novosProdutos) => {
-      state.produtos = novosProdutos;
-      renderizarProdutos();
-    });
-
-    OlimpoDB.ouvirAtualizacoes("bordas", (novasBordas) => {
-      state.bordas = novasBordas;
-    });
   }
 
   function renderizarInformacoesLoja() {
@@ -136,7 +111,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (!DOM.categoriesBar) return;
 
     let html = `
-      <button class="cat-chip ${state.categoriaAtiva === "todas" ? "active" : ""}" data-category="todas">
+      <button type="button" class="cat-chip ${state.categoriaAtiva === "todas" ? "active" : ""}" data-category="todas">
         Todos
       </button>
     `;
@@ -144,7 +119,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     state.categorias.forEach(cat => {
       const ativa = state.categoriaAtiva === cat.id ? "active" : "";
       html += `
-        <button class="cat-chip ${ativa}" data-category="${cat.id}">
+        <button type="button" class="cat-chip ${ativa}" data-category="${cat.id}">
           ${cat.nome}
         </button>
       `;
@@ -185,7 +160,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     let html = "";
-    let delayIndex = 0;
 
     if (state.categoriaAtiva === "todas" && state.termoBusca.trim() === "") {
       state.categorias.forEach(cat => {
@@ -198,7 +172,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 <span class="count">${itens.length}</span>
               </h2>
               <div class="items-grid">
-                ${itens.map(item => criarCardHTML(item, delayIndex++)).join("")}
+                ${itens.map(criarCardHTML).join("")}
               </div>
             </section>
           `;
@@ -208,27 +182,13 @@ document.addEventListener("DOMContentLoaded", async () => {
       html = `
         <section class="menu-group">
           <div class="items-grid">
-            ${filtrados.map(item => criarCardHTML(item, delayIndex++)).join("")}
+            ${filtrados.map(criarCardHTML).join("")}
           </div>
         </section>
       `;
     }
 
     DOM.productsContainer.innerHTML = html;
-
-    // Marca cada imagem como lista en cuanto termina de descargar (o si ya estaba en caché)
-    DOM.productsContainer.querySelectorAll(".menu-card-thumb img").forEach(img => {
-      const reveal = () => {
-        img.classList.add("is-ready");
-        if (img.parentElement) img.parentElement.classList.add("loaded");
-      };
-      if (img.complete) {
-        reveal();
-      } else {
-        img.addEventListener("load", reveal, { once: true });
-        img.addEventListener("error", reveal, { once: true });
-      }
-    });
 
     DOM.productsContainer.querySelectorAll(".menu-card").forEach(card => {
       card.addEventListener("click", () => {
@@ -238,7 +198,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   }
 
-  function criarCardHTML(prod, index) {
+  function criarCardHTML(prod) {
     let precoTexto = "";
     if (prod.precos) {
       const menor = Math.min(...Object.values(prod.precos));
@@ -247,11 +207,10 @@ document.addEventListener("DOMContentLoaded", async () => {
       precoTexto = formatarMoeda(prod.precoFixo);
     }
 
-    const delay = Math.min(index * 35, 350);
-    const thumbUrl = otimizarImagem(prod.imagem, 320);
+    const thumbUrl = otimizarImagem(prod.imagem, 240);
 
     return `
-      <article class="menu-card card-animate ${!prod.disponivel ? "esgotado" : ""}" style="animation-delay: ${delay}ms" data-id="${prod.id}">
+      <article class="menu-card ${!prod.disponivel ? "esgotado" : ""}" data-id="${prod.id}">
         <div class="menu-card-info">
           <div>
             ${prod.destaque ? `<span class="menu-card-tag">${prod.destaque}</span>` : ""}
@@ -261,7 +220,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           <div class="menu-card-price">${precoTexto}</div>
         </div>
         <div class="menu-card-thumb">
-          <img src="${thumbUrl}" alt="${prod.nome}" width="94" height="94" decoding="async">
+          <img src="${thumbUrl}" alt="${prod.nome}" width="92" height="92" decoding="async" onerror="this.src='logo.png'">
           ${!prod.disponivel ? `<span class="sold-out-pill">Esgotado</span>` : ""}
         </div>
       </article>
@@ -273,7 +232,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     DOM.modalProductCategory.textContent = cat ? cat.nome : "Cardápio";
     DOM.modalProductName.textContent = prod.nome;
     DOM.modalProductDescription.textContent = prod.descricao || "";
-    DOM.modalProductImage.src = otimizarImagem(prod.imagem, 640);
+    DOM.modalProductImage.src = otimizarImagem(prod.imagem, 540);
 
     if (prod.precos) {
       DOM.modalSizesContainer.style.display = "block";
@@ -317,31 +276,33 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.body.style.overflow = "";
   }
 
-  function configurarEventos() {
-    if (DOM.searchInput) {
-      DOM.searchInput.addEventListener("input", (e) => {
-        state.termoBusca = e.target.value;
-        DOM.searchClearBtn.classList.toggle("active", state.termoBusca.length > 0);
-        renderizarProdutos();
-      });
-    }
+  // Inicialización inmediata
+  if (DOM.currentYear) DOM.currentYear.textContent = new Date().getFullYear();
+  renderizarInformacoesLoja();
+  renderizarCategorias();
+  renderizarProdutos();
 
-    if (DOM.searchClearBtn) {
-      DOM.searchClearBtn.addEventListener("click", () => {
-        DOM.searchInput.value = "";
-        state.termoBusca = "";
-        DOM.searchClearBtn.classList.remove("active");
-        renderizarProdutos();
-      });
-    }
-
-    if (DOM.btnCloseModal) DOM.btnCloseModal.addEventListener("click", fecharModalProduto);
-    if (DOM.productModalOverlay) {
-      DOM.productModalOverlay.addEventListener("click", (e) => {
-        if (e.target === DOM.productModalOverlay) fecharModalProduto();
-      });
-    }
+  if (DOM.searchInput) {
+    DOM.searchInput.addEventListener("input", (e) => {
+      state.termoBusca = e.target.value;
+      DOM.searchClearBtn.classList.toggle("active", state.termoBusca.length > 0);
+      renderizarProdutos();
+    });
   }
 
-  inicializar();
+  if (DOM.searchClearBtn) {
+    DOM.searchClearBtn.addEventListener("click", () => {
+      DOM.searchInput.value = "";
+      state.termoBusca = "";
+      DOM.searchClearBtn.classList.remove("active");
+      renderizarProdutos();
+    });
+  }
+
+  if (DOM.btnCloseModal) DOM.btnCloseModal.addEventListener("click", fecharModalProduto);
+  if (DOM.productModalOverlay) {
+    DOM.productModalOverlay.addEventListener("click", (e) => {
+      if (e.target === DOM.productModalOverlay) fecharModalProduto();
+    });
+  }
 });

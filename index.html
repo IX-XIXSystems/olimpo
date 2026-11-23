@@ -8,18 +8,18 @@
   
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="stylesheet" href="style.css">
+  <!-- ?v=3 força o navegador do celular a baixar o CSS novo imediatamente -->
+  <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
 
-  <!-- Luz ambiental animada sutil -->
   <div class="ambient-glow" aria-hidden="true"></div>
 
-  <!-- 1. HEADER GLASSMORPHISM ULTRA LIMPIO -->
+  <!-- 1. HEADER ULTRA MINIMALISTA -->
   <header class="site-header">
     <div class="container">
-      <div class="header-inner">
-        <a href="index.html" class="brand">
+      <div class="header-inner" style="display:flex;align-items:center;justify-content:space-between;height:62px;">
+        <a href="index.html" class="brand" style="display:flex;align-items:center;gap:10px;">
           <div class="brand-mark">
             <i class="fa-solid fa-bolt"></i>
           </div>
@@ -29,10 +29,10 @@
           </div>
         </a>
 
-        <div class="header-right">
-          <!-- Emblema Minimalista Diagonal: Brasil & Venezuela -->
-          <div class="union-emblem" title="Brasil & Venezuela">
-            <svg width="24" height="24" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Brasil e Venezuela">
+        <div class="header-right" style="display:flex;align-items:center;gap:8px;">
+          <!-- Emblema Minimalista Diagonal: Brasil & Venezuela (tamanho travado em 24x24) -->
+          <div class="union-emblem" title="Brasil & Venezuela" style="width:32px;height:32px;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;overflow:hidden;flex-shrink:0;">
+            <svg width="24" height="24" style="width:24px;height:24px;display:block;" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Brasil e Venezuela">
               <defs>
                 <clipPath id="splitLeft">
                   <polygon points="0,0 22,0 14,36 0,36"/>
@@ -65,14 +65,13 @@
                     <circle cx="28.4" cy="18.8" r="0.8"/>
                   </g>
                 </g>
-                <!-- Linha divisória sutil -->
-                <line x1="22" y1="0" x2="14" y2="36" stroke="rgba(255,255,255,0.35)" stroke-width="1"/>
+                <line x1="22" y1="0" x2="14" y2="36" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
               </g>
-              <circle cx="18" cy="18" r="17" stroke="rgba(212,175,55,0.45)" stroke-width="1"/>
+              <circle cx="18" cy="18" r="17" stroke="rgba(212,175,55,0.5)" stroke-width="1"/>
             </svg>
           </div>
 
-          <a href="#" target="_blank" class="icon-pill" id="headerMapBtn" title="Ver localização no mapa">
+          <a href="#" target="_blank" class="icon-pill" id="headerMapBtn" title="Ver localização no mapa" style="width:32px;height:32px;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;">
             <i class="fa-solid fa-location-dot"></i>
           </a>
 
@@ -85,7 +84,7 @@
     </div>
   </header>
 
-  <!-- 2. HERO EDITORIAL CON ANIMACIÓN DE ENTRADA -->
+  <!-- 2. HERO EDITORIAL -->
   <section class="hero-minimal">
     <div class="container">
       <div class="hero-reveal">
@@ -122,17 +121,13 @@
         </button>
       </div>
 
-      <nav class="categories-strip" id="categoriesBar" aria-label="Categorias">
-        <!-- Renderizado via app.js -->
-      </nav>
+      <nav class="categories-strip" id="categoriesBar" aria-label="Categorias"></nav>
     </div>
   </div>
 
   <!-- 4. LISTADO DEL CARDÁPIO -->
   <main class="container">
-    <div id="productsContainer">
-      <!-- Renderizado via app.js -->
-    </div>
+    <div id="productsContainer"></div>
   </main>
 
   <!-- 5. MODAL DE DETALLES DEL PRODUCTO -->
@@ -180,7 +175,7 @@
   <footer class="site-footer">
     <div class="container">
       <div class="footer-union-pill">
-        <svg width="20" height="20" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <svg width="20" height="20" style="width:20px;height:20px;display:block;" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <defs>
             <clipPath id="splitLeftF"><polygon points="0,0 22,0 14,36 0,36"/></clipPath>
             <clipPath id="splitRightF"><polygon points="22,0 36,0 36,36 14,36"/></clipPath>
@@ -197,7 +192,7 @@
               <rect width="36" height="12" y="12" fill="#003893"/>
               <rect width="36" height="12" y="24" fill="#CE1126"/>
             </g>
-            <line x1="22" y1="0" x2="14" y2="36" stroke="rgba(255,255,255,0.35)" stroke-width="1"/>
+            <line x1="22" y1="0" x2="14" y2="36" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
           </g>
         </svg>
         <span>Brasil · Venezuela</span>
@@ -227,8 +222,8 @@
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 
-  <script src="seed-data.js"></script>
-  <script src="firebase-config.js"></script>
-  <script src="app.js"></script>
+  <script src="seed-data.js?v=3"></script>
+  <script src="firebase-config.js?v=3"></script>
+  <script src="app.js?v=3"></script>
 </body>
 </html>

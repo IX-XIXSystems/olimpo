@@ -6,6 +6,7 @@
   <meta name="theme-color" content="#07080A">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="format-detection" content="telephone=no">
 
   <title>Olimpo Pizzaria — Cardápio Digital</title>
   <meta name="description" content="🍕 Onde os deuses pedem pizza! 📍 Fraiburgo | SC — Av Adalberto Smith Burda, 303, São José.">
@@ -26,7 +27,6 @@
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="675">
 
-  <!-- Twitter / X Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Olimpo Pizzaria — Cardápio Digital">
   <meta name="twitter:description" content="🍕 Onde os deuses pedem pizza! 📍 Fraiburgo | SC">
@@ -39,8 +39,14 @@
   <link rel="preload" as="image" href="zeus.png" fetchpriority="high">
 
   <link rel="icon" type="image/png" href="logo.png">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Carga no bloqueante de fuentes e iconos -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  </noscript>
 
   <style>
     :root {
@@ -60,16 +66,21 @@
       --text-3: #6B7280;
 
       --font-display: 'Cinzel', Georgia, serif;
-      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
       --ease: cubic-bezier(0.22, 1, 0.36, 1);
     }
 
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
     html {
       scroll-behavior: smooth;
       -webkit-tap-highlight-color: transparent;
       -webkit-text-size-adjust: 100%;
+      background: var(--bg);
     }
 
     body {
@@ -78,40 +89,46 @@
       color: var(--text);
       line-height: 1.5;
       -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeSpeed;
       overflow-x: hidden;
+      overscroll-behavior-y: none;
       min-height: 100dvh;
       padding-bottom: env(safe-area-inset-bottom);
     }
 
     img, svg { display: block; max-width: 100%; }
     button, input { font-family: inherit; color: inherit; border: none; outline: none; background: none; }
-    button { cursor: pointer; touch-action: manipulation; }
+    button { cursor: pointer; touch-action: manipulation; -webkit-user-select: none; user-select: none; }
     a { color: inherit; text-decoration: none; touch-action: manipulation; }
 
     .container {
       width: 100%;
       max-width: 980px;
       margin: 0 auto;
-      padding-left: max(1.15rem, env(safe-area-inset-left));
-      padding-right: max(1.15rem, env(safe-area-inset-right));
+      padding-left: max(1.1rem, env(safe-area-inset-left));
+      padding-right: max(1.1rem, env(safe-area-inset-right));
       position: relative;
       z-index: 2;
     }
 
-    /* 1. HEADER */
+    /* =========================================
+       1. HEADER ACELERADO POR HARDWARE
+       ========================================= */
     .site-header {
       position: sticky;
       top: 0;
       z-index: 100;
       padding-top: env(safe-area-inset-top);
-      background: rgba(7, 8, 10, 0.84);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+      background: rgba(7, 8, 10, 0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
+      transform: translateZ(0);
     }
 
     .header-inner {
-      height: 60px;
+      height: 58px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -133,7 +150,7 @@
 
     .brand-title {
       font-family: var(--font-display);
-      font-size: 0.98rem;
+      font-size: 0.96rem;
       font-weight: 700;
       letter-spacing: 0.06em;
       text-transform: uppercase;
@@ -145,28 +162,29 @@
       width: 34px;
       height: 34px;
       border-radius: 50%;
-      background: rgba(15, 17, 21, 0.85);
+      background: var(--surface);
       border: 1px solid var(--border);
       display: inline-flex;
       align-items: center;
       justify-content: center;
       font-size: 0.88rem;
       color: var(--text-2);
-      transition: transform 0.25s var(--ease), border-color 0.25s ease, color 0.25s ease;
+      transition: transform 0.2s var(--ease), border-color 0.2s ease, color 0.2s ease;
     }
 
-    .nav-circle-btn:hover {
-      transform: translateY(-2px);
-      border-color: var(--border-gold);
-      color: var(--gold);
-    }
+    .nav-circle-btn:active { transform: scale(0.9); }
 
-    .nav-circle-btn:active { transform: scale(0.92); }
+    @media (hover: hover) {
+      .nav-circle-btn:hover {
+        transform: translateY(-2px);
+        border-color: var(--border-gold);
+        color: var(--gold);
+      }
+    }
 
     .menu-badge {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
       padding: 5px 12px;
       border-radius: 999px;
       font-size: 0.72rem;
@@ -177,12 +195,15 @@
       border: 1px solid rgba(245, 197, 24, 0.25);
     }
 
-    /* 2. HERO CON ZEUS EN EL FONDO */
+    /* =========================================
+       2. HERO CON ZEUS (CERO LAG EN IPHONE)
+       ========================================= */
     .hero-profile {
       position: relative;
-      padding: 2.3rem 0 2rem;
+      padding: 2.2rem 0 1.9rem;
       text-align: center;
       overflow: hidden;
+      contain: layout style paint;
     }
 
     .zeus-backdrop {
@@ -196,131 +217,129 @@
       overflow: hidden;
     }
 
+    /* Resplandor radial puro sin filter: blur() pesado */
     .zeus-aura {
       position: absolute;
-      top: -20px;
+      top: -30px;
       left: 50%;
-      transform: translate3d(-50%, 0, 0);
       width: 440px;
       height: 440px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(245, 197, 24, 0.2) 0%, rgba(245, 197, 24, 0.05) 45%, transparent 72%);
-      filter: blur(22px);
+      background: radial-gradient(circle, rgba(245, 197, 24, 0.18) 0%, rgba(245, 197, 24, 0.04) 45%, transparent 70%);
+      transform: translate3d(-50%, 0, 0);
+      will-change: transform, opacity;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
       animation: zeusAuraPulse 8s ease-in-out infinite alternate;
     }
 
     @keyframes zeusAuraPulse {
-      0% { opacity: 0.55; transform: translate3d(-50%, 0, 0) scale(0.94); }
-      100% { opacity: 1; transform: translate3d(-50%, -8px, 0) scale(1.08); }
+      0% { opacity: 0.6; transform: translate3d(-50%, 0, 0) scale(0.95); }
+      100% { opacity: 1; transform: translate3d(-50%, -6px, 0) scale(1.06); }
     }
 
     .zeus-figure {
-      width: min(440px, 96vw);
+      width: min(430px, 95vw);
       height: auto;
-      margin-top: -12px;
+      margin-top: -10px;
       opacity: 0.34;
-      filter: contrast(1.06) drop-shadow(0 12px 30px rgba(0, 0, 0, 0.9));
-      -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.95) 45%, rgba(0,0,0,0.35) 78%, transparent 100%);
-      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.95) 45%, rgba(0,0,0,0.35) 78%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to bottom, #000 45%, rgba(0, 0, 0, 0.35) 78%, transparent 100%);
+      mask-image: linear-gradient(to bottom, #000 45%, rgba(0, 0, 0, 0.35) 78%, transparent 100%);
       will-change: transform;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
       animation: zeusDivineDrift 11s ease-in-out infinite alternate;
     }
 
     @keyframes zeusDivineDrift {
-      0% { transform: translate3d(0px, 0px, 0) scale(1) rotate(0deg); }
-      50% { transform: translate3d(6px, -10px, 0) scale(1.035) rotate(0.6deg); }
-      100% { transform: translate3d(-6px, -4px, 0) scale(1.05) rotate(-0.6deg); }
+      0% { transform: translate3d(0px, 0px, 0) scale(1); }
+      50% { transform: translate3d(5px, -9px, 0) scale(1.03); }
+      100% { transform: translate3d(-5px, -3px, 0) scale(1.045); }
     }
 
     .zeus-vignette {
       position: absolute;
       inset: 0;
-      background: radial-gradient(circle at 50% 48%, rgba(7, 8, 10, 0.32) 0%, rgba(7, 8, 10, 0.88) 85%);
+      background: radial-gradient(circle at 50% 48%, rgba(7, 8, 10, 0.28) 0%, rgba(7, 8, 10, 0.9) 85%);
       z-index: 1;
       pointer-events: none;
     }
 
     .logo-stage {
       position: relative;
-      width: 120px;
-      height: 120px;
-      margin: 0 auto 1.15rem;
+      width: 118px;
+      height: 118px;
+      margin: 0 auto 1.1rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      animation: heroLogoIn 0.85s var(--ease) both;
+      animation: heroLogoIn 0.7s var(--ease) both;
     }
 
     @keyframes heroLogoIn {
-      0% { opacity: 0; transform: translate3d(0, 14px, 0) scale(0.88); }
-      100% { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+      from { opacity: 0; transform: translate3d(0, 12px, 0) scale(0.9); }
+      to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
     }
 
     .logo-halo {
       position: absolute;
       inset: -4px;
       border-radius: 50%;
-      border: 1px solid rgba(245, 197, 24, 0.4);
-      box-shadow: 0 0 28px rgba(245, 197, 24, 0.25);
-      animation: haloBreath 4s ease-in-out infinite alternate;
+      border: 1px solid rgba(245, 197, 24, 0.42);
+      box-shadow: 0 0 22px rgba(245, 197, 24, 0.22);
       pointer-events: none;
-    }
-
-    @keyframes haloBreath {
-      0% { transform: scale(0.98); opacity: 0.65; }
-      100% { transform: scale(1.04); opacity: 1; }
     }
 
     .logo-frame {
       position: relative;
-      width: 112px;
-      height: 112px;
+      width: 110px;
+      height: 110px;
       border-radius: 50%;
       overflow: hidden;
       background: #000;
       border: 1.5px solid rgba(245, 197, 24, 0.55);
-      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.92);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.9);
+      transform: translateZ(0);
     }
 
-    .logo-frame img { width: 112px; height: 112px; object-fit: cover; transform: scale(1.03); }
+    .logo-frame img { width: 110px; height: 110px; object-fit: cover; transform: scale(1.03); }
 
     .logo-sheen {
       position: absolute;
       inset: 0;
-      background: linear-gradient(115deg, transparent 30%, rgba(255, 255, 255, 0.28) 50%, transparent 70%);
+      background: linear-gradient(115deg, transparent 30%, rgba(255, 255, 255, 0.24) 50%, transparent 70%);
       transform: translate3d(-150%, 0, 0);
-      animation: sheenFlow 4.8s ease-in-out 0.6s infinite;
+      will-change: transform;
+      animation: sheenFlow 5.5s ease-in-out 0.8s infinite;
       pointer-events: none;
     }
 
     @keyframes sheenFlow {
-      0%, 55% { transform: translate3d(-150%, 0, 0); }
+      0%, 60% { transform: translate3d(-150%, 0, 0); }
       100% { transform: translate3d(150%, 0, 0); }
     }
 
     .store-name {
       font-family: var(--font-display);
-      font-size: clamp(1.7rem, 5vw, 2.4rem);
+      font-size: clamp(1.65rem, 5vw, 2.35rem);
       font-weight: 700;
       letter-spacing: 0.04em;
-      margin-bottom: 0.7rem;
-      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.85);
+      margin-bottom: 0.65rem;
       background: linear-gradient(120deg, #FFFFFF 20%, #FBE170 70%, #F5C518 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      animation: fadeSlideUp 0.7s var(--ease) 0.08s both;
+      animation: fadeSlideUp 0.65s var(--ease) 0.06s both;
     }
 
     .ig-bio-card {
       display: inline-flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.32rem;
+      gap: 0.3rem;
       font-size: 0.88rem;
       color: var(--text-2);
-      margin-bottom: 1.35rem;
-      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.9);
-      animation: fadeSlideUp 0.7s var(--ease) 0.16s both;
+      margin-bottom: 1.3rem;
+      animation: fadeSlideUp 0.65s var(--ease) 0.12s both;
     }
 
     .bio-flags {
@@ -329,12 +348,10 @@
       gap: 6px;
       padding: 3px 11px;
       border-radius: 999px;
-      background: rgba(15, 17, 21, 0.78);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      background: rgba(15, 17, 21, 0.85);
       border: 1px solid var(--border);
       font-size: 0.82rem;
-      margin-bottom: 0.15rem;
+      margin-bottom: 0.12rem;
     }
 
     .bio-tagline { color: var(--text); font-weight: 600; font-size: 0.95rem; }
@@ -346,32 +363,32 @@
       justify-content: center;
       flex-wrap: wrap;
       gap: 0.65rem;
-      animation: fadeSlideUp 0.7s var(--ease) 0.24s both;
+      animation: fadeSlideUp 0.65s var(--ease) 0.18s both;
     }
 
     .action-pill {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 0.6rem 1.2rem;
+      padding: 0.58rem 1.15rem;
       border-radius: 999px;
-      background: rgba(15, 17, 21, 0.85);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      background: rgba(15, 17, 21, 0.9);
       border: 1px solid rgba(255, 255, 255, 0.12);
       font-size: 0.82rem;
       font-weight: 600;
       color: var(--text);
-      transition: transform 0.25s var(--ease), border-color 0.25s ease, background-color 0.25s ease;
+      transition: transform 0.2s var(--ease), border-color 0.2s ease, background-color 0.2s ease;
     }
 
-    .action-pill:hover {
-      transform: translateY(-2px);
-      background: var(--surface-hover);
-      border-color: var(--border-gold);
-    }
+    .action-pill:active { transform: scale(0.94); }
 
-    .action-pill:active { transform: scale(0.95); }
+    @media (hover: hover) {
+      .action-pill:hover {
+        transform: translateY(-2px);
+        background: var(--surface-hover);
+        border-color: var(--border-gold);
+      }
+    }
 
     .action-pill .icon-map { color: var(--gold); font-size: 0.92rem; }
     .action-pill .icon-ig {
@@ -382,22 +399,25 @@
     }
 
     @keyframes fadeSlideUp {
-      from { opacity: 0; transform: translate3d(0, 12px, 0); }
+      from { opacity: 0; transform: translate3d(0, 10px, 0); }
       to { opacity: 1; transform: translate3d(0, 0, 0); }
     }
 
-    /* 3. BUSCADOR Y CATEGORÍAS */
+    /* =========================================
+       3. BUSCADOR Y CATEGORÍAS STICKY
+       ========================================= */
     .sticky-bar {
       position: sticky;
-      top: calc(60px + env(safe-area-inset-top));
+      top: calc(58px + env(safe-area-inset-top));
       z-index: 90;
-      background: rgba(7, 8, 10, 0.92);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      padding: 0.75rem 0 0.85rem;
+      background: rgba(7, 8, 10, 0.94);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 0.72rem 0 0.82rem;
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
-      margin-bottom: 1.75rem;
+      margin-bottom: 1.65rem;
+      transform: translateZ(0);
     }
 
     .search-box {
@@ -408,7 +428,7 @@
       border-radius: 999px;
       padding: 0 1rem;
       height: 44px;
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.72rem;
     }
 
     .search-box:focus-within { border-color: var(--border-gold); }
@@ -430,14 +450,16 @@
 
     .cat-btn {
       white-space: nowrap;
-      padding: 0.44rem 0.95rem;
+      padding: 0.42rem 0.95rem;
       border-radius: 999px;
       font-size: 0.8rem;
       font-weight: 500;
       color: var(--text-2);
       border: 1px solid var(--border);
-      transition: all 0.2s var(--ease);
+      transition: background-color 0.18s ease, color 0.18s ease, transform 0.15s ease;
     }
+
+    .cat-btn:active { transform: scale(0.95); }
 
     .cat-btn.active {
       background: var(--text);
@@ -446,15 +468,21 @@
       font-weight: 600;
     }
 
-    /* 4. CARDÁPIO */
-    .menu-section { margin-bottom: 2.5rem; }
+    /* =========================================
+       4. CARDÁPIO (RENDERIZADO RÁPIDO)
+       ========================================= */
+    .menu-section {
+      margin-bottom: 2.25rem;
+      content-visibility: auto;
+      contain-intrinsic-size: auto 240px;
+    }
 
     .section-head {
       font-family: var(--font-display);
-      font-size: 1.08rem;
+      font-size: 1.06rem;
       font-weight: 700;
       letter-spacing: 0.04em;
-      margin-bottom: 1rem;
+      margin-bottom: 0.95rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -482,7 +510,8 @@
       border-radius: 14px;
       padding: 0.9rem;
       cursor: pointer;
-      transition: transform 0.22s var(--ease), background-color 0.2s ease, border-color 0.2s ease;
+      contain: content;
+      transition: transform 0.18s var(--ease), background-color 0.18s ease, border-color 0.18s ease;
     }
 
     .item-card:active { transform: scale(0.98); background: var(--surface-hover); }
@@ -505,20 +534,20 @@
     .item-thumb { width: 92px; height: 92px; border-radius: 10px; overflow: hidden; flex-shrink: 0; background: var(--elevated); }
     .item-thumb img { width: 92px; height: 92px; object-fit: cover; }
 
-    /* 5. MODAIS */
+    /* =========================================
+       5. MODAIS (NATIVOS IPHONE / ANDROID)
+       ========================================= */
     .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.82);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: rgba(0, 0, 0, 0.84);
       z-index: 200;
       display: flex;
       align-items: flex-end;
       justify-content: center;
       opacity: 0;
       visibility: hidden;
-      transition: opacity 0.25s ease, visibility 0.25s ease;
+      transition: opacity 0.22s ease, visibility 0.22s ease;
     }
 
     .modal-backdrop.active { opacity: 1; visibility: visible; }
@@ -532,23 +561,25 @@
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 24px 24px 0 0;
       overflow-y: auto;
-      padding-bottom: env(safe-area-inset-bottom);
-      transform: translate3d(0, 34px, 0);
-      transition: transform 0.32s var(--ease);
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: max(1rem, env(safe-area-inset-bottom));
+      transform: translate3d(0, 28px, 0);
+      will-change: transform;
+      transition: transform 0.28s var(--ease);
     }
 
     .modal-backdrop.active .modal-sheet { transform: translate3d(0, 0, 0); }
 
     @media (min-width: 640px) {
       .modal-backdrop { align-items: center; padding: 1.5rem; }
-      .modal-sheet { border-radius: 24px; }
+      .modal-sheet { border-radius: 24px; padding-bottom: 0; }
     }
 
     .modal-handle {
       width: 38px;
       height: 4px;
       border-radius: 99px;
-      background: rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.18);
       margin: 10px auto 0;
     }
 
@@ -560,7 +591,7 @@
       width: 34px;
       height: 34px;
       border-radius: 50%;
-      background: rgba(7, 8, 10, 0.8);
+      background: rgba(7, 8, 10, 0.85);
       color: #fff;
       display: flex;
       align-items: center;
@@ -617,7 +648,6 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      box-shadow: 0 8px 24px rgba(220, 39, 67, 0.3);
     }
 
     .btn-secondary-ghost {
@@ -636,17 +666,18 @@
       margin-bottom: 0.65rem;
     }
 
-    .ig-embed-frame {
+    .embed-slot {
       width: 100%;
-      height: 310px;
       border-radius: 14px;
       overflow: hidden;
-      background: #ffffff;
       border: 1px solid var(--border);
       margin-bottom: 1rem;
+      background: var(--elevated);
     }
 
-    /* 6. FOOTER */
+    /* =========================================
+       6. FOOTER
+       ========================================= */
     .site-footer {
       margin-top: 2.5rem;
       padding: 2.25rem 0;
@@ -677,6 +708,14 @@
     }
 
     .footer-copy { font-size: 0.72rem; color: var(--text-3); }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -719,7 +758,7 @@
       <div class="logo-stage">
         <div class="logo-halo" aria-hidden="true"></div>
         <div class="logo-frame">
-          <img src="logo.png" alt="Olimpo Pizzaria" width="112" height="112" fetchpriority="high" decoding="sync">
+          <img src="logo.png" alt="Olimpo Pizzaria" width="110" height="110" fetchpriority="high" decoding="sync">
           <div class="logo-sheen" aria-hidden="true"></div>
         </div>
       </div>
@@ -776,7 +815,7 @@
       </button>
 
       <div class="modal-photo">
-        <img src="" alt="" id="modalProductImage">
+        <img src="" alt="" id="modalProductImage" decoding="async">
       </div>
 
       <div class="modal-body">
@@ -798,7 +837,7 @@
     </div>
   </div>
 
-  <!-- 6. MODAL PREVIA DE UBICACIÓN -->
+  <!-- 6. MODAL PREVIA DE UBICACIÓN (CARGA DIFERIDA AL ABRIR) -->
   <div class="modal-backdrop" id="mapModalOverlay">
     <div class="modal-sheet">
       <div class="modal-handle"></div>
@@ -814,17 +853,7 @@
           📍 Fraiburgo | SC — CEP 89580-000
         </p>
 
-        <div style="border-radius: 14px; overflow: hidden; border: 1px solid var(--border); margin-bottom: 1rem; height: 220px; background: var(--elevated);">
-          <iframe
-            title="Mapa Olimpo Pizzaria Fraiburgo"
-            width="100%"
-            height="220"
-            style="border:0;"
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            src="https://maps.google.com/maps?q=Av%20Adalberto%20Smith%20Burda,%20303,%20Sao%20Jose,%20Fraiburgo%20-%20SC&t=&z=16&ie=UTF8&iwloc=&output=embed">
-          </iframe>
-        </div>
+        <div class="embed-slot" id="mapEmbedSlot" style="height: 220px;"></div>
 
         <button type="button" class="btn-secondary-ghost" id="btnCopyAddress">
           <i class="fa-regular fa-copy"></i>
@@ -839,7 +868,7 @@
     </div>
   </div>
 
-  <!-- 7. MODAL PREVIA DE INSTAGRAM -->
+  <!-- 7. MODAL PREVIA DE INSTAGRAM (CARGA DIFERIDA AL ABRIR) -->
   <div class="modal-backdrop" id="igModalOverlay">
     <div class="modal-sheet">
       <div class="modal-handle"></div>
@@ -854,17 +883,7 @@
           🇧🇷 | 🇻🇪 Onde os deuses pedem pizza!
         </p>
 
-        <div class="ig-embed-frame">
-          <iframe
-            title="Instagram Olimpo Pizzaria"
-            src="https://www.instagram.com/olimpopizzaria_/embed/"
-            width="100%"
-            height="310"
-            frameborder="0"
-            scrolling="no"
-            allowtransparency="true">
-          </iframe>
-        </div>
+        <div class="embed-slot" id="igEmbedSlot" style="height: 310px; background: #ffffff;"></div>
 
         <a href="https://www.instagram.com/olimpopizzaria_/" target="_blank" rel="noopener" class="btn-primary-ig">
           <i class="fa-brands fa-instagram" style="font-size: 1.1rem;"></i>
@@ -878,7 +897,7 @@
   <footer class="site-footer">
     <div class="container">
       <div class="footer-logo">
-        <img src="logo.png" alt="Olimpo Pizzaria" width="56" height="56" loading="lazy">
+        <img src="logo.png" alt="Olimpo Pizzaria" width="56" height="56" loading="lazy" decoding="async">
       </div>
       <div class="footer-brand">Olimpo Pizzaria</div>
       <p class="footer-sub">🇧🇷 | 🇻🇪 · Onde os deuses pedem pizza!<br>Av Adalberto Smith Burda, 303, São José · Fraiburgo | SC</p>
@@ -934,6 +953,8 @@
 
       let categoriaAtiva = "todas";
       let termoBusca = "";
+      let mapLoaded = false;
+      let igLoaded = false;
 
       const fmt = (v) => (Number(v) || 0).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 
@@ -1060,6 +1081,28 @@
         openModal("productModalOverlay");
       }
 
+      function openMapModal() {
+        if (!mapLoaded) {
+          const slot = document.getElementById("mapEmbedSlot");
+          if (slot) {
+            slot.innerHTML = `<iframe title="Mapa Olimpo Pizzaria Fraiburgo" width="100%" height="220" style="border:0;" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=Av%20Adalberto%20Smith%20Burda,%20303,%20Sao%20Jose,%20Fraiburgo%20-%20SC&t=&z=16&ie=UTF8&iwloc=&output=embed"></iframe>`;
+          }
+          mapLoaded = true;
+        }
+        openModal("mapModalOverlay");
+      }
+
+      function openIgModal() {
+        if (!igLoaded) {
+          const slot = document.getElementById("igEmbedSlot");
+          if (slot) {
+            slot.innerHTML = `<iframe title="Instagram Olimpo Pizzaria" src="https://www.instagram.com/olimpopizzaria_/embed/" width="100%" height="310" frameborder="0" scrolling="no" allowtransparency="true"></iframe>`;
+          }
+          igLoaded = true;
+        }
+        openModal("igModalOverlay");
+      }
+
       function openModal(id) {
         const el = document.getElementById(id);
         if (!el) return;
@@ -1101,7 +1144,7 @@
         });
 
         ["btnOpenMapTop", "btnOpenMapHero", "btnOpenMapFooter"].forEach(btnId => {
-          document.getElementById(btnId)?.addEventListener("click", () => openModal("mapModalOverlay"));
+          document.getElementById(btnId)?.addEventListener("click", openMapModal);
         });
         document.getElementById("btnCloseMapModal")?.addEventListener("click", () => closeModal("mapModalOverlay"));
         document.getElementById("mapModalOverlay")?.addEventListener("click", (e) => {
@@ -1120,7 +1163,7 @@
         });
 
         ["btnOpenIgTop", "btnOpenIgHero", "btnOpenIgFooter"].forEach(btnId => {
-          document.getElementById(btnId)?.addEventListener("click", () => openModal("igModalOverlay"));
+          document.getElementById(btnId)?.addEventListener("click", openIgModal);
         });
         document.getElementById("btnCloseIgModal")?.addEventListener("click", () => closeModal("igModalOverlay"));
         document.getElementById("igModalOverlay")?.addEventListener("click", (e) => {

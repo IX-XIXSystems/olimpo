@@ -67,7 +67,7 @@
 
       --font-display: 'Cinzel', Georgia, serif;
       --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
-      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     *, *::before, *::after {
@@ -196,11 +196,11 @@
     }
 
     /* =========================================
-       2. HERO CON ZEUS (CERO LAG EN IPHONE)
+       2. HERO MODERNO CON LOGO INSTANTÁNEO Y ZEUS
        ========================================= */
     .hero-profile {
       position: relative;
-      padding: 2.2rem 0 1.9rem;
+      padding: 2.2rem 0 1.95rem;
       text-align: center;
       overflow: hidden;
       contain: layout style paint;
@@ -217,7 +217,6 @@
       overflow: hidden;
     }
 
-    /* Resplandor radial puro sin filter: blur() pesado */
     .zeus-aura {
       position: absolute;
       top: -30px;
@@ -265,57 +264,92 @@
       pointer-events: none;
     }
 
+    /* Contenedor del Logo: Visible desde 0ms (sin fade-in que haga ver la carga) */
     .logo-stage {
       position: relative;
-      width: 118px;
-      height: 118px;
-      margin: 0 auto 1.1rem;
+      width: 124px;
+      height: 124px;
+      margin: 0 auto 1.15rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      animation: heroLogoIn 0.7s var(--ease) both;
+      will-change: transform;
+      animation: logoFloat 6s ease-in-out infinite alternate;
     }
 
-    @keyframes heroLogoIn {
-      from { opacity: 0; transform: translate3d(0, 12px, 0) scale(0.9); }
-      to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+    @keyframes logoFloat {
+      0% { transform: translate3d(0, 0px, 0); }
+      100% { transform: translate3d(0, -5px, 0); }
     }
 
+    /* Anillo orbital dorado giratorio moderno */
+    .logo-orbit {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      padding: 2px;
+      background: conic-gradient(
+        from 0deg,
+        rgba(245, 197, 24, 0.85) 0deg,
+        rgba(251, 225, 112, 0.2) 90deg,
+        rgba(245, 197, 24, 0.05) 180deg,
+        rgba(251, 225, 112, 0.2) 270deg,
+        rgba(245, 197, 24, 0.85) 360deg
+      );
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      will-change: transform;
+      animation: orbitSpin 8s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes orbitSpin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Segundo aro fino estático con brillo sutil */
     .logo-halo {
       position: absolute;
-      inset: -4px;
+      inset: 4px;
       border-radius: 50%;
-      border: 1px solid rgba(245, 197, 24, 0.42);
-      box-shadow: 0 0 22px rgba(245, 197, 24, 0.22);
+      border: 1px solid rgba(245, 197, 24, 0.22);
+      box-shadow: 0 0 26px rgba(245, 197, 24, 0.2);
       pointer-events: none;
     }
 
     .logo-frame {
       position: relative;
-      width: 110px;
-      height: 110px;
+      width: 112px;
+      height: 112px;
       border-radius: 50%;
       overflow: hidden;
-      background: #000;
-      border: 1.5px solid rgba(245, 197, 24, 0.55);
-      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.9);
+      background: #07080A;
+      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.92);
       transform: translateZ(0);
     }
 
-    .logo-frame img { width: 110px; height: 110px; object-fit: cover; transform: scale(1.03); }
+    .logo-frame img {
+      width: 112px;
+      height: 112px;
+      object-fit: cover;
+      transform: scale(1.03);
+      opacity: 1;
+    }
 
+    /* Destello metálico periódico sobre el logo */
     .logo-sheen {
       position: absolute;
       inset: 0;
-      background: linear-gradient(115deg, transparent 30%, rgba(255, 255, 255, 0.24) 50%, transparent 70%);
+      background: linear-gradient(115deg, transparent 28%, rgba(255, 255, 255, 0.32) 50%, transparent 72%);
       transform: translate3d(-150%, 0, 0);
       will-change: transform;
-      animation: sheenFlow 5.5s ease-in-out 0.8s infinite;
+      animation: sheenFlow 5s ease-in-out 0.4s infinite;
       pointer-events: none;
     }
 
     @keyframes sheenFlow {
-      0%, 60% { transform: translate3d(-150%, 0, 0); }
+      0%, 58% { transform: translate3d(-150%, 0, 0); }
       100% { transform: translate3d(150%, 0, 0); }
     }
 
@@ -328,7 +362,7 @@
       background: linear-gradient(120deg, #FFFFFF 20%, #FBE170 70%, #F5C518 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      animation: fadeSlideUp 0.65s var(--ease) 0.06s both;
+      animation: textReveal 0.55s var(--ease) both;
     }
 
     .ig-bio-card {
@@ -339,7 +373,7 @@
       font-size: 0.88rem;
       color: var(--text-2);
       margin-bottom: 1.3rem;
-      animation: fadeSlideUp 0.65s var(--ease) 0.12s both;
+      animation: textReveal 0.55s var(--ease) 0.06s both;
     }
 
     .bio-flags {
@@ -363,7 +397,7 @@
       justify-content: center;
       flex-wrap: wrap;
       gap: 0.65rem;
-      animation: fadeSlideUp 0.65s var(--ease) 0.18s both;
+      animation: textReveal 0.55s var(--ease) 0.12s both;
     }
 
     .action-pill {
@@ -398,9 +432,9 @@
       font-size: 1rem;
     }
 
-    @keyframes fadeSlideUp {
-      from { opacity: 0; transform: translate3d(0, 10px, 0); }
-      to { opacity: 1; transform: translate3d(0, 0, 0); }
+    @keyframes textReveal {
+      from { opacity: 0; transform: translate3d(0, 8px, 0) scale(0.985); }
+      to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
     }
 
     /* =========================================
@@ -746,19 +780,20 @@
     </div>
   </header>
 
-  <!-- 2. HERO CON ZEUS EN EL FONDO -->
+  <!-- 2. HERO CON LOGO INSTANTÁNEO Y ANILLO ORBITAL -->
   <section class="hero-profile">
     <div class="zeus-backdrop" aria-hidden="true">
       <div class="zeus-aura"></div>
-      <img src="zeus.png" alt="" class="zeus-figure" fetchpriority="high" decoding="async">
+      <img src="zeus.png" alt="" class="zeus-figure" fetchpriority="high" decoding="sync">
       <div class="zeus-vignette"></div>
     </div>
 
     <div class="container">
       <div class="logo-stage">
+        <div class="logo-orbit" aria-hidden="true"></div>
         <div class="logo-halo" aria-hidden="true"></div>
         <div class="logo-frame">
-          <img src="logo.png" alt="Olimpo Pizzaria" width="110" height="110" fetchpriority="high" decoding="sync">
+          <img src="logo.png" alt="Olimpo Pizzaria" width="112" height="112" fetchpriority="high" decoding="sync">
           <div class="logo-sheen" aria-hidden="true"></div>
         </div>
       </div>
@@ -1180,3 +1215,4 @@
   </script>
 </body>
 </html>
+

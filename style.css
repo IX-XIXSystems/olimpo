@@ -6,10 +6,10 @@
   --bg-card-hover: #161920;
   --bg-elevated: #181B22;
   --border: rgba(255, 255, 255, 0.07);
-  --border-gold: rgba(212, 175, 55, 0.35);
+  --border-gold: rgba(246, 211, 45, 0.4);
 
-  --gold: #D4AF37;
-  --gold-soft: #E8CE7A;
+  --gold: #F5C518;
+  --gold-soft: #FBE170;
   --green: #10B981;
   --red: #EF4444;
   --whatsapp: #25D366;
@@ -50,12 +50,12 @@ body {
 
 .ambient-glow {
   position: fixed;
-  top: -140px;
+  top: -120px;
   left: 50%;
   transform: translateX(-50%);
   width: 680px;
-  height: 360px;
-  background: radial-gradient(ellipse at center, rgba(212, 175, 55, 0.09) 0%, rgba(16, 185, 129, 0.03) 45%, transparent 72%);
+  height: 380px;
+  background: radial-gradient(ellipse at center, rgba(245, 197, 24, 0.11) 0%, rgba(16, 185, 129, 0.03) 45%, transparent 72%);
   pointer-events: none;
   z-index: 0;
   animation: breatheGlow 8s ease-in-out infinite alternate;
@@ -90,7 +90,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* ==========================================
-   HEADER & EMBLEMA BRASIL + VENEZUELA
+   HEADER & MINI LOGO
    ========================================== */
 .site-header {
   position: sticky;
@@ -117,22 +117,27 @@ a { color: inherit; text-decoration: none; }
   min-width: 0;
 }
 
-.brand-mark {
-  width: 32px;
-  height: 32px;
+.header-logo-wrap {
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
+  overflow: hidden;
   border: 1px solid var(--border-gold);
-  background: rgba(212, 175, 55, 0.06);
-  color: var(--gold);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.82rem;
+  background: #000;
   flex-shrink: 0;
+  box-shadow: 0 0 12px rgba(245, 197, 24, 0.18);
   transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.brand:hover .brand-mark { transform: rotate(12deg) scale(1.06); }
+.brand:hover .header-logo-wrap {
+  transform: scale(1.08);
+}
+
+.header-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
 .brand-stack {
   display: flex;
@@ -234,17 +239,98 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* ==========================================
-   HERO EDITORIAL CON ANIMACIÓN
+   HERO CON LOGO ANIMADO PROTAGONISTA
    ========================================== */
-.hero-minimal { padding: 2.1rem 0 1.5rem; }
+.hero-minimal { padding: 2rem 0 1.5rem; }
 
 .hero-reveal {
-  animation: heroEnter 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: heroEnter 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 @keyframes heroEnter {
-  from { opacity: 0; transform: translateY(14px); }
+  from { opacity: 0; transform: translateY(16px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* Escenario del logo con halo giratorio + flotación + destello */
+.hero-logo-stage {
+  position: relative;
+  width: 108px;
+  height: 108px;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: logoFloat 5s ease-in-out infinite;
+}
+
+@keyframes logoFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-5px); }
+}
+
+/* Anillo de energía dorada girando suavemente */
+.logo-halo-ring {
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0%,
+    rgba(245, 197, 24, 0.15) 25%,
+    #F5C518 50%,
+    rgba(245, 197, 24, 0.15) 75%,
+    transparent 100%
+  );
+  animation: spinHalo 6s linear infinite;
+  filter: blur(0.5px);
+}
+
+@keyframes spinHalo {
+  to { transform: rotate(360deg); }
+}
+
+.logo-medallion {
+  position: relative;
+  width: 102px;
+  height: 102px;
+  border-radius: 50%;
+  background: #000000;
+  overflow: hidden;
+  z-index: 2;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.75), 0 0 24px rgba(245, 197, 24, 0.18);
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.hero-logo-stage:hover .logo-medallion {
+  transform: scale(1.05);
+}
+
+.hero-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.03);
+}
+
+/* Destello diagonal sutil que cruza el logo */
+.logo-sheen {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.22) 50%,
+    transparent 70%
+  );
+  transform: translateX(-140%);
+  animation: sheenSweep 5.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes sheenSweep {
+  0%, 60% { transform: translateX(-140%); }
+  100% { transform: translateX(140%); }
 }
 
 .hero-eyebrow {
@@ -266,7 +352,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 .hero-title span {
-  background: linear-gradient(120deg, #F6E27A 0%, #D4AF37 60%, #B88E22 100%);
+  background: linear-gradient(120deg, #FBE170 0%, #F5C518 60%, #C49612 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -321,7 +407,7 @@ a { color: inherit; text-decoration: none; }
 
 .search-minimal:focus-within {
   border-color: var(--border-gold);
-  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.08);
+  box-shadow: 0 0 0 3px rgba(245, 197, 24, 0.08);
 }
 
 .search-minimal i {
@@ -439,7 +525,7 @@ a { color: inherit; text-decoration: none; }
 
 .menu-card:hover {
   background: var(--bg-card-hover);
-  border-color: rgba(212, 175, 55, 0.28);
+  border-color: rgba(245, 197, 24, 0.32);
   transform: translateY(-3px);
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
 }
@@ -726,13 +812,30 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* ==========================================
-   FOOTER & EMBLEMA BRASIL + VENEZUELA
+   FOOTER & LOGO
    ========================================== */
 .site-footer {
   margin-top: 3rem;
   padding: 2.5rem 0;
   border-top: 1px solid var(--border);
   text-align: center;
+}
+
+.footer-logo-wrap {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid var(--border-gold);
+  background: #000;
+  margin: 0 auto 0.9rem;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.6);
+}
+
+.footer-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .footer-union-pill {

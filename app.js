@@ -9,20 +9,25 @@ document.addEventListener("DOMContentLoaded", async () => {
   };
 
   const TAMANHOS_CONFIG = {
-    brotinho: { nome: "Brotinho", fatias: "4 fatias" },
-    media: { nome: "Média", fatias: "6 fatias" },
-    grande: { nome: "Grande", fatias: "8 fatias" },
-    familia: { nome: "Família", fatias: "12 fatias" }
+    pequena: { nome: "Pequena", detalhe: "25cm · até 2 sabores" },
+    media:   { nome: "Média",   detalhe: "30cm · até 3 sabores" },
+    grande:  { nome: "Grande",  detalhe: "35cm · até 4 sabores" },
+    gigante: { nome: "Gigante", detalhe: "40cm · até 4 sabores" }
   };
 
   const DOM = {
     headerStoreName: document.getElementById("headerStoreName"),
+    headerMapBtn: document.getElementById("headerMapBtn"),
     storeStatusBadge: document.getElementById("storeStatusBadge"),
     storeStatusText: document.getElementById("storeStatusText"),
     infoDeliveryTime: document.getElementById("infoDeliveryTime"),
     infoDeliveryFee: document.getElementById("infoDeliveryFee"),
+    infoMinOrder: document.getElementById("infoMinOrder"),
     infoOpenHours: document.getElementById("infoOpenHours"),
+    footerAddress: document.getElementById("footerAddress"),
     footerWhatsAppBtn: document.getElementById("footerWhatsAppBtn"),
+    footerPhoneText: document.getElementById("footerPhoneText"),
+    footerMapBtn: document.getElementById("footerMapBtn"),
     currentYear: document.getElementById("currentYear"),
 
     searchInput: document.getElementById("searchInput"),
@@ -54,6 +59,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   async function inicializar() {
     if (DOM.currentYear) DOM.currentYear.textContent = new Date().getFullYear();
+
+    // Actualiza automáticamente si el navegador tenía datos viejos sin dirección de Fraiburgo
+    const configSalva = await OlimpoDB.obterConfiguracoes();
+    if (!configSalva.endereco && typeof OlimpoDB.restaurarDadosFabrica === "function") {
+      OlimpoDB.restaurarDadosFabrica();
+    }
 
     state.configuracoes = await OlimpoDB.obterConfiguracoes();
     state.produtos = await OlimpoDB.obterProdutos();
@@ -87,7 +98,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const conf = state.configuracoes || {};
 
     if (DOM.headerStoreName && conf.nomePizzaria) {
-      DOM.headerStoreName.textContent = conf.nomePizzaria.replace("Pizzaria", "").trim() || conf.nomePizzaria;
+      DOM.headerStoreName.textContent = "Olimpo";
     }
 
     if (DOM.storeStatusBadge && DOM.storeStatusText) {
@@ -96,21 +107,20 @@ document.addEventListener("DOMContentLoaded", async () => {
       DOM.storeStatusText.textContent = aberto ? "Aberto" : "Fechado";
     }
 
-    if (DOM.infoDeliveryTime && conf.tempoEntrega) {
-      DOM.infoDeliveryTime.textContent = conf.tempoEntrega;
-    }
+    if (DOM.infoDeliveryTime && conf.tempoEntrega) DOM.infoDeliveryTime.textContent = conf.tempoEntrega;
+    if (DOM.infoDeliveryFee && conf.taxaEntrega !== undefined) DOM.infoDeliveryFee.textContent = formatarMoeda(conf.taxaEntrega);
+    if (DOM.infoMinOrder && conf.pedidoMinimo !== undefined) DOM.infoMinOrder.textContent = formatarMoeda(conf.pedidoMinimo);
+    if (DOM.infoOpenHours && conf.horarioFuncionamento) DOM.infoOpenHours.textContent = conf.horarioFuncionamento;
+    if (DOM.footerAddress && conf.endereco) DOM.footerAddress.textContent = conf.endereco;
+    if (DOM.footerPhoneText && conf.telefoneFormatado) DOM.footerPhoneText.textContent = conf.telefoneFormatado;
 
-    if (DOM.infoDeliveryFee && conf.taxaEntrega !== undefined) {
-      DOM.infoDeliveryFee.textContent = formatarMoeda(conf.taxaEntrega);
-    }
-
-    if (DOM.infoOpenHours && conf.horarioFuncionamento) {
-      DOM.infoOpenHours.textContent = conf.horarioFuncionamento;
-    }
+    const mapLink = conf.mapsUrl || "https://www.google.com/maps/search/?api=1&query=Rua+Olavo+Bilac+303+Fraiburgo+SC";
+    if (DOM.headerMapBtn) DOM.headerMapBtn.href = mapLink;
+    if (DOM.footerMapBtn) DOM.footerMapBtn.href = mapLink;
 
     if (DOM.footerWhatsAppBtn) {
-      const num = (conf.telefoneWhatsApp || "5511999999999").replace(/\D/g, "");
-      DOM.footerWhatsAppBtn.href = `https://wa.me/${num}?text=${encodeURIComponent("Olá! Vi o cardápio da Olimpo Pizzaria e gostaria de fazer um pedido.")}`;
+      const num = (conf.telefoneWhatsApp || "5549999156336").replace(/\D/g, "");
+      DOM.footerWhatsAppBtn.href = `https://wa.me/${num}?text=${encodeURIComponent("Olá! Vi o cardápio da Olimpo Pizzas Delivery e gostaria de fazer um pedido.")}`;
     }
   }
 
@@ -127,7 +137,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       const ativa = state.categoriaAtiva === cat.id ? "active" : "";
       html += `
         <button class="cat-chip ${ativa}" data-category="${cat.id}">
-          ${cat.nome.replace("Pizzas ", "")}
+          ${cat.nome}
         </button>
       `;
     });
@@ -139,6 +149,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         state.categoriaAtiva = btn.getAttribute("data-category");
         renderizarCategorias();
         renderizarProdutos();
+        btn.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
       });
     });
   }
@@ -157,14 +168,16 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (filtrados.length === 0) {
       DOM.productsContainer.innerHTML = `
-        <div style="text-align: center; padding: 3.5rem 1rem; color: var(--text-secondary);">
-          <p style="font-size: 0.95rem;">Nenhum item encontrado para "${state.termoBusca}".</p>
+        <div class="empty-search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <p>Nenhum item encontrado para "${state.termoBusca}".</p>
         </div>
       `;
       return;
     }
 
     let html = "";
+    let delayIndex = 0;
 
     if (state.categoriaAtiva === "todas" && state.termoBusca.trim() === "") {
       state.categorias.forEach(cat => {
@@ -177,7 +190,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 <span class="count">${itens.length}</span>
               </h2>
               <div class="items-grid">
-                ${itens.map(criarCardHTML).join("")}
+                ${itens.map(item => criarCardHTML(item, delayIndex++)).join("")}
               </div>
             </section>
           `;
@@ -187,7 +200,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       html = `
         <section class="menu-group">
           <div class="items-grid">
-            ${filtrados.map(criarCardHTML).join("")}
+            ${filtrados.map(item => criarCardHTML(item, delayIndex++)).join("")}
           </div>
         </section>
       `;
@@ -203,7 +216,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   }
 
-  function criarCardHTML(prod) {
+  function criarCardHTML(prod, index) {
     let precoTexto = "";
     if (prod.precos) {
       const menor = Math.min(...Object.values(prod.precos));
@@ -212,8 +225,10 @@ document.addEventListener("DOMContentLoaded", async () => {
       precoTexto = formatarMoeda(prod.precoFixo);
     }
 
+    const delay = Math.min(index * 45, 450);
+
     return `
-      <article class="menu-card ${!prod.disponivel ? "esgotado" : ""}" data-id="${prod.id}">
+      <article class="menu-card card-animate ${!prod.disponivel ? "esgotado" : ""}" style="animation-delay: ${delay}ms" data-id="${prod.id}">
         <div class="menu-card-info">
           <div>
             ${prod.destaque ? `<span class="menu-card-tag">${prod.destaque}</span>` : ""}
@@ -242,10 +257,10 @@ document.addEventListener("DOMContentLoaded", async () => {
       DOM.modalFixedPriceContainer.style.display = "none";
 
       DOM.modalSizesGrid.innerHTML = Object.keys(prod.precos).map(key => {
-        const info = TAMANHOS_CONFIG[key] || { nome: key, fatias: "" };
+        const info = TAMANHOS_CONFIG[key] || { nome: key, detalhe: "" };
         return `
           <div class="size-row">
-            <span><strong>${info.nome}</strong> <small>(${info.fatias})</small></span>
+            <span><strong>${info.nome}</strong> <small>${info.detalhe}</small></span>
             <span class="price">${formatarMoeda(prod.precos[key])}</span>
           </div>
         `;
@@ -253,7 +268,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       const bordasAtivas = state.bordas.filter(b => b.disponivel && b.preco > 0);
       if (bordasAtivas.length > 0) {
-        const listaBordas = bordasAtivas.map(b => `${b.nome.replace("Borda de ", "")} (+${formatarMoeda(b.preco)})`).join(" · ");
+        const listaBordas = bordasAtivas.map(b => `${b.nome} (+${formatarMoeda(b.preco)})`).join(" · ");
         DOM.modalCrustsSummary.innerHTML = `<i class="fa-solid fa-ring"></i> Bordas: ${listaBordas}`;
         DOM.modalExtrasNote.style.display = "flex";
       } else {
@@ -266,8 +281,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       DOM.modalFixedPriceValue.textContent = formatarMoeda(prod.precoFixo);
     }
 
-    const num = (state.configuracoes.telefoneWhatsApp || "5511999999999").replace(/\D/g, "");
-    const msg = `Olá! Vi no cardápio da Olimpo Pizzaria e gostaria de pedir: *${prod.nome}*`;
+    const num = (state.configuracoes.telefoneWhatsApp || "5549999156336").replace(/\D/g, "");
+    const msg = `Olá! Vi no cardápio da Olimpo Pizzas Delivery e gostaria de pedir: *${prod.nome}*`;
     DOM.btnWhatsAppItem.href = `https://wa.me/${num}?text=${encodeURIComponent(msg)}`;
 
     DOM.productModalOverlay.classList.add("active");

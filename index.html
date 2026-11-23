@@ -8,10 +8,68 @@
   
   <link rel="icon" type="image/png" href="logo.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="stylesheet" href="style.css?v=5">
+  <link rel="stylesheet" href="style.css?v=6">
 
-  <!-- Estilos críticos integrados para garantir tamanho exato e animações imediatas -->
   <style>
+    /* =========================================================
+       COREOGRAFÍA DE ENTRADA CINEMATOGRÁFICA & LOGO 3D FLUIDO
+       ========================================================= */
+    :root {
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    /* Telón inicial ultra rápido que se desvanece suavemente */
+    .page-curtain {
+      position: fixed;
+      inset: 0;
+      background: #08090B;
+      z-index: 9999;
+      pointer-events: none;
+      animation: curtainFade 0.85s var(--ease-out-expo) 0.12s forwards;
+    }
+
+    @keyframes curtainFade {
+      0% { opacity: 1; }
+      100% { opacity: 0; visibility: hidden; }
+    }
+
+    /* Cascada de entrada para cada bloque de la página */
+    .seq-1 { opacity: 0; animation: slideBlurIn 0.8s var(--ease-out-expo) 0.15s forwards; }
+    .seq-2 { opacity: 0; animation: logoGrandEnter 1s var(--ease-out-expo) 0.22s forwards; }
+    .seq-3 { opacity: 0; animation: slideBlurIn 0.85s var(--ease-out-expo) 0.36s forwards; }
+    .seq-4 { opacity: 0; animation: slideBlurIn 0.85s var(--ease-out-expo) 0.46s forwards; }
+    .seq-5 { opacity: 0; animation: slideBlurIn 0.85s var(--ease-out-expo) 0.56s forwards; }
+    .seq-6 { opacity: 0; animation: slideBlurIn 0.85s var(--ease-out-expo) 0.66s forwards; }
+    .seq-7 { opacity: 0; animation: slideBlurIn 0.9s var(--ease-out-expo) 0.76s forwards; }
+
+    @keyframes slideBlurIn {
+      0% {
+        opacity: 0;
+        transform: translateY(18px);
+        filter: blur(6px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+      }
+    }
+
+    @keyframes logoGrandEnter {
+      0% {
+        opacity: 0;
+        transform: scale(0.72) rotate(-8deg);
+        filter: blur(10px);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+        filter: blur(0);
+      }
+    }
+
+    /* Header limpio */
     .header-inner {
       height: 64px !important;
       display: flex !important;
@@ -28,45 +86,21 @@
     .header-logo-wrap {
       width: 38px !important;
       height: 38px !important;
-      min-width: 38px !important;
-      max-width: 38px !important;
       border-radius: 50% !important;
       overflow: hidden !important;
       border: 1px solid rgba(245, 197, 24, 0.45) !important;
       background: #000 !important;
       flex-shrink: 0 !important;
-      box-shadow: 0 0 12px rgba(245, 197, 24, 0.2) !important;
+      box-shadow: 0 0 14px rgba(245, 197, 24, 0.2) !important;
+      transition: transform 0.4s var(--ease-spring) !important;
     }
-    .header-logo-img {
-      width: 38px !important;
-      height: 38px !important;
-      object-fit: cover !important;
-      display: block !important;
-    }
-    .brand-stack {
-      display: flex !important;
-      flex-direction: column !important;
-      line-height: 1.15 !important;
-    }
-    .brand-name {
-      font-size: 1rem !important;
-      font-weight: 700 !important;
-      letter-spacing: 0.08em !important;
-      text-transform: uppercase !important;
-      white-space: nowrap !important;
-    }
-    .brand-city {
-      font-size: 0.66rem !important;
-      color: #9CA3AF !important;
-      white-space: nowrap !important;
-    }
-    .header-right {
-      display: flex !important;
-      align-items: center !important;
-      gap: 6px !important;
-      flex-shrink: 0 !important;
-    }
-    .union-emblem {
+    .brand:hover .header-logo-wrap { transform: scale(1.08) rotate(6deg) !important; }
+    .header-logo-img { width: 38px !important; height: 38px !important; object-fit: cover !important; }
+    .brand-stack { display: flex !important; flex-direction: column !important; line-height: 1.15 !important; }
+    .brand-name { font-size: 1rem !important; font-weight: 700 !important; letter-spacing: 0.08em !important; text-transform: uppercase !important; }
+    .brand-city { font-size: 0.66rem !important; color: #9CA3AF !important; }
+    .header-right { display: flex !important; align-items: center !important; gap: 6px !important; flex-shrink: 0 !important; }
+    .union-emblem, .icon-pill {
       width: 32px !important;
       height: 32px !important;
       border-radius: 50% !important;
@@ -76,49 +110,93 @@
       align-items: center !important;
       justify-content: center !important;
       flex-shrink: 0 !important;
+      transition: transform 0.35s var(--ease-spring), border-color 0.3s ease !important;
     }
-    .icon-pill {
-      width: 32px !important;
-      height: 32px !important;
-      border-radius: 50% !important;
-      background: #101216 !important;
-      border: 1px solid rgba(255, 255, 255, 0.08) !important;
-      display: inline-flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      font-size: 0.78rem !important;
-      flex-shrink: 0 !important;
+    .union-emblem:hover, .icon-pill:hover {
+      transform: scale(1.1) !important;
+      border-color: rgba(245, 197, 24, 0.45) !important;
     }
 
-    /* Protagonista centralizado com animações modernas */
+    /* =========================================================
+       ESCENARIO DEL LOGO 3D ORBITAL ULTRA FLUIDO
+       ========================================================= */
     .hero-minimal {
       text-align: center !important;
-      padding: 2.2rem 0 1.6rem !important;
+      padding: 2.3rem 0 1.6rem !important;
+      perspective: 900px !important;
     }
+
     .hero-logo-stage {
       position: relative !important;
-      width: 118px !important;
-      height: 118px !important;
+      width: 132px !important;
+      height: 132px !important;
       margin: 0 auto 1.35rem !important;
       display: flex !important;
       align-items: center !important;
       justify-content: center !important;
-      animation: olimpoFloat 4.8s ease-in-out infinite !important;
+      transform-style: preserve-3d !important;
+      cursor: pointer !important;
     }
-    .logo-halo-ring {
+
+    /* Onda de energía expansiva muy sutil */
+    .logo-pulse-wave {
       position: absolute !important;
-      inset: -3px !important;
+      inset: 6px !important;
+      border-radius: 50% !important;
+      border: 1px solid rgba(245, 197, 24, 0.45) !important;
+      animation: pulseShockwave 4.2s var(--ease-out-expo) infinite !important;
+      pointer-events: none !important;
+    }
+
+    @keyframes pulseShockwave {
+      0% { transform: scale(0.95); opacity: 0.7; }
+      75%, 100% { transform: scale(1.42); opacity: 0; }
+    }
+
+    /* Órbita exterior con punto luminoso */
+    .logo-orbit-outer {
+      position: absolute !important;
+      inset: 0 !important;
+      border-radius: 50% !important;
+      border: 1px solid rgba(245, 197, 24, 0.16) !important;
+      animation: orbitCW 11s linear infinite !important;
+      pointer-events: none !important;
+    }
+
+    .logo-orbit-outer::before {
+      content: "" !important;
+      position: absolute !important;
+      top: -3px !important;
+      left: 50% !important;
+      transform: translateX(-50%) !important;
+      width: 6px !important;
+      height: 6px !important;
+      border-radius: 50% !important;
+      background: #FBE170 !important;
+      box-shadow: 0 0 10px 2px rgba(245, 197, 24, 0.85) !important;
+    }
+
+    /* Órbita interior contra-rotatoria */
+    .logo-orbit-inner {
+      position: absolute !important;
+      inset: 7px !important;
       border-radius: 50% !important;
       background: conic-gradient(
         from 0deg,
         transparent 0%,
-        rgba(245, 197, 24, 0.15) 25%,
+        rgba(245, 197, 24, 0.12) 30%,
         #F5C518 50%,
-        rgba(245, 197, 24, 0.15) 75%,
+        rgba(245, 197, 24, 0.12) 70%,
         transparent 100%
       ) !important;
-      animation: olimpoSpin 5.5s linear infinite !important;
+      animation: orbitCCW 6.5s linear infinite !important;
+      pointer-events: none !important;
     }
+
+    @keyframes orbitCW { to { transform: rotate(360deg); } }
+    @keyframes orbitCCW { to { transform: rotate(-360deg); } }
+
+    /* Medallón 3D con respiración fluida */
     .logo-medallion {
       position: relative !important;
       width: 112px !important;
@@ -127,30 +205,46 @@
       background: #000000 !important;
       overflow: hidden !important;
       z-index: 2 !important;
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.85), 0 0 26px rgba(245, 197, 24, 0.22) !important;
+      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.88), 0 0 28px rgba(245, 197, 24, 0.22) !important;
+      transition: transform 0.25s ease-out, box-shadow 0.35s ease !important;
+      animation: smoothBreathe 5.5s ease-in-out infinite !important;
     }
+
+    .hero-logo-stage:hover .logo-medallion {
+      box-shadow: 0 18px 42px rgba(0, 0, 0, 0.9), 0 0 36px rgba(245, 197, 24, 0.42) !important;
+    }
+
+    @keyframes smoothBreathe {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-5px) scale(1.025); }
+    }
+
     .hero-logo-img {
       width: 112px !important;
       height: 112px !important;
       object-fit: cover !important;
       transform: scale(1.04) !important;
-      display: block !important;
     }
+
+    /* Destello de cristal líquido */
     .logo-sheen {
       position: absolute !important;
       inset: 0 !important;
-      background: linear-gradient(115deg, transparent 30%, rgba(255, 255, 255, 0.25) 50%, transparent 70%) !important;
-      transform: translateX(-140%) !important;
-      animation: olimpoSheen 5s ease-in-out infinite !important;
+      background: linear-gradient(115deg, transparent 25%, rgba(255, 255, 255, 0.3) 50%, transparent 75%) !important;
+      transform: translateX(-150%) !important;
+      animation: liquidSheen 4.8s ease-in-out infinite !important;
       pointer-events: none !important;
     }
-    .hero-subtitle {
-      margin-left: auto !important;
-      margin-right: auto !important;
+
+    @keyframes liquidSheen {
+      0%, 55% { transform: translateX(-150%); }
+      100% { transform: translateX(150%); }
     }
-    .meta-bar {
-      justify-content: center !important;
-    }
+
+    .hero-subtitle { margin-left: auto !important; margin-right: auto !important; }
+    .meta-bar { justify-content: center !important; }
+
+    /* Footer logo */
     .footer-logo-wrap {
       width: 64px !important;
       height: 64px !important;
@@ -159,32 +253,20 @@
       border: 1px solid rgba(245, 197, 24, 0.4) !important;
       background: #000 !important;
       margin: 0 auto 0.9rem !important;
+      transition: transform 0.4s var(--ease-spring) !important;
     }
-    .footer-logo-img {
-      width: 64px !important;
-      height: 64px !important;
-      object-fit: cover !important;
-      display: block !important;
-    }
-    @keyframes olimpoFloat {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-6px); }
-    }
-    @keyframes olimpoSpin {
-      to { transform: rotate(360deg); }
-    }
-    @keyframes olimpoSheen {
-      0%, 60% { transform: translateX(-140%); }
-      100% { transform: translateX(140%); }
-    }
+    .footer-logo-wrap:hover { transform: scale(1.08) rotate(-6deg) !important; }
+    .footer-logo-img { width: 64px !important; height: 64px !important; object-fit: cover !important; }
   </style>
 </head>
 <body>
 
+  <!-- Telón de apertura cinematográfica -->
+  <div class="page-curtain" aria-hidden="true"></div>
   <div class="ambient-glow" aria-hidden="true"></div>
 
-  <!-- 1. HEADER LIMPIO EN UNA SOLA FILA -->
-  <header class="site-header">
+  <!-- 1. HEADER -->
+  <header class="site-header seq-1">
     <div class="container">
       <div class="header-inner">
         <a href="index.html" class="brand">
@@ -198,19 +280,12 @@
         </a>
 
         <div class="header-right">
-          <!-- Emblema Minimalista Diagonal: Brasil & Venezuela -->
           <div class="union-emblem" title="Brasil & Venezuela">
             <svg width="22" height="22" style="width:22px;height:22px;display:block;" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Brasil e Venezuela">
               <defs>
-                <clipPath id="splitLeft">
-                  <polygon points="0,0 22,0 14,36 0,36"/>
-                </clipPath>
-                <clipPath id="splitRight">
-                  <polygon points="22,0 36,0 36,36 14,36"/>
-                </clipPath>
-                <clipPath id="circleMask">
-                  <circle cx="18" cy="18" r="17"/>
-                </clipPath>
+                <clipPath id="splitLeft"><polygon points="0,0 22,0 14,36 0,36"/></clipPath>
+                <clipPath id="splitRight"><polygon points="22,0 36,0 36,36 14,36"/></clipPath>
+                <clipPath id="circleMask"><circle cx="18" cy="18" r="17"/></clipPath>
               </defs>
               <g clip-path="url(#circleMask)">
                 <g clip-path="url(#splitLeft)">
@@ -231,177 +306,4 @@
                     <circle cx="28.4" cy="18.8" r="0.8"/>
                   </g>
                 </g>
-                <line x1="22" y1="0" x2="14" y2="36" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
-              </g>
-              <circle cx="18" cy="18" r="17" stroke="rgba(245,197,24,0.5)" stroke-width="1"/>
-            </svg>
-          </div>
-
-          <a href="#" target="_blank" class="icon-pill" id="headerMapBtn" title="Ver localização no mapa">
-            <i class="fa-solid fa-location-dot"></i>
-          </a>
-
-          <div class="status-pill open" id="storeStatusBadge">
-            <span class="status-dot"></span>
-            <span id="storeStatusText">Aberto</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <!-- 2. HERO CENTRADO CON LOGO ANIMADO PROTAGONISTA -->
-  <section class="hero-minimal">
-    <div class="container">
-      <div class="hero-reveal">
-        <div class="hero-logo-stage">
-          <div class="logo-halo-ring" aria-hidden="true"></div>
-          <div class="logo-medallion">
-            <img src="logo.png" alt="Olimpo Pizzas Delivery" width="112" height="112" class="hero-logo-img">
-            <div class="logo-sheen" aria-hidden="true"></div>
-          </div>
-        </div>
-
-        <span class="hero-eyebrow">Pizzas Delivery · São José</span>
-        <h1 class="hero-title">Sabores dignos do <span>Olimpo</span></h1>
-        <p class="hero-subtitle" id="heroDescription">
-          Pizzas artesanais, calzones e combos exclusivos preparados na hora em Fraiburgo.
-        </p>
-
-        <div class="meta-bar">
-          <span><i class="fa-regular fa-clock"></i> <strong id="infoOpenHours">Ter a Dom · 18h30 às 23h30</strong></span>
-          <span class="meta-sep">•</span>
-          <span><i class="fa-solid fa-motorcycle"></i> <strong id="infoDeliveryTime">40–55 min</strong></span>
-          <span class="meta-sep">•</span>
-          <span><i class="fa-solid fa-bag-shopping"></i> Mín. <strong id="infoMinOrder">R$ 24,00</strong></span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 3. BUSCADOR Y CATEGORÍAS STICKY -->
-  <div class="sticky-controls">
-    <div class="container">
-      <div class="search-minimal">
-        <i class="fa-solid fa-magnifying-glass"></i>
-        <input 
-          type="text" 
-          id="searchInput" 
-          placeholder="Buscar pizza, calzone ou ingrediente..." 
-          autocomplete="off"
-        >
-        <button class="search-clear" id="searchClearBtn" aria-label="Limpar">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-      </div>
-
-      <nav class="categories-strip" id="categoriesBar" aria-label="Categorias"></nav>
-    </div>
-  </div>
-
-  <!-- 4. LISTADO DEL CARDÁPIO -->
-  <main class="container">
-    <div id="productsContainer"></div>
-  </main>
-
-  <!-- 5. MODAL DE DETALLES DEL PRODUCTO -->
-  <div class="modal-overlay" id="productModalOverlay">
-    <div class="modal-card">
-      <button class="btn-close-floating" id="btnCloseModal" aria-label="Fechar">
-        <i class="fa-solid fa-xmark"></i>
-      </button>
-
-      <div class="modal-cover">
-        <img src="" alt="" id="modalProductImage">
-      </div>
-
-      <div class="modal-content">
-        <span class="modal-cat" id="modalProductCategory">Pizzas</span>
-        <h2 class="modal-title" id="modalProductName">Nome do Produto</h2>
-        <p class="modal-desc" id="modalProductDescription"></p>
-
-        <div id="modalSizesContainer">
-          <h3 class="modal-label">Tamanhos & Sabores</h3>
-          <div class="sizes-list" id="modalSizesGrid"></div>
-        </div>
-
-        <div id="modalFixedPriceContainer" style="display: none;">
-          <div class="fixed-price-row">
-            <span>Valor</span>
-            <strong id="modalFixedPriceValue">R$ 0,00</strong>
-          </div>
-        </div>
-
-        <div class="modal-notes" id="modalExtrasNote">
-          <p><i class="fa-solid fa-pizza-slice"></i> Monte com até <strong>3 sabores</strong> (Média) ou <strong>4 sabores</strong> (Grande).</p>
-          <p id="modalCrustsSummary"></p>
-        </div>
-
-        <a href="#" target="_blank" class="btn-whatsapp-direct" id="btnWhatsAppItem">
-          <i class="fa-brands fa-whatsapp"></i>
-          <span>Pedir pelo WhatsApp</span>
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <!-- 6. FOOTER CON LOGO Y EMBLEMA BRASIL + VENEZUELA -->
-  <footer class="site-footer">
-    <div class="container">
-      <div class="footer-logo-wrap">
-        <img src="logo.png" alt="Olimpo Pizzas Delivery" width="64" height="64" class="footer-logo-img">
-      </div>
-
-      <div class="footer-union-pill">
-        <svg width="20" height="20" style="width:20px;height:20px;display:block;" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <defs>
-            <clipPath id="splitLeftF"><polygon points="0,0 22,0 14,36 0,36"/></clipPath>
-            <clipPath id="splitRightF"><polygon points="22,0 36,0 36,36 14,36"/></clipPath>
-            <clipPath id="circleMaskF"><circle cx="18" cy="18" r="17"/></clipPath>
-          </defs>
-          <g clip-path="url(#circleMaskF)">
-            <g clip-path="url(#splitLeftF)">
-              <rect width="36" height="36" fill="#009B3A"/>
-              <polygon points="15,5 28,18 15,31 2,18" fill="#FEDF00"/>
-              <circle cx="14" cy="18" r="6.2" fill="#002776"/>
-            </g>
-            <g clip-path="url(#splitRightF)">
-              <rect width="36" height="12" y="0" fill="#FCE300"/>
-              <rect width="36" height="12" y="12" fill="#003893"/>
-              <rect width="36" height="12" y="24" fill="#CE1126"/>
-            </g>
-            <line x1="22" y1="0" x2="14" y2="36" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
-          </g>
-        </svg>
-        <span>Brasil · Venezuela</span>
-      </div>
-
-      <div class="footer-logo">Olimpo Pizzas Delivery</div>
-      <p class="footer-address" id="footerAddress">Rua Olavo Bilac, 303 · São José, Fraiburgo - SC</p>
-      <p class="footer-info">Taxa de entrega padrão: <strong id="infoDeliveryFee">R$ 7,00</strong></p>
-
-      <div class="footer-actions">
-        <a href="#" target="_blank" class="footer-whats-link" id="footerWhatsAppBtn">
-          <i class="fa-brands fa-whatsapp"></i> <span id="footerPhoneText">(49) 9915-6336</span>
-        </a>
-        <a href="#" target="_blank" class="footer-map-link" id="footerMapBtn">
-          <i class="fa-solid fa-location-dot"></i> Como chegar
-        </a>
-      </div>
-
-      <p class="footer-copy">
-        &copy; <span id="currentYear"></span> Olimpo Pizzas Delivery · Fraiburgo/SC · <a href="admin.html">Painel</a>
-      </p>
-    </div>
-  </footer>
-
-  <!-- Scripts -->
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
-
-  <script src="seed-data.js?v=5"></script>
-  <script src="firebase-config.js?v=5"></script>
-  <script src="app.js?v=5"></script>
-</body>
-</html>
+                <line x1="22" y1="0" x

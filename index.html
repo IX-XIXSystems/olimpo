@@ -2,179 +2,35 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+  <meta name="theme-color" content="#08090B">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>Olimpo Pizzas Delivery — Fraiburgo, SC</title>
   <meta name="description" content="Cardápio digital da Olimpo Pizzas Delivery em Fraiburgo - SC. Pizzas artesanais, calzones e combos.">
-  
-  <link rel="preload" as="image" href="logo.png">
+
+  <!-- Preconexión inmediata para fuentes e imágenes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+  <link rel="preload" as="image" href="logo.png" fetchpriority="high">
+
   <link rel="icon" type="image/png" href="logo.png">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="stylesheet" href="style.css?v=9">
-
-  <style>
-    /* =========================================================
-       DISEÑO & ANIMACIONES ULTRA FLUIDAS (VISIBLES Y MODERNAS)
-       ========================================================= */
-    .header-inner { height: 64px !important; display: flex !important; align-items: center !important; justify-content: space-between !important; gap: 8px !important; }
-    .brand { display: flex !important; align-items: center !important; gap: 10px !important; min-width: 0 !important; }
-    .header-logo-wrap {
-      width: 38px !important; height: 38px !important; border-radius: 50% !important; overflow: hidden !important;
-      border: 1px solid rgba(245, 197, 24, 0.5) !important; background: #000 !important; flex-shrink: 0 !important;
-    }
-    .header-logo-img { width: 38px !important; height: 38px !important; object-fit: cover !important; }
-    .brand-stack { display: flex !important; flex-direction: column !important; line-height: 1.15 !important; }
-    .brand-name { font-size: 1rem !important; font-weight: 700 !important; letter-spacing: 0.08em !important; text-transform: uppercase !important; }
-    .brand-city { font-size: 0.66rem !important; color: #9CA3AF !important; }
-    .header-right { display: flex !important; align-items: center !important; gap: 6px !important; flex-shrink: 0 !important; }
-    .union-emblem, .icon-pill {
-      width: 32px !important; height: 32px !important; border-radius: 50% !important; background: #101216 !important;
-      border: 1px solid rgba(255, 255, 255, 0.08) !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; flex-shrink: 0 !important;
-    }
-
-    /* =========================================================
-       ESCENARIO DEL LOGO CON DOBLE ANILLO DE LUZ Y PULSO DORADO
-       ========================================================= */
-    .hero-minimal {
-      text-align: center !important;
-      padding: 2.3rem 0 1.6rem !important;
-      perspective: 1000px !important;
-    }
-
-    .hero-logo-stage {
-      position: relative !important;
-      width: 152px !important;
-      height: 152px !important;
-      margin: 0 auto 1.4rem !important;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      cursor: pointer !important;
-      user-select: none !important;
-    }
-
-    /* Resplandor dorado ambiental detrás del logo */
-    .logo-back-aura {
-      position: absolute !important;
-      inset: 8px !important;
-      border-radius: 50% !important;
-      background: radial-gradient(circle, rgba(245, 197, 24, 0.38) 0%, rgba(245, 197, 24, 0.08) 55%, transparent 75%) !important;
-      filter: blur(10px) !important;
-      animation: auraPulse 3.5s ease-in-out infinite alternate !important;
-      pointer-events: none !important;
-    }
-
-    @keyframes auraPulse {
-      0% { transform: scale(0.92); opacity: 0.65; }
-      100% { transform: scale(1.18); opacity: 1; }
-    }
-
-    /* Anillo exterior giratorio con estela de luz */
-    .logo-ring-1 {
-      position: absolute !important;
-      inset: 2px !important;
-      border-radius: 50% !important;
-      border: 2px solid transparent !important;
-      border-top-color: #FBE170 !important;
-      border-right-color: rgba(245, 197, 24, 0.45) !important;
-      animation: spinClockwise 3.2s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite !important;
-      pointer-events: none !important;
-    }
-
-    /* Anillo interior contra-rotatorio */
-    .logo-ring-2 {
-      position: absolute !important;
-      inset: 9px !important;
-      border-radius: 50% !important;
-      border: 1.5px solid transparent !important;
-      border-bottom-color: #F5C518 !important;
-      border-left-color: rgba(251, 225, 112, 0.5) !important;
-      animation: spinCounterClockwise 4.5s linear infinite !important;
-      pointer-events: none !important;
-    }
-
-    @keyframes spinClockwise { to { transform: rotate(360deg); } }
-    @keyframes spinCounterClockwise { to { transform: rotate(-360deg); } }
-
-    /* Medallón del logo */
-    .logo-medallion {
-      position: relative !important;
-      width: 120px !important;
-      height: 120px !important;
-      border-radius: 50% !important;
-      background: #000000 !important;
-      overflow: hidden !important;
-      z-index: 2 !important;
-      border: 1.5px solid rgba(245, 197, 24, 0.35) !important;
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.9), 0 0 32px rgba(245, 197, 24, 0.25) !important;
-      will-change: transform !important;
-    }
-
-    .hero-logo-img {
-      width: 120px !important;
-      height: 120px !important;
-      object-fit: cover !important;
-      transform: scale(1.04) !important;
-    }
-
-    /* Destello brillante que cruza el logo */
-    .logo-sheen {
-      position: absolute !important;
-      inset: 0 !important;
-      background: linear-gradient(115deg, transparent 20%, rgba(255, 255, 255, 0.45) 50%, transparent 80%) !important;
-      transform: translateX(-160%) !important;
-      animation: sheenSweep 3.8s ease-in-out infinite !important;
-      pointer-events: none !important;
-    }
-
-    @keyframes sheenSweep {
-      0%, 45% { transform: translateX(-160%); }
-      100% { transform: translateX(160%); }
-    }
-
-    .hero-subtitle { margin-left: auto !important; margin-right: auto !important; }
-    .meta-bar { justify-content: center !important; }
-
-    /* Shimmer en fotos mientras cargan */
-    .menu-card-thumb {
-      background: linear-gradient(90deg, #14171D 25%, #222834 50%, #14171D 75%) !important;
-      background-size: 200% 100% !important;
-      animation: skeletonShimmer 1.3s ease-in-out infinite !important;
-    }
-    .menu-card-thumb.loaded { animation: none !important; background: #14171D !important; }
-
-    @keyframes skeletonShimmer {
-      0% { background-position: 200% 0; }
-      100% { background-position: -200% 0; }
-    }
-
-    .menu-card-thumb img {
-      opacity: 0;
-      transform: scale(1.08);
-      transition: opacity 0.35s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
-    }
-    .menu-card-thumb img.is-ready {
-      opacity: 1 !important;
-      transform: scale(1) !important;
-    }
-
-    .footer-logo-wrap {
-      width: 64px !important; height: 64px !important; border-radius: 50% !important; overflow: hidden !important;
-      border: 1px solid rgba(245, 197, 24, 0.4) !important; background: #000 !important; margin: 0 auto 0.9rem !important;
-    }
-    .footer-logo-img { width: 64px !important; height: 64px !important; object-fit: cover !important; }
-  </style>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="style.css?v=10">
 </head>
 <body>
 
   <div class="ambient-glow" aria-hidden="true"></div>
 
-  <!-- 1. HEADER -->
-  <header class="site-header" data-anim="top">
+  <!-- 1. HEADER GLASSMORPHISM CON SAFE-AREA PARA IPHONE -->
+  <header class="site-header">
     <div class="container">
       <div class="header-inner">
         <a href="index.html" class="brand">
           <div class="header-logo-wrap">
-            <img src="logo.png" alt="Olimpo" width="38" height="38" class="header-logo-img">
+            <img src="logo.png" alt="Olimpo" width="38" height="38" decoding="sync" class="header-logo-img">
           </div>
           <div class="brand-stack">
             <span class="brand-name" id="headerStoreName">Olimpo</span>
@@ -184,7 +40,7 @@
 
         <div class="header-right">
           <div class="union-emblem" title="Brasil & Venezuela">
-            <svg width="22" height="22" style="width:22px;height:22px;display:block;" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Brasil e Venezuela">
+            <svg width="22" height="22" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Brasil e Venezuela">
               <defs>
                 <clipPath id="splitLeft"><polygon points="0,0 22,0 14,36 0,36"/></clipPath>
                 <clipPath id="splitRight"><polygon points="22,0 36,0 36,36 14,36"/></clipPath>
@@ -215,7 +71,7 @@
             </svg>
           </div>
 
-          <a href="#" target="_blank" class="icon-pill" id="headerMapBtn" title="Ver localização no mapa">
+          <a href="#" target="_blank" rel="noopener" class="icon-pill" id="headerMapBtn" title="Ver localização no mapa">
             <i class="fa-solid fa-location-dot"></i>
           </a>
 
@@ -228,27 +84,24 @@
     </div>
   </header>
 
-  <!-- 2. HERO CON LOGO ANIMADO DE IMPACTO -->
+  <!-- 2. HERO CON ANIMACIÓN DE ENTRADA MODERNA Y SUAVE -->
   <section class="hero-minimal">
     <div class="container">
-      <div class="hero-logo-stage" id="heroLogoStage" title="Toque no logo">
-        <div class="logo-back-aura" aria-hidden="true"></div>
-        <div class="logo-ring-1" aria-hidden="true"></div>
-        <div class="logo-ring-2" aria-hidden="true"></div>
-
+      <div class="hero-logo-stage" id="heroLogoStage">
+        <div class="logo-glow-ring" aria-hidden="true"></div>
         <div class="logo-medallion" id="heroLogoMedallion">
-          <img src="logo.png" alt="Olimpo Pizzas Delivery" width="120" height="120" fetchpriority="high" class="hero-logo-img">
+          <img src="logo.png" alt="Olimpo Pizzas Delivery" width="116" height="116" fetchpriority="high" decoding="sync" class="hero-logo-img">
           <div class="logo-sheen" aria-hidden="true"></div>
         </div>
       </div>
 
-      <span class="hero-eyebrow" data-anim="up">Pizzas Delivery · São José</span>
-      <h1 class="hero-title" data-anim="up">Sabores dignos do <span>Olimpo</span></h1>
-      <p class="hero-subtitle" id="heroDescription" data-anim="up">
+      <span class="hero-eyebrow reveal-item" style="--d: 60ms">Pizzas Delivery · São José</span>
+      <h1 class="hero-title reveal-item" style="--d: 120ms">Sabores dignos do <span>Olimpo</span></h1>
+      <p class="hero-subtitle reveal-item" style="--d: 180ms" id="heroDescription">
         Pizzas artesanais, calzones e combos exclusivos preparados na hora em Fraiburgo.
       </p>
 
-      <div class="meta-bar" data-anim="up">
+      <div class="meta-bar reveal-item" style="--d: 240ms">
         <span><i class="fa-regular fa-clock"></i> <strong id="infoOpenHours">Ter a Dom · 18h30 às 23h30</strong></span>
         <span class="meta-sep">•</span>
         <span><i class="fa-solid fa-motorcycle"></i> <strong id="infoDeliveryTime">40–55 min</strong></span>
@@ -259,17 +112,18 @@
   </section>
 
   <!-- 3. BUSCADOR Y CATEGORÍAS STICKY -->
-  <div class="sticky-controls" data-anim="up">
+  <div class="sticky-controls reveal-item" style="--d: 280ms">
     <div class="container">
       <div class="search-minimal">
         <i class="fa-solid fa-magnifying-glass"></i>
         <input 
-          type="text" 
+          type="search" 
           id="searchInput" 
           placeholder="Buscar pizza, calzone ou ingrediente..." 
           autocomplete="off"
+          enterkeyhint="search"
         >
-        <button class="search-clear" id="searchClearBtn" aria-label="Limpar">
+        <button type="button" class="search-clear" id="searchClearBtn" aria-label="Limpar">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
@@ -279,19 +133,19 @@
   </div>
 
   <!-- 4. LISTADO DEL CARDÁPIO -->
-  <main class="container" data-anim="up">
+  <main class="container">
     <div id="productsContainer"></div>
   </main>
 
   <!-- 5. MODAL DE DETALLES DEL PRODUCTO -->
   <div class="modal-overlay" id="productModalOverlay">
     <div class="modal-card">
-      <button class="btn-close-floating" id="btnCloseModal" aria-label="Fechar">
+      <button type="button" class="btn-close-floating" id="btnCloseModal" aria-label="Fechar">
         <i class="fa-solid fa-xmark"></i>
       </button>
 
       <div class="modal-cover">
-        <img src="" alt="" id="modalProductImage">
+        <img src="" alt="" id="modalProductImage" decoding="async">
       </div>
 
       <div class="modal-content">
@@ -316,7 +170,7 @@
           <p id="modalCrustsSummary"></p>
         </div>
 
-        <a href="#" target="_blank" class="btn-whatsapp-direct" id="btnWhatsAppItem">
+        <a href="#" target="_blank" rel="noopener" class="btn-whatsapp-direct" id="btnWhatsAppItem">
           <i class="fa-brands fa-whatsapp"></i>
           <span>Pedir pelo WhatsApp</span>
         </a>
@@ -328,11 +182,11 @@
   <footer class="site-footer">
     <div class="container">
       <div class="footer-logo-wrap">
-        <img src="logo.png" alt="Olimpo Pizzas Delivery" width="64" height="64" loading="lazy" class="footer-logo-img">
+        <img src="logo.png" alt="Olimpo Pizzas Delivery" width="60" height="60" loading="lazy" decoding="async" class="footer-logo-img">
       </div>
 
       <div class="footer-union-pill">
-        <svg width="20" height="20" style="width:20px;height:20px;display:block;" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <defs>
             <clipPath id="splitLeftF"><polygon points="0,0 22,0 14,36 0,36"/></clipPath>
             <clipPath id="splitRightF"><polygon points="22,0 36,0 36,36 14,36"/></clipPath>
@@ -360,10 +214,10 @@
       <p class="footer-info">Taxa de entrega padrão: <strong id="infoDeliveryFee">R$ 7,00</strong></p>
 
       <div class="footer-actions">
-        <a href="#" target="_blank" class="footer-whats-link" id="footerWhatsAppBtn">
+        <a href="#" target="_blank" rel="noopener" class="footer-whats-link" id="footerWhatsAppBtn">
           <i class="fa-brands fa-whatsapp"></i> <span id="footerPhoneText">(49) 9915-6336</span>
         </a>
-        <a href="#" target="_blank" class="footer-map-link" id="footerMapBtn">
+        <a href="#" target="_blank" rel="noopener" class="footer-map-link" id="footerMapBtn">
           <i class="fa-solid fa-location-dot"></i> Como chegar
         </a>
       </div>
@@ -374,65 +228,8 @@
     </div>
   </footer>
 
-  <!-- Scripts -->
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
-
-  <script src="seed-data.js?v=9"></script>
-  <script src="firebase-config.js?v=9"></script>
-  <script src="app.js?v=9"></script>
-
-  <!-- Motor de animaciones Web Animations API (100% fluido a 60fps en móvil) -->
-  <script>
-    (function () {
-      const stage = document.getElementById("heroLogoStage");
-      const medal = document.getElementById("heroLogoMedallion");
-
-      // 1. Animación de entrada espectacular del logo (zoom elástico + giro)
-      if (medal && medal.animate) {
-        medal.animate([
-          { transform: "scale(0.35) rotate(-28deg)", filter: "brightness(1.8)" },
-          { transform: "scale(1.12) rotate(6deg)", filter: "brightness(1.2)", offset: 0.68 },
-          { transform: "scale(0.97) rotate(-2deg)", filter: "brightness(1)", offset: 0.85 },
-          { transform: "scale(1) rotate(0deg)", filter: "brightness(1)" }
-        ], {
-          duration: 1100,
-          easing: "cubic-bezier(0.22, 1, 0.36, 1)",
-          fill: "both"
-        });
-      }
-
-      // 2. Entrada en cascada de toda la página
-      const blocks = document.querySelectorAll("[data-anim]");
-      blocks.forEach((el, i) => {
-        if (!el.animate) return;
-        const fromY = el.getAttribute("data-anim") === "top" ? -18 : 26;
-        el.animate([
-          { transform: `translateY(${fromY}px) scale(0.98)` },
-          { transform: "translateY(0px) scale(1)" }
-        ], {
-          duration: 850,
-          delay: 90 + i * 75,
-          easing: "cubic-bezier(0.16, 1, 0.3, 1)",
-          fill: "both"
-        });
-      });
-
-      // 3. Giro 3D interactivo al tocar el logo
-      if (stage && medal && medal.animate) {
-        stage.addEventListener("click", () => {
-          medal.animate([
-            { transform: "perspective(800px) rotateY(0deg) scale(1)" },
-            { transform: "perspective(800px) rotateY(180deg) scale(1.12)", offset: 0.5 },
-            { transform: "perspective(800px) rotateY(360deg) scale(1)" }
-          ], {
-            duration: 800,
-            easing: "cubic-bezier(0.22, 1, 0.36, 1)"
-          });
-        });
-      }
-    })();
-  </script>
+  <!-- Scripts sin bloqueo de red -->
+  <script src="seed-data.js?v=10"></script>
+  <script src="app.js?v=10"></script>
 </body>
 </html>

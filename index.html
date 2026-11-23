@@ -30,9 +30,48 @@
         </a>
 
         <div class="header-right">
+          <!-- Emblema Dual: Brasil + Venezuela -->
+          <div class="dual-flags-badge" title="Brasil & Venezuela · Sabor sem fronteiras">
+            <!-- Bandeira do Brasil -->
+            <svg class="flag-circle" viewBox="0 0 36 36" aria-label="Brasil">
+              <defs>
+                <clipPath id="clip-br"><circle cx="18" cy="18" r="18"/></clipPath>
+              </defs>
+              <g clip-path="url(#clip-br)">
+                <rect width="36" height="36" fill="#009B3A"/>
+                <polygon points="18,4 33,18 18,32 3,18" fill="#FEDF00"/>
+                <circle cx="18" cy="18" r="7.5" fill="#002776"/>
+                <path d="M10.5,16.5 Q18,14 25.5,18.5" stroke="#FFFFFF" stroke-width="1.4" fill="none"/>
+              </g>
+            </svg>
+
+            <!-- Bandeira da Venezuela -->
+            <svg class="flag-circle" viewBox="0 0 36 36" aria-label="Venezuela">
+              <defs>
+                <clipPath id="clip-ve"><circle cx="18" cy="18" r="18"/></clipPath>
+              </defs>
+              <g clip-path="url(#clip-ve)">
+                <rect width="36" height="12" y="0" fill="#FCE300"/>
+                <rect width="36" height="12" y="12" fill="#003893"/>
+                <rect width="36" height="12" y="24" fill="#CE1126"/>
+                <!-- Arco de estrelas -->
+                <g fill="#FFFFFF">
+                  <circle cx="11.5" cy="19.5" r="0.85"/>
+                  <circle cx="13.2" cy="17.5" r="0.85"/>
+                  <circle cx="15.5" cy="16.2" r="0.85"/>
+                  <circle cx="18" cy="15.8" r="0.85"/>
+                  <circle cx="20.5" cy="16.2" r="0.85"/>
+                  <circle cx="22.8" cy="17.5" r="0.85"/>
+                  <circle cx="24.5" cy="19.5" r="0.85"/>
+                </g>
+              </g>
+            </svg>
+          </div>
+
           <a href="#" target="_blank" class="icon-pill" id="headerMapBtn" title="Ver localização no mapa">
             <i class="fa-solid fa-location-dot"></i>
           </a>
+
           <div class="status-pill open" id="storeStatusBadge">
             <span class="status-dot"></span>
             <span id="storeStatusText">Aberto</span>
@@ -133,9 +172,42 @@
     </div>
   </div>
 
-  <!-- 6. FOOTER CON DATOS DE FRAIBURGO -->
+  <!-- 6. FOOTER CON DATOS DE FRAIBURGO E EMBLEMA BRASIL + VENEZUELA -->
   <footer class="site-footer">
     <div class="container">
+      <!-- Emblema Dual no Rodapé -->
+      <div class="footer-union-pill">
+        <div class="dual-flags-badge">
+          <svg class="flag-circle" viewBox="0 0 36 36" aria-label="Brasil">
+            <defs><clipPath id="clip-br-f"><circle cx="18" cy="18" r="18"/></clipPath></defs>
+            <g clip-path="url(#clip-br-f)">
+              <rect width="36" height="36" fill="#009B3A"/>
+              <polygon points="18,4 33,18 18,32 3,18" fill="#FEDF00"/>
+              <circle cx="18" cy="18" r="7.5" fill="#002776"/>
+              <path d="M10.5,16.5 Q18,14 25.5,18.5" stroke="#FFFFFF" stroke-width="1.4" fill="none"/>
+            </g>
+          </svg>
+          <svg class="flag-circle" viewBox="0 0 36 36" aria-label="Venezuela">
+            <defs><clipPath id="clip-ve-f"><circle cx="18" cy="18" r="18"/></clipPath></defs>
+            <g clip-path="url(#clip-ve-f)">
+              <rect width="36" height="12" y="0" fill="#FCE300"/>
+              <rect width="36" height="12" y="12" fill="#003893"/>
+              <rect width="36" height="12" y="24" fill="#CE1126"/>
+              <g fill="#FFFFFF">
+                <circle cx="11.5" cy="19.5" r="0.85"/>
+                <circle cx="13.2" cy="17.5" r="0.85"/>
+                <circle cx="15.5" cy="16.2" r="0.85"/>
+                <circle cx="18" cy="15.8" r="0.85"/>
+                <circle cx="20.5" cy="16.2" r="0.85"/>
+                <circle cx="22.8" cy="17.5" r="0.85"/>
+                <circle cx="24.5" cy="19.5" r="0.85"/>
+              </g>
+            </g>
+          </svg>
+        </div>
+        <span>Brasil & Venezuela</span>
+      </div>
+
       <div class="footer-logo">Olimpo Pizzas Delivery</div>
       <p class="footer-address" id="footerAddress">Rua Olavo Bilac, 303 · São José, Fraiburgo - SC</p>
       <p class="footer-info">Taxa de entrega padrão: <strong id="infoDeliveryFee">R$ 7,00</strong></p>

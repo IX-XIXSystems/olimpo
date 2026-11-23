@@ -145,7 +145,6 @@
     const yearEl = document.getElementById("currentYear");
     if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-    // Sincroniza se o admin editou algo no navegador
     try {
       const customProds = JSON.parse(localStorage.getItem("olimpo_produtos_v1"));
       if (Array.isArray(customProds) && customProds.length > 0) {
@@ -279,8 +278,21 @@
     const msg = `Olá! Vi no cardápio da Olimpo Pizzaria e gostaria de pedir: *${p.nome}*`;
     document.getElementById("btnWhatsAppItem").href = `https://wa.me/${MENU_DATA.whatsapp}?text=${encodeURIComponent(msg)}`;
 
-    document.getElementById("productModalOverlay").classList.add("active");
+    openModal("productModalOverlay");
+  }
+
+  function openModal(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.classList.add("active");
     document.body.style.overflow = "hidden";
+  }
+
+  function closeModal(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.classList.remove("active");
+    document.body.style.overflow = "";
   }
 
   function bindEvents() {
@@ -304,34 +316,40 @@
       });
     }
 
-    const prodModal = document.getElementById("productModalOverlay");
-    document.getElementById("btnCloseModal")?.addEventListener("click", () => {
-      prodModal.classList.remove("active");
-      document.body.style.overflow = "";
+    // Modal Producto
+    document.getElementById("btnCloseModal")?.addEventListener("click", () => closeModal("productModalOverlay"));
+    document.getElementById("productModalOverlay")?.addEventListener("click", (e) => {
+      if (e.target.id === "productModalOverlay") closeModal("productModalOverlay");
     });
-    prodModal?.addEventListener("click", (e) => {
-      if (e.target === prodModal) {
-        prodModal.classList.remove("active");
-        document.body.style.overflow = "";
+
+    // Modal Mapa (vista previa antes de abrir Google Maps)
+    ["btnOpenMapTop", "btnOpenMapHero", "btnOpenMapFooter"].forEach(btnId => {
+      document.getElementById(btnId)?.addEventListener("click", () => openModal("mapModalOverlay"));
+    });
+    document.getElementById("btnCloseMapModal")?.addEventListener("click", () => closeModal("mapModalOverlay"));
+    document.getElementById("mapModalOverlay")?.addEventListener("click", (e) => {
+      if (e.target.id === "mapModalOverlay") closeModal("mapModalOverlay");
+    });
+
+    // Botón Copiar Dirección dentro del modal del Mapa
+    document.getElementById("btnCopyAddress")?.addEventListener("click", () => {
+      const addr = "Av Adalberto Smith Burda, 303, São José - Fraiburgo, SC";
+      const label = document.getElementById("copyAddressLabel");
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(addr).then(() => {
+          if (label) label.textContent = "Endereço Copiado!";
+          setTimeout(() => { if (label) label.textContent = "Copiar Endereço"; }, 2200);
+        });
       }
     });
 
-    const mapModal = document.getElementById("mapModalOverlay");
-    const openMap = () => {
-      mapModal.classList.add("active");
-      document.body.style.overflow = "hidden";
-    };
-    const closeMap = () => {
-      mapModal.classList.remove("active");
-      document.body.style.overflow = "";
-    };
-
-    document.getElementById("btnOpenMapTop")?.addEventListener("click", openMap);
-    document.getElementById("btnOpenMapHero")?.addEventListener("click", openMap);
-    document.getElementById("btnOpenMapFooter")?.addEventListener("click", openMap);
-    document.getElementById("btnCloseMapModal")?.addEventListener("click", closeMap);
-    mapModal?.addEventListener("click", (e) => {
-      if (e.target === mapModal) closeMap();
+    // Modal Instagram (vista previa antes de abrir Instagram)
+    ["btnOpenIgTop", "btnOpenIgHero", "btnOpenIgFooter"].forEach(btnId => {
+      document.getElementById(btnId)?.addEventListener("click", () => openModal("igModalOverlay"));
+    });
+    document.getElementById("btnCloseIgModal")?.addEventListener("click", () => closeModal("igModalOverlay"));
+    document.getElementById("igModalOverlay")?.addEventListener("click", (e) => {
+      if (e.target.id === "igModalOverlay") closeModal("igModalOverlay");
     });
   }
 

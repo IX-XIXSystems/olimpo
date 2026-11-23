@@ -3,479 +3,157 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Olimpo Pizzaria — Cardápio Online & Delivery dos Deuses</title>
-  <meta name="description" content="Peça online as mais nobres pizzas artesanais do Olimpo. Massas de fermentação natural, ingredientes nobres e entrega rápida.">
+  <title>Olimpo Pizzaria — Cardápio Digital</title>
+  <meta name="description" content="Cardápio artesanal da Olimpo Pizzaria. Fermentação natural e ingredientes selecionados.">
   
-  <!-- Favicon com símbolo divino -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
-
-  <!-- Font Awesome 6 (Ícones modernos) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍕</text></svg>">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-  <!-- Estilos Personalizados -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
   <!-- ==========================================
-       1. CABEÇALHO DO SITE (HEADER)
+       1. CABEÇALHO MINIMALISTA
        ========================================== -->
   <header class="site-header">
     <div class="container">
       <div class="header-inner">
-        <!-- Logo e Identidade da Pizzaria -->
-        <a href="index.html" class="brand" title="Olimpo Pizzaria - Início">
-          <div class="brand-icon-wrap">
+        <a href="index.html" class="brand">
+          <div class="brand-mark">
             <i class="fa-solid fa-bolt"></i>
           </div>
-          <div class="brand-text">
-            <span class="brand-name" id="headerStoreName">Olimpo Pizzaria</span>
-            <span class="brand-tagline">O Sabor dos Deuses</span>
-          </div>
+          <span class="brand-name" id="headerStoreName">Olimpo</span>
         </a>
 
-        <!-- Selo de Aberto/Fechado & Ações Rápidas -->
-        <div class="header-actions">
-          <!-- Selo dinâmico de status -->
-          <div class="status-badge open" id="storeStatusBadge">
-            <span class="status-dot"></span>
-            <span id="storeStatusText">Aberto Agora</span>
-          </div>
-
-          <!-- Link discreto para o Painel Administrativo -->
-          <a href="admin.html" class="admin-link-badge" title="Área Restrita do Dono / Gerente">
-            <i class="fa-solid fa-lock"></i> Painel
-          </a>
-
-          <!-- Botão do Carrinho no Topo (Desktop) -->
-          <button class="btn-header-cart" id="btnOpenCartDesktop" aria-label="Abrir Carrinho de Compras">
-            <i class="fa-solid fa-bag-shopping"></i>
-            <span>Carrinho</span>
-            <span class="badge-count" id="headerCartCount">0</span>
-          </button>
-
-          <!-- Botão de Carrinho no Topo (Mobile) -->
-          <button class="btn-icon" id="btnOpenCartMobile" aria-label="Abrir Carrinho">
-            <i class="fa-solid fa-bag-shopping"></i>
-            <span class="badge-count" id="headerCartCountMobile">0</span>
-          </button>
+        <div class="status-pill open" id="storeStatusBadge">
+          <span class="status-dot"></span>
+          <span id="storeStatusText">Aberto</span>
         </div>
       </div>
     </div>
   </header>
 
   <!-- ==========================================
-       2. HERO SECTION / BANNER PROMOCIONAL
+       2. CABEÇALHO EDITORIAL
        ========================================== -->
-  <section class="hero-section">
+  <section class="hero-minimal">
     <div class="container">
-      <div class="hero-card">
-        <div class="hero-content">
-          <div class="hero-tag">
-            <i class="fa-solid fa-crown"></i>
-            <span>Cardápio Artesanal Premium</span>
-          </div>
-          <h1 class="hero-title">
-            Pizzas Dignas do <span>Monte Olimpo</span>
-          </h1>
-          <p class="hero-desc" id="heroDescription">
-            Receitas nobres com fermentação natural lenta, queijos selecionados e assadas com perfeição em forno de pedra para uma crocância celestial.
-          </p>
+      <p class="hero-eyebrow">Cardápio Artesanal</p>
+      <h1 class="hero-title">Sabores dignos do <span>Olimpo</span></h1>
+      <p class="hero-subtitle" id="heroDescription">
+        Fermentação natural lenta, ingredientes nobres e forno de pedra.
+      </p>
 
-          <!-- Pílulas de Informações Práticas -->
-          <div class="info-pills">
-            <div class="info-pill" title="Tempo médio de entrega">
-              <i class="fa-solid fa-clock"></i>
-              <span>Entrega: <strong id="infoDeliveryTime">35 a 50 min</strong></span>
-            </div>
-            <div class="info-pill" title="Taxa de entrega padrão">
-              <i class="fa-solid fa-motorcycle"></i>
-              <span>Taxa: <strong id="infoDeliveryFee">R$ 7,00</strong></span>
-            </div>
-            <div class="info-pill" title="Horário de atendimento">
-              <i class="fa-solid fa-calendar-check"></i>
-              <span id="infoOpenHours">Ter a Dom: 18:00 às 23:45</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Barra de Busca Rápida em Tempo Real -->
-      <div class="search-section">
-        <div class="search-box-wrap">
-          <input 
-            type="text" 
-            class="search-input" 
-            id="searchInput" 
-            placeholder="Buscar pizza pelo nome ou ingrediente (ex: Catupiry, Pepperoni, Nutella)..." 
-            autocomplete="off"
-          >
-          <i class="fa-solid fa-magnifying-glass search-icon"></i>
-          <button class="search-clear-btn" id="searchClearBtn" aria-label="Limpar busca">
-            <i class="fa-solid fa-xmark"></i>
-          </button>
-        </div>
+      <div class="meta-bar">
+        <span><i class="fa-regular fa-clock"></i> <strong id="infoOpenHours">Ter a Dom · 18h às 23h45</strong></span>
+        <span class="meta-sep">•</span>
+        <span><i class="fa-solid fa-motorcycle"></i> <strong id="infoDeliveryTime">35–50 min</strong></span>
       </div>
     </div>
   </section>
 
   <!-- ==========================================
-       3. NAVEGAÇÃO STICKY DE CATEGORIAS
+       3. BUSCA E CATEGORIAS STICKY
        ========================================== -->
-  <div class="categories-nav-wrapper">
+  <div class="sticky-controls">
     <div class="container">
-      <nav class="categories-bar" id="categoriesBar" aria-label="Categorias do cardápio">
-        <!-- Pílulas preenchidas dinamicamente via JavaScript -->
-        <button class="category-pill active" data-category="todas">
-          <i class="fa-solid fa-border-all"></i>
-          <span>Todas as Opções</span>
+      <div class="search-minimal">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input 
+          type="text" 
+          id="searchInput" 
+          placeholder="Buscar sabor ou ingrediente..." 
+          autocomplete="off"
+        >
+        <button class="search-clear" id="searchClearBtn" aria-label="Limpar">
+          <i class="fa-solid fa-xmark"></i>
         </button>
+      </div>
+
+      <nav class="categories-strip" id="categoriesBar" aria-label="Categorias">
+        <!-- Preenchido via app.js -->
       </nav>
     </div>
   </div>
 
   <!-- ==========================================
-       4. LISTAGEM DO CARDÁPIO (PRODUTOS)
+       4. LISTAGEM DO CARDÁPIO
        ========================================== -->
   <main class="container">
     <div id="productsContainer">
-      <!-- As seções e cartões de produtos são renderizados aqui via app.js -->
+      <!-- Renderizado via app.js -->
     </div>
   </main>
 
   <!-- ==========================================
-       5. MODAL DE PERSONALIZAÇÃO DE ITEM
+       5. MODAL DE DETALHES E PREÇOS DO ITEM
        ========================================== -->
   <div class="modal-overlay" id="productModalOverlay">
-    <div class="modal-sheet">
-      <!-- Cabeçalho do Modal -->
-      <div class="modal-header">
-        <div class="modal-title-wrap">
-          <h2 class="modal-title" id="modalProductName">Nome da Pizza</h2>
-          <span class="modal-subtitle" id="modalProductCategory">Pizzas Especiais</span>
-        </div>
-        <button class="btn-close-modal" id="btnCloseModal" aria-label="Fechar janela">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-      </div>
-
-      <!-- Corpo Rolável de Opções -->
-      <div class="modal-body">
-        <img src="" alt="" class="modal-preview-img" id="modalProductImage">
-        
-        <p class="product-desc" id="modalProductDescription" style="margin: 0; font-size: 0.92rem;"></p>
-
-        <!-- 1. SELEÇÃO DE TAMANHOS (Aparece somente para pizzas) -->
-        <div id="modalSizesContainer">
-          <div class="modal-section-title">
-            <span>1. Escolha o Tamanho</span>
-            <span class="modal-section-badge">Obrigatório</span>
-          </div>
-          <div class="size-selector-grid" id="modalSizesGrid">
-            <!-- Tamanhos gerados via JavaScript -->
-          </div>
-        </div>
-
-        <!-- 2. PIZZA MEIA A MEIA (2 SABORES) -->
-        <div class="half-pizza-box" id="modalHalfPizzaBox">
-          <label class="toggle-label" for="halfPizzaCheckbox">
-            <div class="toggle-text-wrap">
-              <span class="toggle-title">Deseja Pizza Meia a Meia?</span>
-              <span class="toggle-desc" id="modalHalfRuleNote">Escolha um 2º sabor na mesma pizza</span>
-            </div>
-            <div class="custom-switch">
-              <input type="checkbox" id="halfPizzaCheckbox">
-              <span class="switch-slider"></span>
-            </div>
-          </label>
-
-          <!-- Seletor do 2º Sabor -->
-          <div class="half-flavor-select-wrap" id="halfFlavorWrap">
-            <label class="form-label" style="margin-bottom: 0.4rem; display: block;">Selecione o 2º Sabor:</label>
-            <select class="custom-select" id="secondFlavorSelect">
-              <!-- Sabores elegíveis inseridos via JS -->
-            </select>
-          </div>
-        </div>
-
-        <!-- 3. BORDA RECHEADA (Opcional) -->
-        <div id="modalCrustContainer">
-          <div class="modal-section-title">
-            <span>Borda Recheada Artesanal</span>
-            <span class="modal-section-badge">Opcional</span>
-          </div>
-          <div class="crust-list" id="modalCrustList">
-            <!-- Bordas geradas via JavaScript -->
-          </div>
-        </div>
-
-        <!-- 4. OBSERVAÇÕES DO PEDIDO -->
-        <div class="form-group">
-          <label class="form-label" for="modalNotesInput">
-            <i class="fa-regular fa-comment-dots"></i> Alguma observação especial?
-          </label>
-          <textarea 
-            id="modalNotesInput" 
-            class="obs-textarea" 
-            placeholder="Exemplo: Tirar a cebola, massa bem crocante, fatiar em aperitivo..."
-            maxlength="200"
-          ></textarea>
-        </div>
-      </div>
-
-      <!-- Rodapé do Modal com Contador e Botão de Adicionar -->
-      <div class="modal-footer">
-        <div class="qty-controller">
-          <button class="qty-btn" id="btnModalDecreaseQty" aria-label="Diminuir quantidade">
-            <i class="fa-solid fa-minus"></i>
-          </button>
-          <span class="qty-display" id="modalQtyDisplay">1</span>
-          <button class="qty-btn" id="btnModalIncreaseQty" aria-label="Aumentar quantidade">
-            <i class="fa-solid fa-plus"></i>
-          </button>
-        </div>
-
-        <button class="btn-confirm-add" id="btnModalAddToCart">
-          <span>Adicionar ao Pedido</span>
-          <span id="modalLiveTotalPrice">R$ 0,00</span>
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ==========================================
-       6. CARRINHO LATERAL DESLIZANTE (DRAWER)
-       ========================================== -->
-  <div class="cart-drawer-overlay" id="cartDrawerOverlay">
-    <aside class="cart-drawer" aria-label="Carrinho de compras">
-      <!-- Cabeçalho do Carrinho -->
-      <div class="cart-header">
-        <div class="cart-title">
-          <i class="fa-solid fa-bag-shopping"></i>
-          <span>Seu Pedido</span>
-        </div>
-        <button class="btn-close-modal" id="btnCloseCart" aria-label="Fechar carrinho">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-      </div>
-
-      <!-- Corpo do Carrinho -->
-      <div class="cart-body">
-        <!-- Estado Vazio -->
-        <div class="cart-empty-state" id="cartEmptyState">
-          <div class="empty-icon-wrap">
-            <i class="fa-solid fa-pizza-slice"></i>
-          </div>
-          <h3 class="empty-title">Sua sacola está vazia</h3>
-          <p class="empty-desc">Escolha uma de nossas pizzas dos deuses e monte seu pedido celestial!</p>
-        </div>
-
-        <!-- Lista de Itens Adicionados -->
-        <div class="cart-items-list" id="cartItemsList">
-          <!-- Renderizado via app.js -->
-        </div>
-
-        <!-- Seção de Dados e Checkout (Aparece se houver itens) -->
-        <div class="checkout-section" id="checkoutSection">
-          <div class="checkout-title">
-            <i class="fa-solid fa-user-check"></i>
-            <span>Seus Dados de Contato</span>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label" for="clientName">Seu Nome Completo *</label>
-            <input type="text" id="clientName" class="form-input" placeholder="Ex: Alexandre Magno" required>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label" for="clientPhone">Seu Telefone / WhatsApp com DDD *</label>
-            <input type="tel" id="clientPhone" class="form-input" placeholder="Ex: (11) 98765-4321" required>
-          </div>
-
-          <!-- Tipo de Entrega: Delivery ou Retirada -->
-          <div class="checkout-title" style="margin-top: 0.5rem;">
-            <i class="fa-solid fa-location-dot"></i>
-            <span>Como deseja receber?</span>
-          </div>
-
-          <div class="delivery-tabs">
-            <button type="button" class="delivery-tab-btn active" id="tabDelivery" data-delivery="delivery">
-              <i class="fa-solid fa-motorcycle"></i> Entrega (Delivery)
-            </button>
-            <button type="button" class="delivery-tab-btn" id="tabPickup" data-delivery="retirada">
-              <i class="fa-solid fa-store"></i> Retirar no Balcão
-            </button>
-          </div>
-
-          <!-- Campos de Endereço (somente se Entrega) -->
-          <div id="addressFieldsContainer">
-            <div class="form-grid-2">
-              <div class="form-group">
-                <label class="form-label" for="addressStreet">Rua / Avenida *</label>
-                <input type="text" id="addressStreet" class="form-input" placeholder="Ex: Rua dos Deuses">
-              </div>
-              <div class="form-group">
-                <label class="form-label" for="addressNumber">Número *</label>
-                <input type="text" id="addressNumber" class="form-input" placeholder="Ex: 777">
-              </div>
-            </div>
-
-            <div class="form-grid-2" style="margin-top: 0.65rem;">
-              <div class="form-group">
-                <label class="form-label" for="addressNeighborhood">Bairro *</label>
-                <input type="text" id="addressNeighborhood" class="form-input" placeholder="Ex: Centro">
-              </div>
-              <div class="form-group">
-                <label class="form-label" for="addressComplement">Complemento</label>
-                <input type="text" id="addressComplement" class="form-input" placeholder="Ex: Apto 42, Bloco B">
-              </div>
-            </div>
-          </div>
-
-          <!-- Forma de Pagamento -->
-          <div class="checkout-title" style="margin-top: 0.5rem;">
-            <i class="fa-solid fa-credit-card"></i>
-            <span>Forma de Pagamento</span>
-          </div>
-
-          <div class="payment-options">
-            <button type="button" class="payment-btn selected" data-payment="pix">
-              <i class="fa-brands fa-pix"></i>
-              <span>Pix</span>
-            </button>
-            <button type="button" class="payment-btn" data-payment="cartao">
-              <i class="fa-solid fa-credit-card"></i>
-              <span>Cartão</span>
-            </button>
-            <button type="button" class="payment-btn" data-payment="dinheiro">
-              <i class="fa-solid fa-money-bill-wave"></i>
-              <span>Dinheiro</span>
-            </button>
-          </div>
-
-          <!-- Bloco Informativo Pix -->
-          <div class="pix-details-box active" id="pixDetailsBox">
-            <div class="pix-header">
-              <span class="pix-badge"><i class="fa-solid fa-bolt"></i> Pagamento Rápido</span>
-              <span style="font-size: 0.72rem; color: var(--text-muted);" id="pixKeyTypeLabel">Chave E-mail</span>
-            </div>
-            <div class="pix-key-wrap">
-              <span class="pix-key-text" id="pixKeyDisplay">contato@olimpopizzaria.com.br</span>
-              <button type="button" class="btn-copy-pix" id="btnCopyPix">
-                <i class="fa-regular fa-copy"></i> Copiar
-              </button>
-            </div>
-            <p style="font-size: 0.74rem; color: var(--text-dimmed); margin-top: 0.4rem;">
-              Faça a transferência do valor total e envie o comprovante pelo WhatsApp.
-            </p>
-          </div>
-
-          <!-- Bloco de Troco para Dinheiro -->
-          <div class="change-box" id="changeBox">
-            <div class="form-group">
-              <label class="form-label" for="changeAmount">Precisa de troco para quanto?</label>
-              <input type="text" id="changeAmount" class="form-input" placeholder="Ex: R$ 100,00 (ou deixe em branco se não precisar)">
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Rodapé do Carrinho com Resumo de Valores e Envio -->
-      <div class="cart-footer" id="cartFooter">
-        <div class="cart-summary-line">
-          <span>Subtotal</span>
-          <span id="cartSubtotalText">R$ 0,00</span>
-        </div>
-        <div class="cart-summary-line" id="deliveryFeeLine">
-          <span>Taxa de Entrega</span>
-          <span id="cartDeliveryFeeText">R$ 7,00</span>
-        </div>
-        <div class="cart-summary-line total">
-          <span>Total Geral</span>
-          <span id="cartTotalText">R$ 0,00</span>
-        </div>
-
-        <button type="button" class="btn-submit-order" id="btnSubmitOrder">
-          <i class="fa-brands fa-whatsapp" style="font-size: 1.3rem;"></i>
-          <span>Enviar Pedido no WhatsApp</span>
-        </button>
-      </div>
-    </aside>
-  </div>
-
-  <!-- ==========================================
-       7. BARRA INFERIOR FLUTUANTE (MOBILE)
-       ========================================== -->
-  <div class="mobile-cart-bar" id="mobileCartBar">
-    <button class="mobile-cart-btn" id="btnOpenMobileBottomCart">
-      <div style="display: flex; align-items: center; gap: 0.65rem;">
-        <i class="fa-solid fa-bag-shopping"></i>
-        <span>Ver Sacola (<strong id="mobileBottomCount">0</strong>)</span>
-      </div>
-      <span id="mobileBottomTotal">R$ 0,00</span>
-    </button>
-  </div>
-
-  <!-- ==========================================
-       8. MODAL DE CONFIRMAÇÃO DE PEDIDO ENVIADO
-       ========================================== -->
-  <div class="modal-overlay" id="orderSuccessOverlay">
-    <div class="modal-sheet" style="max-width: 480px; text-align: center; padding: 2.2rem 1.75rem;">
-      <div style="width: 72px; height: 72px; border-radius: 50%; background: rgba(37, 211, 102, 0.15); border: 1px solid rgba(37, 211, 102, 0.3); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.25rem; color: #25D366; font-size: 2.2rem;">
-        <i class="fa-solid fa-check"></i>
-      </div>
-      <h2 style="font-family: var(--font-brand); font-size: 1.5rem; margin-bottom: 0.5rem; color: #fff;">
-        Pedido Enviado com Sucesso!
-      </h2>
-      <p style="color: var(--text-muted); font-size: 0.92rem; margin-bottom: 1.25rem;">
-        Seu pedido foi registrado em nosso sistema e encaminhado para o WhatsApp da <strong style="color: var(--gold-light);">Olimpo Pizzaria</strong>.
-      </p>
-
-      <div style="background: var(--bg-input); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1rem; margin-bottom: 1.5rem;">
-        <div style="font-size: 0.78rem; color: var(--text-dimmed); text-transform: uppercase;">Número do Pedido</div>
-        <div style="font-family: var(--font-brand); font-size: 1.6rem; font-weight: 800; color: var(--gold-primary);" id="successOrderId">ORD-0000</div>
-      </div>
-
-      <a href="#" target="_blank" class="btn-submit-order" id="btnRetryWhatsApp" style="text-decoration: none; margin-bottom: 0.85rem;">
-        <i class="fa-brands fa-whatsapp"></i> Abrir WhatsApp Novamente
-      </a>
-
-      <button type="button" class="btn-status-change" id="btnCloseSuccessModal" style="width: 100%; padding: 0.75rem;">
-        Fazer Outro Pedido
+    <div class="modal-card">
+      <button class="btn-close-floating" id="btnCloseModal" aria-label="Fechar">
+        <i class="fa-solid fa-xmark"></i>
       </button>
+
+      <div class="modal-cover">
+        <img src="" alt="" id="modalProductImage">
+      </div>
+
+      <div class="modal-content">
+        <span class="modal-cat" id="modalProductCategory">Pizzas Especiais</span>
+        <h2 class="modal-title" id="modalProductName">Nome da Pizza</h2>
+        <p class="modal-desc" id="modalProductDescription"></p>
+
+        <!-- Tabela limpa de tamanhos e preços -->
+        <div id="modalSizesContainer">
+          <h3 class="modal-label">Tamanhos & Valores</h3>
+          <div class="sizes-list" id="modalSizesGrid"></div>
+        </div>
+
+        <!-- Preço único (para bebidas/combos) -->
+        <div id="modalFixedPriceContainer" style="display: none;">
+          <div class="fixed-price-row">
+            <span>Valor</span>
+            <strong id="modalFixedPriceValue">R$ 0,00</strong>
+          </div>
+        </div>
+
+        <!-- Nota de Meio a Meio e Bordas -->
+        <div class="modal-notes" id="modalExtrasNote">
+          <p><i class="fa-solid fa-circle-half-stroke"></i> Disponível opção <strong>Meia a Meia</strong> (2 sabores).</p>
+          <p id="modalCrustsSummary"></p>
+        </div>
+
+        <a href="#" target="_blank" class="btn-whatsapp-direct" id="btnWhatsAppItem">
+          <i class="fa-brands fa-whatsapp"></i>
+          <span>Pedir pelo WhatsApp</span>
+        </a>
+      </div>
     </div>
   </div>
 
-  <!-- Contêiner de Notificações Toast -->
-  <div class="toast-container" id="toastContainer"></div>
-
   <!-- ==========================================
-       9. RODAPÉ DO SITE
+       6. RODAPÉ MINIMALISTA
        ========================================== -->
   <footer class="site-footer">
     <div class="container">
-      <div class="footer-brand">Olimpo Pizzaria</div>
-      <p class="footer-text">O verdadeiro sabor artesanal dos deuses direto na sua mesa.</p>
-      <p class="footer-text" style="margin-top: 0.5rem; font-size: 0.78rem; color: var(--text-dimmed);">
-        &copy; <span id="currentYear"></span> Olimpo Pizzaria Gourmet. Todos os direitos reservados.
+      <div class="footer-logo">Olimpo Pizzaria</div>
+      <p class="footer-info">Taxa de entrega padrão: <strong id="infoDeliveryFee">R$ 7,00</strong></p>
+      <a href="#" target="_blank" class="footer-whats-link" id="footerWhatsAppBtn">
+        <i class="fa-brands fa-whatsapp"></i> Falar com o atendimento
+      </a>
+      <p class="footer-copy">
+        &copy; <span id="currentYear"></span> Olimpo Pizzaria · <a href="admin.html">Acesso restrito</a>
       </p>
     </div>
   </footer>
 
-  <!-- ==========================================
-       10. SCRIPTS E CONEXÕES
-       ========================================== -->
-  <!-- Firebase Compat CDN (v10) para conexão direta e limpa sem ferramentas de compilação -->
+  <!-- Scripts -->
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 
-  <!-- 1. Dados iniciais de demonstração (Seed) -->
   <script src="seed-data.js"></script>
-  <!-- 2. Camada unificada Firebase / Armazenamento Local -->
   <script src="firebase-config.js"></script>
-  <!-- 3. Lógica do cliente e cardápio interativo -->
   <script src="app.js"></script>
-
 </body>
 </html>

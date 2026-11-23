@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel Administrativo — Olimpo Pizzaria</title>
+  
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body style="padding-bottom: 3rem;">
+
+  <!-- ==========================================
+       1. TELA DE LOGIN / AUTENTICAÇÃO (OVERLAY)
+       ========================================== -->
+  <div class="modal-overlay active" id="loginModalOverlay">
+    <div class="modal-sheet" style="max-width: 440px; margin: auto; border-radius: var(--radius-xl); padding: 2.2rem 1.8rem; text-align: center;">
+      <div class="brand-icon-wrap" style="margin: 0 auto 1.25rem; width: 54px; height: 54px; font-size: 1.6rem;">
+        <i class="fa-solid fa-lock"></i>
+      </div>
+      <h2 style="font-family: var(--font-brand); font-size: 1.45rem; color: #fff; margin-bottom: 0.4rem;">
+        Acesso Administrativo
+      </h2>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.6rem;">
+        Entre com sua credencial de gerente para gerenciar a <strong>Olimpo Pizzaria</strong>.
+      </p>
+
+      <form id="loginForm" style="display: flex; flex-direction: column; gap: 1rem; text-align: left;">
+        <div class="form-group">
+          <label class="form-label" for="loginUser">Usuário ou E-mail</label>
+          <input type="text" id="loginUser" class="form-input" value="admin" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="loginPass">Senha</label>
+          <input type="password" id="loginPass" class="form-input" value="olimpo123" required>
+        </div>
+
+        <button type="submit" class="btn-confirm-add" style="width: 100%; justify-content: center; margin-top: 0.5rem; padding: 0.95rem;">
+          <i class="fa-solid fa-arrow-right-to-bracket" style="margin-right: 0.5rem;"></i>
+          <span>Entrar no Painel</span>
+        </button>
+
+        <!-- Botão de Acesso Rápido de Teste -->
+        <button type="button" id="btnQuickDemoLogin" class="btn-status-change" style="width: 100%; padding: 0.75rem; text-align: center; border-color: rgba(212, 175, 55, 0.4); color: var(--gold-light);">
+          <i class="fa-solid fa-bolt"></i> Entrar Direto (Modo Demonstração)
+        </button>
+      </form>
+
+      <div style="margin-top: 1.5rem; font-size: 0.78rem; color: var(--text-dimmed);">
+        <a href="index.html" style="color: var(--text-muted); text-decoration: underline;">
+          <i class="fa-solid fa-arrow-left"></i> Voltar ao Cardápio Público
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       2. CABEÇALHO DO PAINEL ADMIN
+       ========================================== -->
+  <header class="admin-header">
+    <div class="container">
+      <div class="admin-header-inner">
+        <!-- Logo e Título -->
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <div class="brand-icon-wrap" style="width: 38px; height: 38px; font-size: 1.15rem;">
+            <i class="fa-solid fa-shield-halved"></i>
+          </div>
+          <div>
+            <h1 style="font-family: var(--font-brand); font-size: 1.25rem; font-weight: 800; color: #fff; line-height: 1.1;">
+              Painel do Gerente
+            </h1>
+            <span style="font-size: 0.75rem; color: var(--gold-light);" id="adminStoreNameDisplay">
+              Olimpo Pizzaria
+            </span>
+          </div>
+        </div>
+
+        <!-- Ações do Cabeçalho -->
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <!-- Interruptor de Loja Aberta/Fechada Direto no Topo -->
+          <button type="button" class="status-badge open" id="btnToggleStoreStatus" title="Clique para abrir ou fechar a loja">
+            <span class="status-dot"></span>
+            <span id="adminStoreStatusLabel">Loja Aberta</span>
+          </button>
+
+          <!-- Link para ver Cardápio Público -->
+          <a href="index.html" target="_blank" class="btn-icon" title="Ver Cardápio Público (Abre em nova aba)">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </a>
+
+          <!-- Botão Sair -->
+          <button type="button" class="btn-icon" id="btnLogout" title="Encerrar Sessão">
+            <i class="fa-solid fa-right-from-bracket"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==========================================
+       3. NAVEGAÇÃO DE ABAS
+       ========================================== -->
+  <div class="container">
+    <nav class="admin-nav-tabs">
+      <button class="admin-tab-btn active" data-tab="pedidos">
+        <i class="fa-solid fa-bell"></i>
+        <span>Pedidos em Tempo Real</span>
+        <span class="badge-count" id="badgePendingOrdersCount" style="position: static; margin-left: 0.35rem;">0</span>
+      </button>
+      <button class="admin-tab-btn" data-tab="cardapio">
+        <i class="fa-solid fa-pizza-slice"></i>
+        <span>Cardápio & Itens</span>
+      </button>
+      <button class="admin-tab-btn" data-tab="bordas">
+        <i class="fa-solid fa-ring"></i>
+        <span>Bordas Recheadas</span>
+      </button>
+      <button class="admin-tab-btn" data-tab="configuracoes">
+        <i class="fa-solid fa-sliders"></i>
+        <span>Configurações da Loja</span>
+      </button>
+    </nav>
+  </div>
+
+  <!-- ==========================================
+       4. CONTEÚDO DAS ABAS
+       ========================================== -->
+  <main class="container">
+
+    <!-- ----------------------------------------
+         ABA 1: PEDIDOS EM TEMPO REAL
+         ---------------------------------------- -->
+    <section class="admin-tab-content active" id="tabContentPedidos">
+      <!-- Filtros de Status -->
+      <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1.5rem;">
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+          <button class="category-pill active order-filter-btn" data-status="todos">Todos</button>
+          <button class="category-pill order-filter-btn" data-status="pendente">Pendentes</button>
+          <button class="category-pill order-filter-btn" data-status="em_preparo">Em Preparo</button>
+          <button class="category-pill order-filter-btn" data-status="saiu_para_entrega">Saiu p/ Entrega</button>
+          <button class="category-pill order-filter-btn" data-status="concluido">Concluídos</button>
+        </div>
+
+        <button class="btn-status-change" id="btnRefreshOrders" style="display: inline-flex; align-items: center; gap: 0.4rem;">
+          <i class="fa-solid fa-rotate"></i> Atualizar Lista
+        </button>
+      </div>
+
+      <!-- Grid de Pedidos -->
+      <div class="orders-grid" id="adminOrdersContainer">
+        <!-- Renderizado dinamicamente via admin.js -->
+      </div>
+    </section>
+
+    <!-- ----------------------------------------
+         ABA 2: GERENCIAMENTO DO CARDÁPIO
+         ---------------------------------------- -->
+    <section class="admin-tab-content" id="tabContentCardapio">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem;">
+        <h2 style="font-family: var(--font-brand); font-size: 1.35rem; color: #fff;">
+          Itens do Cardápio
+        </h2>
+        <button class="btn-confirm-add" id="btnOpenNewProductModal" style="padding: 0.65rem 1.25rem;">
+          <i class="fa-solid fa-plus"></i>
+          <span>Novo Item / Pizza</span>
+        </button>
+      </div>
+
+      <!-- Lista de Produtos em Grade -->
+      <div class="products-grid" id="adminProductsContainer">
+        <!-- Renderizado dinamicamente via admin.js -->
+      </div>
+    </section>
+
+    <!-- ----------------------------------------
+         ABA 3: GERENCIAMENTO DE BORDAS RECHEADAS
+         ---------------------------------------- -->
+    <section class="admin-tab-content" id="tabContentBordas">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem;">
+        <div>
+          <h2 style="font-family: var(--font-brand); font-size: 1.35rem; color: #fff;">
+            Bordas Recheadas
+          </h2>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">
+            Opções opcionais que o cliente pode adicionar à pizza no cardápio.
+          </p>
+        </div>
+        <button class="btn-confirm-add" id="btnOpenNewCrustModal" style="padding: 0.65rem 1.25rem;">
+          <i class="fa-solid fa-plus"></i>
+          <span>Nova Borda</span>
+        </button>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 0.85rem;" id="adminCrustsContainer">
+        <!-- Renderizado dinamicamente via admin.js -->
+      </div>
+    </section>
+
+    <!-- ----------------------------------------
+         ABA 4: CONFIGURAÇÕES DA LOJA
+         ---------------------------------------- -->
+    <section class="admin-tab-content" id="tabContentConfiguracoes">
+      <div style="max-width: 720px; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-xl); padding: 1.8rem; box-shadow: var(--shadow-md);">
+        <h2 style="font-family: var(--font-brand); font-size: 1.4rem; color: #fff; margin-bottom: 0.5rem;">
+          Configurações Operacionais
+        </h2>
+        <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1.8rem;">
+          Ajuste as informações da pizzaria. Elas atualizam o cardápio público em tempo real.
+        </p>
+
+        <form id="storeSettingsForm" style="display: flex; flex-direction: column; gap: 1.25rem;">
+          <div class="form-group">
+            <label class="form-label" for="cfgStoreName">Nome da Pizzaria</label>
+            <input type="text" id="cfgStoreName" class="form-input" required>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label" for="cfgWhatsApp">WhatsApp para Receber Pedidos (com DDD)</label>
+              <input type="text" id="cfgWhatsApp" class="form-input" placeholder="Ex: 5511999999999" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="cfgDeliveryFee">Taxa de Entrega Padrão (R$)</label>
+              <input type="number" step="0.50" id="cfgDeliveryFee" class="form-input" required>
+            </div>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label" for="cfgDeliveryTime">Tempo Estimado de Entrega</label>
+              <input type="text" id="cfgDeliveryTime" class="form-input" placeholder="Ex: 35 a 50 min" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="cfgOpenHours">Horário de Atendimento</label>
+              <input type="text" id="cfgOpenHours" class="form-input" placeholder="Ex: Terça a Domingo: 18:00 às 23:45" required>
+            </div>
+          </div>
+
+          <!-- Configurações do Pix -->
+          <div style="padding-top: 1rem; border-top: 1px solid var(--border-subtle);">
+            <h3 style="font-size: 1rem; color: #fff; margin-bottom: 0.85rem;">
+              <i class="fa-brands fa-pix" style="color: var(--status-open);"></i> Dados do Pix
+            </h3>
+
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label class="form-label" for="cfgPixKey">Chave Pix</label>
+                <input type="text" id="cfgPixKey" class="form-input" placeholder="Chave Pix (E-mail, CPF, Telefone ou Aleatória)" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="cfgPixType">Tipo de Chave</label>
+                <select id="cfgPixType" class="custom-select">
+                  <option value="E-mail">E-mail</option>
+                  <option value="CPF">CPF</option>
+                  <option value="CNPJ">CNPJ</option>
+                  <option value="Telefone">Telefone</option>
+                  <option value="Chave Aleatória">Chave Aleatória</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Regra da Pizza Meia a Meia -->
+          <div style="padding-top: 1rem; border-top: 1px solid var(--border-subtle);">
+            <h3 style="font-size: 1rem; color: #fff; margin-bottom: 0.85rem;">
+              <i class="fa-solid fa-circle-half-stroke" style="color: var(--gold-primary);"></i> Regra da Pizza Meia a Meia
+            </h3>
+            <div class="form-group">
+              <label class="form-label" for="cfgHalfRule">Como calcular o valor de pizza com 2 sabores diferentes?</label>
+              <select id="cfgHalfRule" class="custom-select">
+                <option value="maior">Cobrar pelo sabor de MAIOR valor (Padrão das pizzarias)</option>
+                <option value="media">Cobrar pela MÉDIA aritmética dos 2 sabores</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 1rem; margin-top: 1rem; flex-wrap: wrap;">
+            <button type="submit" class="btn-confirm-add" style="padding: 0.9rem 1.6rem;">
+              <i class="fa-solid fa-floppy-disk"></i>
+              <span>Salvar Todas as Configurações</span>
+            </button>
+
+            <button type="button" id="btnResetSeedData" class="btn-status-change" style="padding: 0.9rem 1.25rem; color: var(--status-closed); border-color: rgba(239, 68, 68, 0.4);">
+              <i class="fa-solid fa-trash-can"></i> Restaurar Dados Originais de Fábrica
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==========================================
+       5. MODAL DE CADASTRO/EDIÇÃO DE PRODUTO
+       ========================================== -->
+  <div class="modal-overlay" id="productFormModalOverlay">
+    <div class="modal-sheet" style="max-width: 600px;">
+      <div class="modal-header">
+        <h3 class="modal-title" id="productFormTitle">Cadastrar Novo Item</h3>
+        <button class="btn-close-modal" id="btnCloseProductForm"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <form id="productEditForm" class="modal-body">
+        <input type="hidden" id="editProdId">
+
+        <div class="form-group">
+          <label class="form-label" for="prodName">Nome do Item *</label>
+          <input type="text" id="prodName" class="form-input" placeholder="Ex: Pizza Zeus (Suprema)" required>
+        </div>
+
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label" for="prodCategory">Categoria *</label>
+            <select id="prodCategory" class="custom-select" required>
+              <option value="especiais">Pizzas Especiais do Olimpo</option>
+              <option value="tradicionais">Pizzas Tradicionais</option>
+              <option value="doces">Pizzas Doces</option>
+              <option value="bebidas">Bebidas Geladas</option>
+              <option value="combos">Combos & Promoções</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="prodBadge">Selo de Destaque (Opcional)</label>
+            <input type="text" id="prodBadge" class="form-input" placeholder="Ex: Mais Pedida, Especial">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="prodDesc">Descrição e Ingredientes</label>
+          <textarea id="prodDesc" class="obs-textarea" placeholder="Descreva os ingredientes saborosos..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="prodImage">URL da Foto do Item</label>
+          <input type="url" id="prodImage" class="form-input" placeholder="https://..." required>
+        </div>
+
+        <!-- Alternador entre Preço Fixo ou Múltiplos Tamanhos -->
+        <div style="background: var(--bg-input); padding: 0.85rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+          <label class="toggle-label" for="chkHasSizes">
+            <div class="toggle-text-wrap">
+              <span class="toggle-title">Item com múltiplos tamanhos? (Pizzas)</span>
+              <span class="toggle-desc">Desmarque para Bebidas ou Combos de preço único</span>
+            </div>
+            <div class="custom-switch">
+              <input type="checkbox" id="chkHasSizes" checked>
+              <span class="switch-slider"></span>
+            </div>
+          </label>
+        </div>
+
+        <!-- Grade de Preços por Tamanho -->
+        <div id="boxSizesPrices">
+          <label class="form-label" style="margin-bottom: 0.4rem; display: block;">Valores por Tamanho (R$):</label>
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.65rem;">
+            <div class="form-group">
+              <label class="form-label" for="priceBrotinho">Brotinho (4 fat.)</label>
+              <input type="number" step="0.50" id="priceBrotinho" class="form-input" placeholder="39.90">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="priceMedia">Média (6 fat.)</label>
+              <input type="number" step="0.50" id="priceMedia" class="form-input" placeholder="52.90">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="priceGrande">Grande (8 fat.)</label>
+              <input type="number" step="0.50" id="priceGrande" class="form-input" placeholder="68.90">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="priceFamilia">Família (12 fat.)</label>
+              <input type="number" step="0.50" id="priceFamilia" class="form-input" placeholder="79.90">
+            </div>
+          </div>
+        </div>
+
+        <!-- Preço Fixo (Se não tiver tamanhos) -->
+        <div id="boxFixedPrice" style="display: none;">
+          <div class="form-group">
+            <label class="form-label" for="priceFixed">Preço Fixo Único (R$)</label>
+            <input type="number" step="0.50" id="priceFixed" class="form-input" placeholder="14.90">
+          </div>
+        </div>
+
+        <button type="submit" class="btn-confirm-add" style="margin-top: 0.5rem; justify-content: center; padding: 0.9rem;">
+          <i class="fa-solid fa-check"></i>
+          <span>Salvar Produto</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       6. MODAL DE CADASTRO/EDIÇÃO DE BORDA
+       ========================================== -->
+  <div class="modal-overlay" id="crustFormModalOverlay">
+    <div class="modal-sheet" style="max-width: 480px;">
+      <div class="modal-header">
+        <h3 class="modal-title" id="crustFormTitle">Nova Borda Recheada</h3>
+        <button class="btn-close-modal" id="btnCloseCrustForm"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <form id="crustEditForm" class="modal-body">
+        <input type="hidden" id="editCrustId">
+
+        <div class="form-group">
+          <label class="form-label" for="crustName">Nome da Borda *</label>
+          <input type="text" id="crustName" class="form-input" placeholder="Ex: Borda de Catupiry Legítimo" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="crustDesc">Descrição Curta</label>
+          <input type="text" id="crustDesc" class="form-input" placeholder="Ex: Recheio generoso com Catupiry original">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="crustPrice">Adicional no Pedido (R$)</label>
+          <input type="number" step="0.50" id="crustPrice" class="form-input" placeholder="0.00 para grátis" required>
+        </div>
+
+        <button type="submit" class="btn-confirm-add" style="margin-top: 0.5rem; justify-content: center; padding: 0.9rem;">
+          <i class="fa-solid fa-check"></i>
+          <span>Salvar Borda</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Contêiner de Notificações Toast -->
+  <div class="toast-container" id="adminToastContainer"></div>
+
+  <!-- Scripts -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+
+  <script src="seed-data.js"></script>
+  <script src="firebase-config.js"></script>
+  <script src="admin.js"></script>
+
+</body>
+</html>

@@ -1,24 +1,37 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const data = typeof SEED_DATA !== "undefined" ? SEED_DATA : { configuracoes: {}, categorias: [], produtos: [], bordas: [] };
+  const data = typeof SEED_DATA !== "undefined"
+    ? SEED_DATA
+    : { configuracoes: {}, categorias: [], produtos: [], bordas: [] };
+
+  function lerStorageSeguro(chave, fallback) {
+    try {
+      const bruto = localStorage.getItem(chave);
+      if (!bruto) return fallback;
+      const parsed = JSON.parse(bruto);
+      if (Array.isArray(fallback)) {
+        return Array.isArray(parsed) && parsed.length > 0 ? parsed : fallback;
+      }
+      return parsed && typeof parsed === "object" && Object.keys(parsed).length > 0
+        ? parsed
+        : fallback;
+    } catch (e) {
+      return fallback;
+    }
+  }
 
   const state = {
-    configuracoes: JSON.parse(localStorage.getItem("olimpo_configuracoes_v1")) || data.configuracoes,
-    produtos: JSON.parse(localStorage.getItem("olimpo_produtos_v1")) || data.produtos,
-    bordas: JSON.parse(localStorage.getItem("olimpo_bordas_v1")) || data.bordas,
-    categorias: data.categorias || [],
+    configuracoes: lerStorageSeguro("olimpo_config_v2", data.configuracoes),
+    produtos: lerStorageSeguro("olimpo_produtos_v2", data.produtos),
+    bordas: lerStorageSeguro("olimpo_bordas_v2", data.bordas),
+    categorias: Array.isArray(data.categorias) ? data.categorias : [],
     categoriaAtiva: "todas",
     termoBusca: ""
   };
 
-  // Si hay datos antiguos sin dirección de Fraiburgo, actualiza al instante
-  if (!state.configuracoes.endereco && data.configuracoes) {
-    state.configuracoes = data.configuracoes;
-    state.produtos = data.produtos;
-    state.bordas = data.bordas;
-    localStorage.setItem("olimpo_configuracoes_v1", JSON.stringify(data.configuracoes));
-    localStorage.setItem("olimpo_produtos_v1", JSON.stringify(data.produtos));
-    localStorage.setItem("olimpo_bordas_v1", JSON.stringify(data.bordas));
-  }
+  // Garante que os dados padrão estejam salvos corretamente
+  localStorage.setItem("olimpo_config_v2", JSON.stringify(state.configuracoes));
+  localStorage.setItem("olimpo_produtos_v2", JSON.stringify(state.produtos));
+  localStorage.setItem("olimpo_bordas_v2", JSON.stringify(state.bordas));
 
   const TAMANHOS_CONFIG = {
     brotinho: { nome: "Brotinho", detalhe: "25cm · até 2 sabores" },
@@ -276,7 +289,6 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.style.overflow = "";
   }
 
-  // Inicialización inmediata
   if (DOM.currentYear) DOM.currentYear.textContent = new Date().getFullYear();
   renderizarInformacoesLoja();
   renderizarCategorias();

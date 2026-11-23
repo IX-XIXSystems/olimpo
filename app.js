@@ -5,40 +5,36 @@
     ],
     produtos: [
       {
-        id: "teste-1",
-        nome: "Teste 1",
+        id: "pizza-pequena-promocional",
+        nome: "Pizza Pequena Promocional",
         categoria: "pizzas",
-        descricao: "Descrição ilustrativa do sabor Teste 1. Massa artesanal assada na hora com ingredientes selecionados.",
+        descricao: "30cm · 1 Sabor. A mais pedida da Olimpo Pizzaria! Massa artesanal assada na hora com ingredientes selecionados.",
+        imagem: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=260&q=72",
+        destaque: "Mais Pedida",
+        precoFixo: 39.90
+      },
+      {
+        id: "pizza-teste",
+        nome: "Pizza Teste",
+        categoria: "pizzas",
+        descricao: "Sabor ilustrativo para demonstração do cardápio. Escolha o tamanho ideal para sua fome.",
         imagem: "https://images.unsplash.com/photo-1628840042765-356cda07504e?auto=format&fit=crop&w=260&q=72",
-        destaque: "Exemplo",
-        precos: { pequena: 50.00, media: 60.00, grande: 70.00, gigante: 80.00 }
-      },
-      {
-        id: "teste-2",
-        nome: "Teste 2",
-        categoria: "pizzas",
-        descricao: "Descrição ilustrativa do sabor Teste 2. Massa artesanal assada na hora com ingredientes selecionados.",
-        imagem: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=260&q=72",
-        destaque: "",
-        precos: { pequena: 50.00, media: 60.00, grande: 70.00, gigante: 80.00 }
-      },
-      {
-        id: "teste-3",
-        nome: "Teste 3",
-        categoria: "pizzas",
-        descricao: "Descrição ilustrativa do sabor Teste 3. Massa artesanal assada na hora com ingredientes selecionados.",
-        imagem: "https://images.unsplash.com/photo-1604382355076-af4b0eb60143?auto=format&fit=crop&w=260&q=72",
-        destaque: "",
-        precos: { pequena: 50.00, media: 60.00, grande: 70.00, gigante: 80.00 }
+        destaque: "Teste",
+        precos: {
+          broto: 50.00,
+          pequena: 60.00,
+          media: 70.00,
+          grande: 80.00
+        }
       }
     ]
   };
 
   const TAMANHOS = {
-    pequena: { nome: "Pequena", info: "25cm · até 2 sabores" },
-    media:   { nome: "Média",   info: "30cm · até 3 sabores" },
-    grande:  { nome: "Grande",  info: "35cm · até 4 sabores" },
-    gigante: { nome: "Gigante", info: "40cm · até 4 sabores" }
+    broto:   { nome: "Broto",   info: "25cm · 1 sabor" },
+    pequena: { nome: "Pequena", info: "30cm · até 2 sabores" },
+    media:   { nome: "Média",   info: "35cm · até 3 sabores" },
+    grande:  { nome: "Grande",  info: "40cm · até 4 sabores" }
   };
 
   let categoriaAtiva = "todas";

@@ -5,15 +5,6 @@
     ],
     produtos: [
       {
-        id: "pizza-pequena-promocional",
-        nome: "Pizza Pequena Promocional",
-        categoria: "pizzas",
-        descricao: "30cm · 1 Sabor. A mais pedida da Olimpo Pizzaria! Massa artesanal assada na hora com ingredientes selecionados.",
-        imagem: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=260&q=72",
-        destaque: "Mais Pedida",
-        precoFixo: 39.90
-      },
-      {
         id: "pizza-teste",
         nome: "Pizza Teste",
         categoria: "pizzas",
@@ -21,10 +12,10 @@
         imagem: "https://images.unsplash.com/photo-1628840042765-356cda07504e?auto=format&fit=crop&w=260&q=72",
         destaque: "Teste",
         precos: {
-          broto: 50.00,
-          pequena: 60.00,
-          media: 70.00,
-          grande: 80.00
+          broto: 0.00,
+          pequena: 0.00,
+          media: 0.00,
+          grande: 0.00
         }
       }
     ]

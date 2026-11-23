@@ -1,320 +1,343 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const data = typeof SEED_DATA !== "undefined"
-    ? SEED_DATA
-    : { configuracoes: {}, categorias: [], produtos: [], bordas: [] };
-
-  function lerStorageSeguro(chave, fallback) {
-    try {
-      const bruto = localStorage.getItem(chave);
-      if (!bruto) return fallback;
-      const parsed = JSON.parse(bruto);
-      if (Array.isArray(fallback)) {
-        return Array.isArray(parsed) && parsed.length > 0 ? parsed : fallback;
+(function () {
+  const MENU_DATA = {
+    whatsapp: "5549999156336",
+    categorias: [
+      { id: "promocoes", nome: "Promoção Olimpo" },
+      { id: "combos", nome: "Combo Olimpo" },
+      { id: "pizzas", nome: "Pizzas" },
+      { id: "calzones", nome: "Calzones" },
+      { id: "bebidas", nome: "Bebidas" }
+    ],
+    produtos: [
+      {
+        id: "promo-pizza-pequena",
+        nome: "Pizza Pequena Promocional",
+        categoria: "promocoes",
+        descricao: "Escolha entre os sabores tradicionais selecionados da casa. Massa artesanal assada na hora.",
+        imagem: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=260&q=72",
+        destaque: "Oferta",
+        precoFixo: 39.90
+      },
+      {
+        id: "combo-dupla-35",
+        nome: "Combo 2 Pizzas Grandes (35cm)",
+        categoria: "combos",
+        descricao: "1 Pizza Grande 35cm com borda recheada + 1 Pizza Grande 35cm sem borda. Ideal para toda a família.",
+        imagem: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=260&q=72",
+        destaque: "Mais Pedido",
+        precoFixo: 116.99
+      },
+      {
+        id: "combo-dupla-30",
+        nome: "Combo 2 Pizzas Médias (30cm) c/ Borda",
+        categoria: "combos",
+        descricao: "2 Pizzas Médias de 30cm, ambas com borda recheada à sua escolha.",
+        imagem: "https://images.unsplash.com/photo-1628840042765-356cda07504e?auto=format&fit=crop&w=260&q=72",
+        destaque: "Combo Olimpo",
+        precoFixo: 109.99
+      },
+      {
+        id: "pizza-zeus",
+        nome: "Zeus Suprema",
+        categoria: "pizzas",
+        descricao: "Molho artesanal, muçarela especial, pepperoni italiano fatiado, champignon salteado, azeitonas pretas e orégano.",
+        imagem: "https://images.unsplash.com/photo-1628840042765-356cda07504e?auto=format&fit=crop&w=260&q=72",
+        destaque: "Especial",
+        precos: { pequena: 50.00, media: 60.00, grande: 70.00, gigante: 80.00 }
+      },
+      {
+        id: "pizza-poseidon",
+        nome: "Poseidon (Camarão & Catupiry)",
+        categoria: "pizzas",
+        descricao: "Molho da casa, muçarela, camarões selecionados salteados no azeite de ervas, alho-poró e requeijão cremoso.",
+        imagem: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=260&q=72",
+        destaque: "Chef",
+        precos: { pequena: 55.00, media: 68.00, grande: 79.00, gigante: 89.00 }
+      },
+      {
+        id: "pizza-atena",
+        nome: "Atena (Marguerita Especial)",
+        categoria: "pizzas",
+        descricao: "Molho de tomate pelati, muçarela, tomate cereja confitado, parmesão ralado na hora e manjericão fresco.",
+        imagem: "https://images.unsplash.com/photo-1604382355076-af4b0eb60143?auto=format&fit=crop&w=260&q=72",
+        destaque: "",
+        precos: { pequena: 50.00, media: 60.00, grande: 70.00, gigante: 80.00 }
+      },
+      {
+        id: "pizza-dionisio",
+        nome: "Dionísio (Quatro Queijos)",
+        categoria: "pizzas",
+        descricao: "Muçarela, provolone defumado, gorgonzola nobre e autêntico requeijão cremoso sobre molho artesanal.",
+        imagem: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=260&q=72",
+        destaque: "",
+        precos: { pequena: 50.00, media: 60.00, grande: 70.00, gigante: 80.00 }
+      },
+      {
+        id: "pizza-ares",
+        nome: "Ares (Calabresa Acebolada)",
+        categoria: "pizzas",
+        descricao: "Molho de tomate, muçarela, calabresa fatiada dourada no forno, cebola roxa e orégano.",
+        imagem: "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?auto=format&fit=crop&w=260&q=72",
+        destaque: "Clássica",
+        precos: { pequena: 50.00, media: 60.00, grande: 70.00, gigante: 80.00 }
+      },
+      {
+        id: "pizza-afrodite",
+        nome: "Afrodite (Nutella com Morango)",
+        categoria: "pizzas",
+        descricao: "Massa doce crocante com creme de avelã Nutella, morangos frescos fatiados e raspas de chocolate.",
+        imagem: "https://images.unsplash.com/photo-1588315029754-2dd089d39a1a?auto=format&fit=crop&w=260&q=72",
+        destaque: "Doce",
+        precos: { pequena: 50.00, media: 60.00, grande: 70.00, gigante: 80.00 }
+      },
+      {
+        id: "calzone-olimpo",
+        nome: "Calzone Tradicional do Olimpo",
+        categoria: "calzones",
+        descricao: "Massa fechada recheada com muçarela, presunto, calabresa, tomate, orégano e toque de requeijão cremoso.",
+        imagem: "https://images.unsplash.com/photo-1628840042765-356cda07504e?auto=format&fit=crop&w=260&q=72",
+        destaque: "Artesanal",
+        precoFixo: 44.90
+      },
+      {
+        id: "calzone-frango",
+        nome: "Calzone Frango com Catupiry",
+        categoria: "calzones",
+        descricao: "Recheio generoso de peito de frango desfiado temperado, muçarela derretida e Catupiry legítimo.",
+        imagem: "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?auto=format&fit=crop&w=260&q=72",
+        destaque: "",
+        precoFixo: 44.90
+      },
+      {
+        id: "bebida-coca-2l",
+        nome: "Coca-Cola 2 Litros",
+        categoria: "bebidas",
+        descricao: "Garrafa PET 2L bem gelada.",
+        imagem: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=260&q=72",
+        destaque: "",
+        precoFixo: 15.00
+      },
+      {
+        id: "bebida-guarana-2l",
+        nome: "Guaraná Antarctica 2 Litros",
+        categoria: "bebidas",
+        descricao: "Garrafa PET 2L bem gelada.",
+        imagem: "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=260&q=72",
+        destaque: "",
+        precoFixo: 14.00
       }
-      return parsed && typeof parsed === "object" && Object.keys(parsed).length > 0
-        ? parsed
-        : fallback;
-    } catch (e) {
-      return fallback;
-    }
-  }
-
-  const state = {
-    configuracoes: lerStorageSeguro("olimpo_config_v2", data.configuracoes),
-    produtos: lerStorageSeguro("olimpo_produtos_v2", data.produtos),
-    bordas: lerStorageSeguro("olimpo_bordas_v2", data.bordas),
-    categorias: Array.isArray(data.categorias) ? data.categorias : [],
-    categoriaAtiva: "todas",
-    termoBusca: ""
+    ]
   };
 
-  // Garante que os dados padrão estejam salvos corretamente
-  localStorage.setItem("olimpo_config_v2", JSON.stringify(state.configuracoes));
-  localStorage.setItem("olimpo_produtos_v2", JSON.stringify(state.produtos));
-  localStorage.setItem("olimpo_bordas_v2", JSON.stringify(state.bordas));
-
-  const TAMANHOS_CONFIG = {
-    brotinho: { nome: "Brotinho", detalhe: "25cm · até 2 sabores" },
-    pequena:  { nome: "Pequena",  detalhe: "25cm · até 2 sabores" },
-    media:    { nome: "Média",    detalhe: "30cm · até 3 sabores" },
-    grande:   { nome: "Grande",   detalhe: "35cm · até 4 sabores" },
-    gigante:  { nome: "Gigante",  detalhe: "40cm · até 4 sabores" },
-    familia:  { nome: "Família",  detalhe: "40cm · até 4 sabores" }
+  const TAMANHOS = {
+    pequena: { nome: "Pequena", info: "25cm · até 2 sabores" },
+    media:   { nome: "Média",   info: "30cm · até 3 sabores" },
+    grande:  { nome: "Grande",  info: "35cm · até 4 sabores" },
+    gigante: { nome: "Gigante", info: "40cm · até 4 sabores" }
   };
 
-  const DOM = {
-    headerStoreName: document.getElementById("headerStoreName"),
-    headerMapBtn: document.getElementById("headerMapBtn"),
-    storeStatusBadge: document.getElementById("storeStatusBadge"),
-    storeStatusText: document.getElementById("storeStatusText"),
-    infoDeliveryTime: document.getElementById("infoDeliveryTime"),
-    infoDeliveryFee: document.getElementById("infoDeliveryFee"),
-    infoMinOrder: document.getElementById("infoMinOrder"),
-    infoOpenHours: document.getElementById("infoOpenHours"),
-    footerAddress: document.getElementById("footerAddress"),
-    footerWhatsAppBtn: document.getElementById("footerWhatsAppBtn"),
-    footerPhoneText: document.getElementById("footerPhoneText"),
-    footerMapBtn: document.getElementById("footerMapBtn"),
-    currentYear: document.getElementById("currentYear"),
+  let categoriaAtiva = "todas";
+  let termoBusca = "";
 
-    searchInput: document.getElementById("searchInput"),
-    searchClearBtn: document.getElementById("searchClearBtn"),
-    categoriesBar: document.getElementById("categoriesBar"),
-    productsContainer: document.getElementById("productsContainer"),
+  const fmt = (v) => (Number(v) || 0).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 
-    productModalOverlay: document.getElementById("productModalOverlay"),
-    btnCloseModal: document.getElementById("btnCloseModal"),
-    modalProductImage: document.getElementById("modalProductImage"),
-    modalProductCategory: document.getElementById("modalProductCategory"),
-    modalProductName: document.getElementById("modalProductName"),
-    modalProductDescription: document.getElementById("modalProductDescription"),
-    modalSizesContainer: document.getElementById("modalSizesContainer"),
-    modalSizesGrid: document.getElementById("modalSizesGrid"),
-    modalFixedPriceContainer: document.getElementById("modalFixedPriceContainer"),
-    modalFixedPriceValue: document.getElementById("modalFixedPriceValue"),
-    modalExtrasNote: document.getElementById("modalExtrasNote"),
-    modalCrustsSummary: document.getElementById("modalCrustsSummary"),
-    btnWhatsAppItem: document.getElementById("btnWhatsAppItem")
-  };
+  function init() {
+    const yearEl = document.getElementById("currentYear");
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  function formatarMoeda(valor) {
-    return (Number(valor) || 0).toLocaleString("pt-BR", {
-      style: "currency",
-      currency: "BRL"
-    });
+    // Sincroniza se o admin editou algo no navegador
+    try {
+      const customProds = JSON.parse(localStorage.getItem("olimpo_produtos_v1"));
+      if (Array.isArray(customProds) && customProds.length > 0) {
+        MENU_DATA.produtos = customProds;
+      }
+      const customCfg = JSON.parse(localStorage.getItem("olimpo_configuracoes_v1"));
+      if (customCfg && customCfg.aberto === false) {
+        const badge = document.getElementById("storeStatusBadge");
+        const txt = document.getElementById("storeStatusText");
+        if (badge) badge.className = "status-pill closed";
+        if (txt) txt.textContent = "Fechado";
+      }
+    } catch (e) {}
+
+    renderCategorias();
+    renderProdutos();
+    bindEvents();
   }
 
-  function otimizarImagem(url, largura = 240) {
-    if (!url) return "logo.png";
-    if (url.includes("images.unsplash.com")) {
-      return url.replace(/w=\d+/, `w=${largura}`).replace(/q=\d+/, "q=70");
-    }
-    return url;
-  }
+  function renderCategorias() {
+    const bar = document.getElementById("categoriesBar");
+    if (!bar) return;
 
-  function renderizarInformacoesLoja() {
-    const conf = state.configuracoes || {};
+    bar.innerHTML = [
+      `<button type="button" class="cat-btn ${categoriaAtiva === "todas" ? "active" : ""}" data-cat="todas">Todos</button>`,
+      ...MENU_DATA.categorias.map(c =>
+        `<button type="button" class="cat-btn ${categoriaAtiva === c.id ? "active" : ""}" data-cat="${c.id}">${c.nome}</button>`
+      )
+    ].join("");
 
-    if (DOM.headerStoreName) DOM.headerStoreName.textContent = "Olimpo";
-
-    if (DOM.storeStatusBadge && DOM.storeStatusText) {
-      const aberto = conf.aberto !== false;
-      DOM.storeStatusBadge.className = `status-pill ${aberto ? "open" : "closed"}`;
-      DOM.storeStatusText.textContent = aberto ? "Aberto" : "Fechado";
-    }
-
-    if (DOM.infoDeliveryTime && conf.tempoEntrega) DOM.infoDeliveryTime.textContent = conf.tempoEntrega;
-    if (DOM.infoDeliveryFee && conf.taxaEntrega !== undefined) DOM.infoDeliveryFee.textContent = formatarMoeda(conf.taxaEntrega);
-    if (DOM.infoMinOrder && conf.pedidoMinimo !== undefined) DOM.infoMinOrder.textContent = formatarMoeda(conf.pedidoMinimo);
-    if (DOM.infoOpenHours && conf.horarioFuncionamento) DOM.infoOpenHours.textContent = conf.horarioFuncionamento;
-    if (DOM.footerAddress && conf.endereco) DOM.footerAddress.textContent = conf.endereco;
-    if (DOM.footerPhoneText && conf.telefoneFormatado) DOM.footerPhoneText.textContent = conf.telefoneFormatado;
-
-    const mapLink = conf.mapsUrl || "https://www.google.com/maps/search/?api=1&query=Rua+Olavo+Bilac+303+Fraiburgo+SC";
-    if (DOM.headerMapBtn) DOM.headerMapBtn.href = mapLink;
-    if (DOM.footerMapBtn) DOM.footerMapBtn.href = mapLink;
-
-    if (DOM.footerWhatsAppBtn) {
-      const num = (conf.telefoneWhatsApp || "5549999156336").replace(/\D/g, "");
-      DOM.footerWhatsAppBtn.href = `https://wa.me/${num}?text=${encodeURIComponent("Olá! Vi o cardápio da Olimpo Pizzas Delivery e gostaria de fazer um pedido.")}`;
-    }
-  }
-
-  function renderizarCategorias() {
-    if (!DOM.categoriesBar) return;
-
-    let html = `
-      <button type="button" class="cat-chip ${state.categoriaAtiva === "todas" ? "active" : ""}" data-category="todas">
-        Todos
-      </button>
-    `;
-
-    state.categorias.forEach(cat => {
-      const ativa = state.categoriaAtiva === cat.id ? "active" : "";
-      html += `
-        <button type="button" class="cat-chip ${ativa}" data-category="${cat.id}">
-          ${cat.nome}
-        </button>
-      `;
-    });
-
-    DOM.categoriesBar.innerHTML = html;
-
-    DOM.categoriesBar.querySelectorAll(".cat-chip").forEach(btn => {
+    bar.querySelectorAll(".cat-btn").forEach(btn => {
       btn.addEventListener("click", () => {
-        state.categoriaAtiva = btn.getAttribute("data-category");
-        renderizarCategorias();
-        renderizarProdutos();
+        categoriaAtiva = btn.getAttribute("data-cat");
+        renderCategorias();
+        renderProdutos();
         btn.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
       });
     });
   }
 
-  function renderizarProdutos() {
-    if (!DOM.productsContainer) return;
+  function renderProdutos() {
+    const box = document.getElementById("productsContainer");
+    if (!box) return;
 
-    const filtrados = state.produtos.filter(prod => {
-      if (state.categoriaAtiva !== "todas" && prod.categoria !== state.categoriaAtiva) return false;
-      if (state.termoBusca.trim() !== "") {
-        const termo = state.termoBusca.toLowerCase();
-        return prod.nome.toLowerCase().includes(termo) || (prod.descricao || "").toLowerCase().includes(termo);
+    const filtrados = MENU_DATA.produtos.filter(p => {
+      if (categoriaAtiva !== "todas" && p.categoria !== categoriaAtiva) return false;
+      if (termoBusca.trim()) {
+        const q = termoBusca.toLowerCase();
+        return p.nome.toLowerCase().includes(q) || (p.descricao || "").toLowerCase().includes(q);
       }
       return true;
     });
 
-    if (filtrados.length === 0) {
-      DOM.productsContainer.innerHTML = `
-        <div class="empty-search">
-          <i class="fa-solid fa-magnifying-glass"></i>
-          <p>Nenhum item encontrado para "${state.termoBusca}".</p>
-        </div>
-      `;
+    if (!filtrados.length) {
+      box.innerHTML = `<p style="text-align:center;padding:3rem 1rem;color:var(--text-2);">Nenhum item encontrado para "${termoBusca}".</p>`;
       return;
     }
 
-    let html = "";
-
-    if (state.categoriaAtiva === "todas" && state.termoBusca.trim() === "") {
-      state.categorias.forEach(cat => {
+    if (categoriaAtiva === "todas" && !termoBusca.trim()) {
+      box.innerHTML = MENU_DATA.categorias.map(cat => {
         const itens = filtrados.filter(p => p.categoria === cat.id);
-        if (itens.length > 0) {
-          html += `
-            <section class="menu-group">
-              <h2 class="group-title">
-                <span>${cat.nome}</span>
-                <span class="count">${itens.length}</span>
-              </h2>
-              <div class="items-grid">
-                ${itens.map(criarCardHTML).join("")}
-              </div>
-            </section>
-          `;
-        }
-      });
+        if (!itens.length) return "";
+        return `
+          <section class="menu-section">
+            <h2 class="section-head"><span>${cat.nome}</span><small>${itens.length}</small></h2>
+            <div class="cards-grid">${itens.map(cardHTML).join("")}</div>
+          </section>
+        `;
+      }).join("");
     } else {
-      html = `
-        <section class="menu-group">
-          <div class="items-grid">
-            ${filtrados.map(criarCardHTML).join("")}
-          </div>
+      box.innerHTML = `
+        <section class="menu-section">
+          <div class="cards-grid">${filtrados.map(cardHTML).join("")}</div>
         </section>
       `;
     }
 
-    DOM.productsContainer.innerHTML = html;
-
-    DOM.productsContainer.querySelectorAll(".menu-card").forEach(card => {
+    box.querySelectorAll(".item-card").forEach(card => {
       card.addEventListener("click", () => {
-        const prod = state.produtos.find(p => p.id === card.getAttribute("data-id"));
-        if (prod && prod.disponivel) abrirModalProduto(prod);
+        const prod = MENU_DATA.produtos.find(p => p.id === card.getAttribute("data-id"));
+        if (prod) abrirProduto(prod);
       });
     });
   }
 
-  function criarCardHTML(prod) {
-    let precoTexto = "";
-    if (prod.precos) {
-      const menor = Math.min(...Object.values(prod.precos));
-      precoTexto = `<small>a partir de</small> ${formatarMoeda(menor)}`;
-    } else {
-      precoTexto = formatarMoeda(prod.precoFixo);
-    }
-
-    const thumbUrl = otimizarImagem(prod.imagem, 240);
+  function cardHTML(p) {
+    const preco = p.precos
+      ? `<small>a partir de</small> ${fmt(Math.min(...Object.values(p.precos)))}`
+      : fmt(p.precoFixo);
 
     return `
-      <article class="menu-card ${!prod.disponivel ? "esgotado" : ""}" data-id="${prod.id}">
-        <div class="menu-card-info">
+      <article class="item-card" data-id="${p.id}">
+        <div class="item-info">
           <div>
-            ${prod.destaque ? `<span class="menu-card-tag">${prod.destaque}</span>` : ""}
-            <h3 class="menu-card-title">${prod.nome}</h3>
-            <p class="menu-card-desc">${prod.descricao || ""}</p>
+            ${p.destaque ? `<span class="item-badge">${p.destaque}</span>` : ""}
+            <h3 class="item-title">${p.nome}</h3>
+            <p class="item-desc">${p.descricao || ""}</p>
           </div>
-          <div class="menu-card-price">${precoTexto}</div>
+          <div class="item-price">${preco}</div>
         </div>
-        <div class="menu-card-thumb">
-          <img src="${thumbUrl}" alt="${prod.nome}" width="92" height="92" decoding="async" onerror="this.src='logo.png'">
-          ${!prod.disponivel ? `<span class="sold-out-pill">Esgotado</span>` : ""}
+        <div class="item-thumb">
+          <img src="${p.imagem}" alt="${p.nome}" width="92" height="92" decoding="async" onerror="this.src='logo.png'">
         </div>
       </article>
     `;
   }
 
-  function abrirModalProduto(prod) {
-    const cat = state.categorias.find(c => c.id === prod.categoria);
-    DOM.modalProductCategory.textContent = cat ? cat.nome : "Cardápio";
-    DOM.modalProductName.textContent = prod.nome;
-    DOM.modalProductDescription.textContent = prod.descricao || "";
-    DOM.modalProductImage.src = otimizarImagem(prod.imagem, 540);
+  function abrirProduto(p) {
+    const cat = MENU_DATA.categorias.find(c => c.id === p.categoria);
+    document.getElementById("modalProductCategory").textContent = cat ? cat.nome : "Cardápio";
+    document.getElementById("modalProductName").textContent = p.nome;
+    document.getElementById("modalProductDescription").textContent = p.descricao || "";
+    document.getElementById("modalProductImage").src = p.imagem.replace("w=260", "w=540");
 
-    if (prod.precos) {
-      DOM.modalSizesContainer.style.display = "block";
-      DOM.modalFixedPriceContainer.style.display = "none";
+    const sizesBox = document.getElementById("modalSizesContainer");
+    const fixedBox = document.getElementById("modalFixedPriceContainer");
 
-      DOM.modalSizesGrid.innerHTML = Object.keys(prod.precos).map(key => {
-        const info = TAMANHOS_CONFIG[key] || { nome: key, detalhe: "" };
-        return `
-          <div class="size-row">
-            <span><strong>${info.nome}</strong> <small>${info.detalhe}</small></span>
-            <span class="price">${formatarMoeda(prod.precos[key])}</span>
-          </div>
-        `;
+    if (p.precos) {
+      sizesBox.style.display = "block";
+      fixedBox.style.display = "none";
+      document.getElementById("modalSizesGrid").innerHTML = Object.keys(p.precos).map(k => {
+        const t = TAMANHOS[k] || { nome: k, info: "" };
+        return `<div class="size-item"><span><strong>${t.nome}</strong><small>${t.info}</small></span><span class="val">${fmt(p.precos[k])}</span></div>`;
       }).join("");
-
-      const bordasAtivas = state.bordas.filter(b => b.disponivel && b.preco > 0);
-      if (bordasAtivas.length > 0) {
-        const listaBordas = bordasAtivas.map(b => `${b.nome} (+${formatarMoeda(b.preco)})`).join(" · ");
-        DOM.modalCrustsSummary.innerHTML = `<i class="fa-solid fa-ring"></i> Bordas: ${listaBordas}`;
-        DOM.modalExtrasNote.style.display = "flex";
-      } else {
-        DOM.modalExtrasNote.style.display = "none";
-      }
     } else {
-      DOM.modalSizesContainer.style.display = "none";
-      DOM.modalExtrasNote.style.display = "none";
-      DOM.modalFixedPriceContainer.style.display = "block";
-      DOM.modalFixedPriceValue.textContent = formatarMoeda(prod.precoFixo);
+      sizesBox.style.display = "none";
+      fixedBox.style.display = "block";
+      document.getElementById("modalFixedPriceValue").textContent = fmt(p.precoFixo);
     }
 
-    const num = (state.configuracoes.telefoneWhatsApp || "5549999156336").replace(/\D/g, "");
-    const msg = `Olá! Vi no cardápio da Olimpo Pizzas Delivery e gostaria de pedir: *${prod.nome}*`;
-    DOM.btnWhatsAppItem.href = `https://wa.me/${num}?text=${encodeURIComponent(msg)}`;
+    const msg = `Olá! Vi no cardápio da Olimpo Pizzaria e gostaria de pedir: *${p.nome}*`;
+    document.getElementById("btnWhatsAppItem").href = `https://wa.me/${MENU_DATA.whatsapp}?text=${encodeURIComponent(msg)}`;
 
-    DOM.productModalOverlay.classList.add("active");
+    document.getElementById("productModalOverlay").classList.add("active");
     document.body.style.overflow = "hidden";
   }
 
-  function fecharModalProduto() {
-    DOM.productModalOverlay.classList.remove("active");
-    document.body.style.overflow = "";
-  }
+  function bindEvents() {
+    const search = document.getElementById("searchInput");
+    const clear = document.getElementById("searchClearBtn");
 
-  if (DOM.currentYear) DOM.currentYear.textContent = new Date().getFullYear();
-  renderizarInformacoesLoja();
-  renderizarCategorias();
-  renderizarProdutos();
+    if (search) {
+      search.addEventListener("input", (e) => {
+        termoBusca = e.target.value;
+        if (clear) clear.classList.toggle("active", termoBusca.length > 0);
+        renderProdutos();
+      });
+    }
 
-  if (DOM.searchInput) {
-    DOM.searchInput.addEventListener("input", (e) => {
-      state.termoBusca = e.target.value;
-      DOM.searchClearBtn.classList.toggle("active", state.termoBusca.length > 0);
-      renderizarProdutos();
+    if (clear) {
+      clear.addEventListener("click", () => {
+        search.value = "";
+        termoBusca = "";
+        clear.classList.remove("active");
+        renderProdutos();
+      });
+    }
+
+    const prodModal = document.getElementById("productModalOverlay");
+    document.getElementById("btnCloseModal")?.addEventListener("click", () => {
+      prodModal.classList.remove("active");
+      document.body.style.overflow = "";
+    });
+    prodModal?.addEventListener("click", (e) => {
+      if (e.target === prodModal) {
+        prodModal.classList.remove("active");
+        document.body.style.overflow = "";
+      }
+    });
+
+    const mapModal = document.getElementById("mapModalOverlay");
+    const openMap = () => {
+      mapModal.classList.add("active");
+      document.body.style.overflow = "hidden";
+    };
+    const closeMap = () => {
+      mapModal.classList.remove("active");
+      document.body.style.overflow = "";
+    };
+
+    document.getElementById("btnOpenMapTop")?.addEventListener("click", openMap);
+    document.getElementById("btnOpenMapHero")?.addEventListener("click", openMap);
+    document.getElementById("btnOpenMapFooter")?.addEventListener("click", openMap);
+    document.getElementById("btnCloseMapModal")?.addEventListener("click", closeMap);
+    mapModal?.addEventListener("click", (e) => {
+      if (e.target === mapModal) closeMap();
     });
   }
 
-  if (DOM.searchClearBtn) {
-    DOM.searchClearBtn.addEventListener("click", () => {
-      DOM.searchInput.value = "";
-      state.termoBusca = "";
-      DOM.searchClearBtn.classList.remove("active");
-      renderizarProdutos();
-    });
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
   }
-
-  if (DOM.btnCloseModal) DOM.btnCloseModal.addEventListener("click", fecharModalProduto);
-  if (DOM.productModalOverlay) {
-    DOM.productModalOverlay.addEventListener("click", (e) => {
-      if (e.target === DOM.productModalOverlay) fecharModalProduto();
-    });
-  }
-});
+})();

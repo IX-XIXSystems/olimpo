@@ -3,13 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
-  <meta name="theme-color" content="#08090B">
+  <meta name="theme-color" content="#07080A">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <title>Olimpo Pizzas Delivery — Fraiburgo, SC</title>
-  <meta name="description" content="Cardápio digital da Olimpo Pizzas Delivery em Fraiburgo - SC. Pizzas artesanais, calzones e combos.">
+  <title>Olimpo Pizzaria — Fraiburgo | SC</title>
+  <meta name="description" content="Onde os deuses pedem pizza! Av Adalberto Smith Burda, 303, São José - Fraiburgo | SC.">
 
-  <!-- Preconexión inmediata para fuentes e imágenes -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
@@ -17,62 +16,682 @@
 
   <link rel="icon" type="image/png" href="logo.png">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
-  <link rel="stylesheet" href="style.css?v=10">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    :root {
+      --bg: #07080A;
+      --surface: #0F1115;
+      --surface-hover: #15181F;
+      --elevated: #181B22;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-gold: rgba(245, 197, 24, 0.38);
+
+      --gold: #F5C518;
+      --gold-soft: #FBE170;
+      --green: #10B981;
+      --red: #EF4444;
+      --whatsapp: #25D366;
+
+      --text: #F5F6F8;
+      --text-2: #A1A7B3;
+      --text-3: #6B7280;
+
+      --font-display: 'Cinzel', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      min-height: 100dvh;
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    .ambient-light {
+      position: fixed;
+      top: -140px;
+      left: 50%;
+      transform: translate3d(-50%, 0, 0);
+      width: 600px;
+      height: 360px;
+      background: radial-gradient(ellipse at center, rgba(245, 197, 24, 0.11) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    img, svg { display: block; max-width: 100%; }
+    button, input { font-family: inherit; color: inherit; border: none; outline: none; background: none; }
+    button { cursor: pointer; touch-action: manipulation; }
+    a { color: inherit; text-decoration: none; touch-action: manipulation; }
+
+    .container {
+      width: 100%;
+      max-width: 980px;
+      margin: 0 auto;
+      padding-left: max(1.15rem, env(safe-area-inset-left));
+      padding-right: max(1.15rem, env(safe-area-inset-right));
+      position: relative;
+      z-index: 1;
+    }
+
+    /* =========================================
+       1. HEADER ULTRA MINIMALISTA
+       ========================================= */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding-top: env(safe-area-inset-top);
+      background: rgba(7, 8, 10, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-inner {
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .header-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 1px solid var(--border-gold);
+      background: #000;
+      flex-shrink: 0;
+    }
+
+    .header-logo img { width: 36px; height: 36px; object-fit: cover; }
+
+    .brand-title {
+      font-family: var(--font-display);
+      font-size: 0.98rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .nav-circle-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.86rem;
+      color: var(--text-2);
+      transition: transform 0.25s var(--ease), border-color 0.25s ease, color 0.25s ease;
+    }
+
+    .nav-circle-btn:hover {
+      transform: translateY(-2px);
+      border-color: var(--border-gold);
+      color: var(--gold);
+    }
+
+    .nav-circle-btn:active { transform: scale(0.92); }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 0.74rem;
+      font-weight: 600;
+    }
+
+    .status-pill.open { background: rgba(16, 185, 129, 0.14); color: var(--green); }
+    .status-pill.closed { background: rgba(239, 68, 68, 0.14); color: var(--red); }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    /* =========================================
+       2. HERO PERFIL PREMIUM + BIO DE INSTAGRAM
+       ========================================= */
+    .hero-profile {
+      padding: 2.2rem 0 1.75rem;
+      text-align: center;
+    }
+
+    /* Logo con animación fluida elegante */
+    .logo-stage {
+      position: relative;
+      width: 126px;
+      height: 126px;
+      margin: 0 auto 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: heroLogoIn 0.85s var(--ease) both;
+    }
+
+    @keyframes heroLogoIn {
+      0% { opacity: 0; transform: translate3d(0, 14px, 0) scale(0.88); }
+      100% { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+    }
+
+    .logo-halo {
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      border: 1px solid rgba(245, 197, 24, 0.35);
+      box-shadow: 0 0 28px rgba(245, 197, 24, 0.2);
+      animation: haloBreath 4s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+
+    @keyframes haloBreath {
+      0% { transform: scale(0.98); opacity: 0.65; }
+      100% { transform: scale(1.04); opacity: 1; }
+    }
+
+    .logo-frame {
+      position: relative;
+      width: 116px;
+      height: 116px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: #000;
+      border: 1.5px solid rgba(245, 197, 24, 0.5);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.85);
+      transition: transform 0.3s var(--ease);
+    }
+
+    .logo-frame:active { transform: scale(0.95); }
+
+    .logo-frame img {
+      width: 116px;
+      height: 116px;
+      object-fit: cover;
+      transform: scale(1.03);
+    }
+
+    .logo-sheen {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(115deg, transparent 30%, rgba(255, 255, 255, 0.28) 50%, transparent 70%);
+      transform: translate3d(-150%, 0, 0);
+      animation: sheenFlow 4.8s ease-in-out 0.6s infinite;
+      pointer-events: none;
+    }
+
+    @keyframes sheenFlow {
+      0%, 55% { transform: translate3d(-150%, 0, 0); }
+      100% { transform: translate3d(150%, 0, 0); }
+    }
+
+    .store-name {
+      font-family: var(--font-display);
+      font-size: clamp(1.65rem, 5vw, 2.35rem);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.75rem;
+      background: linear-gradient(120deg, #FFFFFF 20%, #FBE170 70%, #F5C518 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: fadeSlideUp 0.7s var(--ease) 0.08s both;
+    }
+
+    /* Bio exacta de Instagram con estética minimalista */
+    .ig-bio-card {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.32rem;
+      font-size: 0.88rem;
+      color: var(--text-2);
+      margin-bottom: 1.35rem;
+      animation: fadeSlideUp 0.7s var(--ease) 0.16s both;
+    }
+
+    .bio-flags {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      font-size: 0.82rem;
+      margin-bottom: 0.15rem;
+    }
+
+    .bio-tagline {
+      color: var(--text);
+      font-weight: 600;
+      font-size: 0.94rem;
+    }
+
+    .bio-line {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.82rem;
+      color: var(--text-2);
+    }
+
+    /* Botones minimalistas de Mapa e Instagram */
+    .social-pills-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      animation: fadeSlideUp 0.7s var(--ease) 0.24s both;
+    }
+
+    .action-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0.58rem 1.15rem;
+      border-radius: 999px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text);
+      transition: transform 0.25s var(--ease), border-color 0.25s ease, background-color 0.25s ease;
+    }
+
+    .action-pill:hover {
+      transform: translateY(-2px);
+      background: var(--surface-hover);
+      border-color: var(--border-gold);
+    }
+
+    .action-pill:active { transform: scale(0.95); }
+
+    .action-pill .icon-map { color: var(--gold); font-size: 0.92rem; }
+    .action-pill .icon-ig {
+      background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: 1rem;
+    }
+
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translate3d(0, 12px, 0); }
+      to { opacity: 1; transform: translate3d(0, 0, 0); }
+    }
+
+    /* =========================================
+       3. BUSCADOR Y CATEGORÍAS STICKY
+       ========================================= */
+    .sticky-bar {
+      position: sticky;
+      top: calc(60px + env(safe-area-inset-top));
+      z-index: 90;
+      background: rgba(7, 8, 10, 0.9);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      padding: 0.75rem 0 0.85rem;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 1.75rem;
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 0 1rem;
+      height: 44px;
+      margin-bottom: 0.75rem;
+      transition: border-color 0.2s ease;
+    }
+
+    .search-box:focus-within { border-color: var(--border-gold); }
+    .search-box i { color: var(--text-3); font-size: 0.88rem; margin-right: 0.65rem; }
+    .search-box input { width: 100%; font-size: 16px; color: var(--text); }
+    .search-box input::placeholder { color: var(--text-3); font-size: 0.86rem; }
+
+    .search-clear { display: none; color: var(--text-3); padding: 0.35rem; }
+    .search-clear.active { display: block; }
+
+    .cats-scroll {
+      display: flex;
+      gap: 0.5rem;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .cats-scroll::-webkit-scrollbar { display: none; }
+
+    .cat-btn {
+      white-space: nowrap;
+      padding: 0.44rem 0.95rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-2);
+      border: 1px solid var(--border);
+      transition: all 0.2s var(--ease);
+    }
+
+    .cat-btn:active { transform: scale(0.95); }
+
+    .cat-btn.active {
+      background: var(--text);
+      color: var(--bg);
+      border-color: var(--text);
+      font-weight: 600;
+    }
+
+    /* =========================================
+       4. CARDÁPIO (TARJETAS MINIMALISTAS)
+       ========================================= */
+    .menu-section { margin-bottom: 2.5rem; }
+
+    .section-head {
+      font-family: var(--font-display);
+      font-size: 1.08rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .section-head small {
+      font-family: var(--font-sans);
+      font-size: 0.74rem;
+      color: var(--text-3);
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.85rem;
+    }
+
+    @media (min-width: 700px) {
+      .cards-grid { grid-template-columns: repeat(2, 1fr); gap: 1.1rem; }
+    }
+
+    .item-card {
+      display: flex;
+      align-items: stretch;
+      justify-content: space-between;
+      gap: 0.95rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 0.9rem;
+      cursor: pointer;
+      transition: transform 0.22s var(--ease), background-color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .item-card:active { transform: scale(0.98); background: var(--surface-hover); }
+
+    @media (hover: hover) {
+      .item-card:hover {
+        transform: translateY(-2px);
+        background: var(--surface-hover);
+        border-color: var(--border-gold);
+      }
+    }
+
+    .item-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .item-badge {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--gold);
+      margin-bottom: 0.2rem;
+    }
+
+    .item-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      line-height: 1.3;
+    }
+
+    .item-desc {
+      font-size: 0.79rem;
+      color: var(--text-2);
+      line-height: 1.42;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin-bottom: 0.55rem;
+    }
+
+    .item-price { font-size: 0.88rem; font-weight: 600; color: var(--gold-soft); }
+    .item-price small { font-weight: 400; color: var(--text-3); font-size: 0.74rem; }
+
+    .item-thumb {
+      width: 92px;
+      height: 92px;
+      border-radius: 10px;
+      overflow: hidden;
+      flex-shrink: 0;
+      background: var(--elevated);
+    }
+
+    .item-thumb img { width: 92px; height: 92px; object-fit: cover; }
+
+    /* =========================================
+       5. MODAIS (PRODUTO E LOCALIZAÇÃO)
+       ========================================= */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      z-index: 200;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s ease, visibility 0.25s ease;
+    }
+
+    .modal-backdrop.active { opacity: 1; visibility: visible; }
+
+    .modal-sheet {
+      position: relative;
+      width: 100%;
+      max-width: 460px;
+      max-height: 88dvh;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px 20px 0 0;
+      overflow-y: auto;
+      padding-bottom: env(safe-area-inset-bottom);
+      transform: translate3d(0, 30px, 0);
+      transition: transform 0.3s var(--ease);
+    }
+
+    .modal-backdrop.active .modal-sheet { transform: translate3d(0, 0, 0); }
+
+    @media (min-width: 640px) {
+      .modal-backdrop { align-items: center; padding: 1.5rem; }
+      .modal-sheet { border-radius: 20px; }
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      z-index: 10;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: rgba(7, 8, 10, 0.78);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+    }
+
+    .modal-photo { width: 100%; height: 200px; background: var(--elevated); }
+    .modal-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .modal-body { padding: 1.35rem; }
+
+    .modal-tag { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold); }
+    .modal-name { font-family: var(--font-display); font-size: 1.25rem; margin: 0.2rem 0 0.5rem; }
+    .modal-text { font-size: 0.85rem; color: var(--text-2); line-height: 1.5; margin-bottom: 1.2rem; }
+
+    .size-list { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.2rem; }
+    .size-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.65rem 0.9rem;
+      background: var(--elevated);
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      font-size: 0.86rem;
+    }
+    .size-item strong { color: var(--text); }
+    .size-item small { color: var(--text-3); margin-left: 4px; }
+    .size-item .val { font-weight: 700; color: var(--gold-soft); }
+
+    .btn-primary-whats {
+      width: 100%;
+      padding: 0.9rem;
+      border-radius: 12px;
+      background: var(--whatsapp);
+      color: #07080A;
+      font-weight: 700;
+      font-size: 0.92rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-primary-gold {
+      width: 100%;
+      padding: 0.9rem;
+      border-radius: 12px;
+      background: var(--gold);
+      color: #07080A;
+      font-weight: 700;
+      font-size: 0.92rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    /* =========================================
+       6. FOOTER MINIMALISTA
+       ========================================= */
+    .site-footer {
+      margin-top: 2.5rem;
+      padding: 2.25rem 0;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .footer-logo {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 1px solid var(--border-gold);
+      background: #000;
+      margin: 0 auto 0.85rem;
+    }
+    .footer-logo img { width: 56px; height: 56px; object-fit: cover; }
+
+    .footer-brand { font-family: var(--font-display); font-size: 1.05rem; letter-spacing: 0.06em; margin-bottom: 0.3rem; }
+    .footer-sub { font-size: 0.8rem; color: var(--text-2); margin-bottom: 1.1rem; }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 1.3rem;
+    }
+
+    .footer-copy { font-size: 0.72rem; color: var(--text-3); }
+    .footer-copy a { text-decoration: underline; opacity: 0.75; }
+  </style>
 </head>
 <body>
 
-  <div class="ambient-glow" aria-hidden="true"></div>
+  <div class="ambient-light" aria-hidden="true"></div>
 
-  <!-- 1. HEADER GLASSMORPHISM CON SAFE-AREA PARA IPHONE -->
+  <!-- 1. HEADER LIMPIO -->
   <header class="site-header">
     <div class="container">
       <div class="header-inner">
         <a href="index.html" class="brand">
-          <div class="header-logo-wrap">
-            <img src="logo.png" alt="Olimpo" width="38" height="38" decoding="sync" class="header-logo-img">
+          <div class="header-logo">
+            <img src="logo.png" alt="Olimpo Pizzaria" width="36" height="36" decoding="sync">
           </div>
-          <div class="brand-stack">
-            <span class="brand-name" id="headerStoreName">Olimpo</span>
-            <span class="brand-city">Fraiburgo · SC</span>
-          </div>
+          <span class="brand-title">Olimpo Pizzaria</span>
         </a>
 
-        <div class="header-right">
-          <div class="union-emblem" title="Brasil & Venezuela">
-            <svg width="22" height="22" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Brasil e Venezuela">
-              <defs>
-                <clipPath id="splitLeft"><polygon points="0,0 22,0 14,36 0,36"/></clipPath>
-                <clipPath id="splitRight"><polygon points="22,0 36,0 36,36 14,36"/></clipPath>
-                <clipPath id="circleMask"><circle cx="18" cy="18" r="17"/></clipPath>
-              </defs>
-              <g clip-path="url(#circleMask)">
-                <g clip-path="url(#splitLeft)">
-                  <rect width="36" height="36" fill="#009B3A"/>
-                  <polygon points="15,5 28,18 15,31 2,18" fill="#FEDF00"/>
-                  <circle cx="14" cy="18" r="6.2" fill="#002776"/>
-                  <path d="M8.5,16.8 Q14,15 19.5,18.2" stroke="#FFFFFF" stroke-width="1.2" fill="none"/>
-                </g>
-                <g clip-path="url(#splitRight)">
-                  <rect width="36" height="12" y="0" fill="#FCE300"/>
-                  <rect width="36" height="12" y="12" fill="#003893"/>
-                  <rect width="36" height="12" y="24" fill="#CE1126"/>
-                  <g fill="#FFFFFF">
-                    <circle cx="19" cy="18.2" r="0.8"/>
-                    <circle cx="21.2" cy="16.8" r="0.8"/>
-                    <circle cx="23.8" cy="16.4" r="0.8"/>
-                    <circle cx="26.4" cy="17.2" r="0.8"/>
-                    <circle cx="28.4" cy="18.8" r="0.8"/>
-                  </g>
-                </g>
-                <line x1="22" y1="0" x2="14" y2="36" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
-              </g>
-              <circle cx="18" cy="18" r="17" stroke="rgba(245,197,24,0.5)" stroke-width="1"/>
-            </svg>
-          </div>
-
-          <a href="#" target="_blank" rel="noopener" class="icon-pill" id="headerMapBtn" title="Ver localização no mapa">
+        <div class="header-actions">
+          <!-- Botón Mapa -->
+          <button type="button" class="nav-circle-btn" id="btnOpenMapTop" title="Localização">
             <i class="fa-solid fa-location-dot"></i>
+          </button>
+
+          <!-- Botón Instagram -->
+          <a href="https://www.instagram.com/olimpopizzaria_/" target="_blank" rel="noopener" class="nav-circle-btn" title="Instagram @olimpopizzaria_">
+            <i class="fa-brands fa-instagram"></i>
           </a>
 
           <div class="status-pill open" id="storeStatusBadge">
@@ -84,51 +703,54 @@
     </div>
   </header>
 
-  <!-- 2. HERO CON ANIMACIÓN DE ENTRADA MODERNA Y SUAVE -->
-  <section class="hero-minimal">
+  <!-- 2. HERO CON BIO DE INSTAGRAM EXACTA -->
+  <section class="hero-profile">
     <div class="container">
-      <div class="hero-logo-stage" id="heroLogoStage">
-        <div class="logo-glow-ring" aria-hidden="true"></div>
-        <div class="logo-medallion" id="heroLogoMedallion">
-          <img src="logo.png" alt="Olimpo Pizzas Delivery" width="116" height="116" fetchpriority="high" decoding="sync" class="hero-logo-img">
+      <div class="logo-stage">
+        <div class="logo-halo" aria-hidden="true"></div>
+        <div class="logo-frame">
+          <img src="logo.png" alt="Olimpo Pizzaria" width="116" height="116" fetchpriority="high" decoding="sync">
           <div class="logo-sheen" aria-hidden="true"></div>
         </div>
       </div>
 
-      <span class="hero-eyebrow reveal-item" style="--d: 60ms">Pizzas Delivery · São José</span>
-      <h1 class="hero-title reveal-item" style="--d: 120ms">Sabores dignos do <span>Olimpo</span></h1>
-      <p class="hero-subtitle reveal-item" style="--d: 180ms" id="heroDescription">
-        Pizzas artesanais, calzones e combos exclusivos preparados na hora em Fraiburgo.
-      </p>
+      <h1 class="store-name">Olimpo Pizzaria</h1>
 
-      <div class="meta-bar reveal-item" style="--d: 240ms">
-        <span><i class="fa-regular fa-clock"></i> <strong id="infoOpenHours">Ter a Dom · 18h30 às 23h30</strong></span>
-        <span class="meta-sep">•</span>
-        <span><i class="fa-solid fa-motorcycle"></i> <strong id="infoDeliveryTime">40–55 min</strong></span>
-        <span class="meta-sep">•</span>
-        <span><i class="fa-solid fa-bag-shopping"></i> Mín. <strong id="infoMinOrder">R$ 24,00</strong></span>
+      <!-- Bio oficial de Instagram (sin "Peça agora pelo link!" ni el enlace) -->
+      <div class="ig-bio-card">
+        <div class="bio-flags">🇧🇷 | 🇻🇪</div>
+        <p class="bio-tagline">🍕 Onde os deuses pedem pizza!</p>
+        <p class="bio-line">📍 Fraiburgo | SC</p>
+        <p class="bio-line">🏛️ Av Adalberto Smith Burda, 303, São José.</p>
+      </div>
+
+      <!-- Botones elegantes de Mapa e Instagram -->
+      <div class="social-pills-row">
+        <button type="button" class="action-pill" id="btnOpenMapHero">
+          <i class="fa-solid fa-location-dot icon-map"></i>
+          <span>Como Chegar</span>
+        </button>
+
+        <a href="https://www.instagram.com/olimpopizzaria_/" target="_blank" rel="noopener" class="action-pill">
+          <i class="fa-brands fa-instagram icon-ig"></i>
+          <span>@olimpopizzaria_</span>
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- 3. BUSCADOR Y CATEGORÍAS STICKY -->
-  <div class="sticky-controls reveal-item" style="--d: 280ms">
+  <!-- 3. BUSCADOR Y CATEGORÍAS -->
+  <div class="sticky-bar">
     <div class="container">
-      <div class="search-minimal">
+      <div class="search-box">
         <i class="fa-solid fa-magnifying-glass"></i>
-        <input 
-          type="search" 
-          id="searchInput" 
-          placeholder="Buscar pizza, calzone ou ingrediente..." 
-          autocomplete="off"
-          enterkeyhint="search"
-        >
+        <input type="search" id="searchInput" placeholder="Buscar pizza, calzone ou ingrediente..." autocomplete="off">
         <button type="button" class="search-clear" id="searchClearBtn" aria-label="Limpar">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
 
-      <nav class="categories-strip" id="categoriesBar" aria-label="Categorias"></nav>
+      <nav class="cats-scroll" id="categoriesBar" aria-label="Categorias"></nav>
     </div>
   </div>
 
@@ -137,40 +759,34 @@
     <div id="productsContainer"></div>
   </main>
 
-  <!-- 5. MODAL DE DETALLES DEL PRODUCTO -->
-  <div class="modal-overlay" id="productModalOverlay">
-    <div class="modal-card">
-      <button type="button" class="btn-close-floating" id="btnCloseModal" aria-label="Fechar">
+  <!-- 5. MODAL DE DETALLE DEL PRODUCTO -->
+  <div class="modal-backdrop" id="productModalOverlay">
+    <div class="modal-sheet">
+      <button type="button" class="modal-close" id="btnCloseModal" aria-label="Fechar">
         <i class="fa-solid fa-xmark"></i>
       </button>
 
-      <div class="modal-cover">
-        <img src="" alt="" id="modalProductImage" decoding="async">
+      <div class="modal-photo">
+        <img src="" alt="" id="modalProductImage">
       </div>
 
-      <div class="modal-content">
-        <span class="modal-cat" id="modalProductCategory">Pizzas</span>
-        <h2 class="modal-title" id="modalProductName">Nome do Produto</h2>
-        <p class="modal-desc" id="modalProductDescription"></p>
+      <div class="modal-body">
+        <span class="modal-tag" id="modalProductCategory">Pizzas</span>
+        <h2 class="modal-name" id="modalProductName">Nome</h2>
+        <p class="modal-text" id="modalProductDescription"></p>
 
         <div id="modalSizesContainer">
-          <h3 class="modal-label">Tamanhos & Sabores</h3>
-          <div class="sizes-list" id="modalSizesGrid"></div>
+          <div class="size-list" id="modalSizesGrid"></div>
         </div>
 
-        <div id="modalFixedPriceContainer" style="display: none;">
-          <div class="fixed-price-row">
-            <span>Valor</span>
-            <strong id="modalFixedPriceValue">R$ 0,00</strong>
+        <div id="modalFixedPriceContainer" style="display:none;">
+          <div class="size-item" style="margin-bottom:1.2rem;">
+            <strong>Valor</strong>
+            <span class="val" id="modalFixedPriceValue">R$ 0,00</span>
           </div>
         </div>
 
-        <div class="modal-notes" id="modalExtrasNote">
-          <p><i class="fa-solid fa-pizza-slice"></i> Monte com até <strong>3 sabores</strong> (Média) ou <strong>4 sabores</strong> (Grande).</p>
-          <p id="modalCrustsSummary"></p>
-        </div>
-
-        <a href="#" target="_blank" rel="noopener" class="btn-whatsapp-direct" id="btnWhatsAppItem">
+        <a href="#" target="_blank" rel="noopener" class="btn-primary-whats" id="btnWhatsAppItem">
           <i class="fa-brands fa-whatsapp"></i>
           <span>Pedir pelo WhatsApp</span>
         </a>
@@ -178,58 +794,73 @@
     </div>
   </div>
 
-  <!-- 6. FOOTER -->
+  <!-- 6. MODAL DE UBICACIÓN EXACTA (MAPA INTERACTIVO) -->
+  <div class="modal-backdrop" id="mapModalOverlay">
+    <div class="modal-sheet">
+      <button type="button" class="modal-close" id="btnCloseMapModal" aria-label="Fechar">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="modal-body" style="padding-top: 1.75rem;">
+        <span class="modal-tag">Localização Exata</span>
+        <h2 class="modal-name">Olimpo Pizzaria</h2>
+        <p class="modal-text" style="margin-bottom: 1rem;">
+          🏛️ Av Adalberto Smith Burda, 303, São José<br>
+          📍 Fraiburgo | SC — CEP 89580-000
+        </p>
+
+        <div style="border-radius: 12px; overflow: hidden; border: 1px solid var(--border); margin-bottom: 1.1rem; height: 210px; background: var(--elevated);">
+          <iframe
+            title="Mapa Olimpo Pizzaria Fraiburgo"
+            width="100%"
+            height="210"
+            style="border:0;"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://maps.google.com/maps?q=Av%20Adalberto%20Smith%20Burda,%20303,%20Sao%20Jose,%20Fraiburgo%20-%20SC&t=&z=16&ie=UTF8&iwloc=&output=embed">
+          </iframe>
+        </div>
+
+        <a href="https://www.google.com/maps/search/?api=1&query=Av+Adalberto+Smith+Burda+303+Sao+Jose+Fraiburgo+SC" target="_blank" rel="noopener" class="btn-primary-gold">
+          <i class="fa-solid fa-diamond-turn-right"></i>
+          <span>Abrir no Google Maps</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. FOOTER -->
   <footer class="site-footer">
     <div class="container">
-      <div class="footer-logo-wrap">
-        <img src="logo.png" alt="Olimpo Pizzas Delivery" width="60" height="60" loading="lazy" decoding="async" class="footer-logo-img">
+      <div class="footer-logo">
+        <img src="logo.png" alt="Olimpo Pizzaria" width="56" height="56" loading="lazy">
       </div>
+      <div class="footer-brand">Olimpo Pizzaria</div>
+      <p class="footer-sub">🇧🇷 | 🇻🇪 · Onde os deuses pedem pizza!<br>Av Adalberto Smith Burda, 303, São José · Fraiburgo | SC</p>
 
-      <div class="footer-union-pill">
-        <svg width="20" height="20" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <defs>
-            <clipPath id="splitLeftF"><polygon points="0,0 22,0 14,36 0,36"/></clipPath>
-            <clipPath id="splitRightF"><polygon points="22,0 36,0 36,36 14,36"/></clipPath>
-            <clipPath id="circleMaskF"><circle cx="18" cy="18" r="17"/></clipPath>
-          </defs>
-          <g clip-path="url(#circleMaskF)">
-            <g clip-path="url(#splitLeftF)">
-              <rect width="36" height="36" fill="#009B3A"/>
-              <polygon points="15,5 28,18 15,31 2,18" fill="#FEDF00"/>
-              <circle cx="14" cy="18" r="6.2" fill="#002776"/>
-            </g>
-            <g clip-path="url(#splitRightF)">
-              <rect width="36" height="12" y="0" fill="#FCE300"/>
-              <rect width="36" height="12" y="12" fill="#003893"/>
-              <rect width="36" height="12" y="24" fill="#CE1126"/>
-            </g>
-            <line x1="22" y1="0" x2="14" y2="36" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
-          </g>
-        </svg>
-        <span>Brasil · Venezuela</span>
-      </div>
+      <div class="footer-links">
+        <button type="button" class="action-pill" id="btnOpenMapFooter">
+          <i class="fa-solid fa-location-dot icon-map"></i>
+          <span>Mapa</span>
+        </button>
 
-      <div class="footer-logo">Olimpo Pizzas Delivery</div>
-      <p class="footer-address" id="footerAddress">Rua Olavo Bilac, 303 · São José, Fraiburgo - SC</p>
-      <p class="footer-info">Taxa de entrega padrão: <strong id="infoDeliveryFee">R$ 7,00</strong></p>
-
-      <div class="footer-actions">
-        <a href="#" target="_blank" rel="noopener" class="footer-whats-link" id="footerWhatsAppBtn">
-          <i class="fa-brands fa-whatsapp"></i> <span id="footerPhoneText">(49) 9915-6336</span>
+        <a href="https://www.instagram.com/olimpopizzaria_/" target="_blank" rel="noopener" class="action-pill">
+          <i class="fa-brands fa-instagram icon-ig"></i>
+          <span>Instagram</span>
         </a>
-        <a href="#" target="_blank" rel="noopener" class="footer-map-link" id="footerMapBtn">
-          <i class="fa-solid fa-location-dot"></i> Como chegar
+
+        <a href="https://wa.me/5549999156336" target="_blank" rel="noopener" class="action-pill">
+          <i class="fa-brands fa-whatsapp" style="color: var(--whatsapp);"></i>
+          <span>(49) 9915-6336</span>
         </a>
       </div>
 
       <p class="footer-copy">
-        &copy; <span id="currentYear"></span> Olimpo Pizzas Delivery · Fraiburgo/SC · <a href="admin.html">Painel</a>
+        &copy; <span id="currentYear"></span> Olimpo Pizzaria · Fraiburgo | SC · <a href="admin.html">Painel</a>
       </p>
     </div>
   </footer>
 
-  <!-- Scripts sin bloqueo de red -->
-  <script src="seed-data.js?v=10"></script>
-  <script src="app.js?v=10"></script>
+  <script src="app.js?v=12"></script>
 </body>
 </html>

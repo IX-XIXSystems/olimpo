@@ -6,8 +6,8 @@
   <meta name="theme-color" content="#07080A">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <title>Olimpo Pizzaria — Fraiburgo | SC</title>
-  <meta name="description" content="Onde os deuses pedem pizza! Av Adalberto Smith Burda, 303, São José - Fraiburgo | SC.">
+  <title>Olimpo Pizzaria — Cardápio Online</title>
+  <meta name="description" content="Cardápio Online da Olimpo Pizzaria. Onde os deuses pedem pizza! Av Adalberto Smith Burda, 303, São José - Fraiburgo | SC.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -32,7 +32,6 @@
       --gold-soft: #FBE170;
       --green: #10B981;
       --red: #EF4444;
-      --whatsapp: #25D366;
       --ig-gradient: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
 
       --text: #F5F6F8;
@@ -86,7 +85,7 @@
       top: 0;
       z-index: 100;
       padding-top: env(safe-area-inset-top);
-      background: rgba(7, 8, 10, 0.82);
+      background: rgba(7, 8, 10, 0.84);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
@@ -145,19 +144,19 @@
 
     .nav-circle-btn:active { transform: scale(0.92); }
 
-    .status-pill {
+    .menu-badge {
       display: inline-flex;
       align-items: center;
       gap: 6px;
       padding: 5px 12px;
       border-radius: 999px;
-      font-size: 0.74rem;
+      font-size: 0.72rem;
       font-weight: 600;
+      letter-spacing: 0.04em;
+      background: rgba(245, 197, 24, 0.12);
+      color: var(--gold-soft);
+      border: 1px solid rgba(245, 197, 24, 0.25);
     }
-
-    .status-pill.open { background: rgba(16, 185, 129, 0.16); color: var(--green); }
-    .status-pill.closed { background: rgba(239, 68, 68, 0.16); color: var(--red); }
-    .status-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
 
     /* =========================================
        2. HERO CON ZEUS EN EL FONDO
@@ -494,7 +493,7 @@
     .item-thumb img { width: 92px; height: 92px; object-fit: cover; }
 
     /* =========================================
-       5. MODAIS MODERNOS (PRODUTO, MAPA E INSTAGRAM)
+       5. MODAIS (PRODUTO, MAPA E INSTAGRAM)
        ========================================= */
     .modal-backdrop {
       position: fixed;
@@ -558,15 +557,15 @@
       border: 1px solid var(--border);
     }
 
-    .modal-photo { width: 100%; height: 200px; background: var(--elevated); }
+    .modal-photo { width: 100%; height: 210px; background: var(--elevated); }
     .modal-photo img { width: 100%; height: 100%; object-fit: cover; }
     .modal-body { padding: 1.35rem; }
 
     .modal-tag { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold); }
     .modal-name { font-family: var(--font-display); font-size: 1.25rem; margin: 0.2rem 0 0.5rem; }
-    .modal-text { font-size: 0.85rem; color: var(--text-2); line-height: 1.5; margin-bottom: 1.2rem; }
+    .modal-text { font-size: 0.85rem; color: var(--text-2); line-height: 1.55; margin-bottom: 1.2rem; }
 
-    .size-list { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.2rem; }
+    .size-list { display: flex; flex-direction: column; gap: 0.5rem; }
     .size-item {
       display: flex;
       align-items: center;
@@ -580,21 +579,6 @@
     .size-item strong { color: var(--text); }
     .size-item small { color: var(--text-3); margin-left: 4px; }
     .size-item .val { font-weight: 700; color: var(--gold-soft); }
-
-    /* Botones de acción en modales */
-    .btn-primary-whats {
-      width: 100%;
-      padding: 0.92rem;
-      border-radius: 14px;
-      background: var(--whatsapp);
-      color: #07080A;
-      font-weight: 700;
-      font-size: 0.92rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
 
     .btn-primary-gold {
       width: 100%;
@@ -641,83 +625,14 @@
       margin-bottom: 0.65rem;
     }
 
-    /* Vista previa de perfil de Instagram dentro del modal */
-    .ig-preview-header {
-      display: flex;
-      align-items: center;
-      gap: 14px;
+    .ig-embed-frame {
+      width: 100%;
+      height: 310px;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #ffffff;
+      border: 1px solid var(--border);
       margin-bottom: 1rem;
-    }
-
-    .ig-avatar-ring {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      padding: 2.5px;
-      background: var(--ig-gradient);
-      flex-shrink: 0;
-    }
-
-    .ig-avatar-ring img {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid var(--surface);
-      background: #000;
-    }
-
-    .ig-stats-row {
-      display: flex;
-      gap: 16px;
-      margin-top: 6px;
-    }
-
-    .ig-stat {
-      display: flex;
-      flex-direction: column;
-      font-size: 0.74rem;
-      color: var(--text-2);
-    }
-
-    .ig-stat strong {
-      font-size: 0.92rem;
-      color: var(--text);
-    }
-
-    .ig-feed-preview {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 6px;
-      margin: 1rem 0 1.25rem;
-    }
-
-    .ig-feed-item {
-      aspect-ratio: 1 / 1;
-      border-radius: 10px;
-      overflow: hidden;
-      background: var(--elevated);
-      position: relative;
-    }
-
-    .ig-feed-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .ig-feed-item span {
-      position: absolute;
-      bottom: 6px;
-      left: 6px;
-      right: 6px;
-      font-size: 0.64rem;
-      font-weight: 700;
-      color: #fff;
-      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
 
     /* =========================================
@@ -770,20 +685,15 @@
         </a>
 
         <div class="header-actions">
-          <!-- Abre primero la ventana previa del Mapa -->
           <button type="button" class="nav-circle-btn" id="btnOpenMapTop" title="Ver Localização">
             <i class="fa-solid fa-location-dot"></i>
           </button>
 
-          <!-- Abre primero la ventana previa de Instagram -->
           <button type="button" class="nav-circle-btn" id="btnOpenIgTop" title="Ver Instagram">
             <i class="fa-brands fa-instagram"></i>
           </button>
 
-          <div class="status-pill open" id="storeStatusBadge">
-            <span class="status-dot"></span>
-            <span id="storeStatusText">Aberto</span>
-          </div>
+          <span class="menu-badge">Cardápio</span>
         </div>
       </div>
     </div>
@@ -818,7 +728,7 @@
       <div class="social-pills-row">
         <button type="button" class="action-pill" id="btnOpenMapHero">
           <i class="fa-solid fa-location-dot icon-map"></i>
-          <span>Como Chegar</span>
+          <span>Localização</span>
         </button>
 
         <button type="button" class="action-pill" id="btnOpenIgHero">
@@ -849,9 +759,10 @@
     <div id="productsContainer"></div>
   </main>
 
-  <!-- 5. MODAL DE DETALLE DEL PRODUCTO -->
+  <!-- 5. MODAL DE DETALLE DEL PRODUCTO (SOLO CONSULTA DEL CARDÁPIO) -->
   <div class="modal-backdrop" id="productModalOverlay">
     <div class="modal-sheet">
+      <div class="modal-handle"></div>
       <button type="button" class="modal-close" id="btnCloseModal" aria-label="Fechar">
         <i class="fa-solid fa-xmark"></i>
       </button>
@@ -870,21 +781,16 @@
         </div>
 
         <div id="modalFixedPriceContainer" style="display:none;">
-          <div class="size-item" style="margin-bottom:1.2rem;">
+          <div class="size-item">
             <strong>Valor</strong>
             <span class="val" id="modalFixedPriceValue">R$ 0,00</span>
           </div>
         </div>
-
-        <a href="#" target="_blank" rel="noopener" class="btn-primary-whats" id="btnWhatsAppItem">
-          <i class="fa-brands fa-whatsapp"></i>
-          <span>Pedir pelo WhatsApp</span>
-        </a>
       </div>
     </div>
   </div>
 
-  <!-- 6. MODAL PREVIA DE UBICACIÓN (MAPA INTERACTIVO ANTES DE SALIR) -->
+  <!-- 6. MODAL PREVIA DE UBICACIÓN (MAPA INTERACTIVO ANTES DE ABRIR GOOGLE MAPS) -->
   <div class="modal-backdrop" id="mapModalOverlay">
     <div class="modal-sheet">
       <div class="modal-handle"></div>
@@ -925,7 +831,7 @@
     </div>
   </div>
 
-  <!-- 7. MODAL PREVIA DE INSTAGRAM (ANTES DE ABRIR LA APP) -->
+  <!-- 7. MODAL PREVIA DE INSTAGRAM (WIDGET EN VIVO + ENLACE DIRECTO) -->
   <div class="modal-backdrop" id="igModalOverlay">
     <div class="modal-sheet">
       <div class="modal-handle"></div>
@@ -934,43 +840,25 @@
       </button>
 
       <div class="modal-body">
-        <div class="ig-preview-header">
-          <div class="ig-avatar-ring">
-            <img src="logo.png" alt="@olimpopizzaria_" width="64" height="64">
-          </div>
-          <div>
-            <span class="modal-tag">Perfil Oficial</span>
-            <h2 class="modal-name" style="margin: 0;">@olimpopizzaria_</h2>
-            <div class="ig-stats-row">
-              <div class="ig-stat"><strong>178</strong><span>posts</span></div>
-              <div class="ig-stat"><strong>4.542</strong><span>seguidores</span></div>
-              <div class="ig-stat"><strong>237</strong><span>seguindo</span></div>
-            </div>
-          </div>
-        </div>
-
-        <p class="modal-text" style="margin-bottom: 0.6rem;">
-          🇧🇷 | 🇻🇪 <strong>Onde os deuses pedem pizza!</strong><br>
-          Novidades, sorteios VIP, planos de aniversário e bastidores direto de Fraiburgo.
+        <span class="modal-tag">Instagram Oficial</span>
+        <h2 class="modal-name">@olimpopizzaria_</h2>
+        <p class="modal-text" style="margin-bottom: 0.9rem;">
+          🇧🇷 | 🇻🇪 Onde os deuses pedem pizza!
         </p>
 
-        <!-- Vista previa de 3 publicaciones destacadas -->
-        <div class="ig-feed-preview">
-          <div class="ig-feed-item">
-            <img src="https://images.unsplash.com/photo-1628840042765-356cda07504e?auto=format&fit=crop&w=240&q=72" alt="Onde tudo começou" loading="lazy">
-            <span>Onde tudo começou</span>
-          </div>
-          <div class="ig-feed-item">
-            <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=240&q=72" alt="Sorteio VIP" loading="lazy">
-            <span>Sorteio VIP</span>
-          </div>
-          <div class="ig-feed-item">
-            <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=240&q=72" alt="Eventos" loading="lazy">
-            <span>Eventos</span>
-          </div>
+        <div class="ig-embed-frame">
+          <iframe
+            title="Instagram Olimpo Pizzaria"
+            src="https://www.instagram.com/olimpopizzaria_/embed/"
+            width="100%"
+            height="310"
+            frameborder="0"
+            scrolling="no"
+            allowtransparency="true">
+          </iframe>
         </div>
 
-        <a href="https://www.instagram.com/olimpopizzaria_/" target="_blank" rel="noopener" class="btn-primary-ig">
+        <a href="https://www.instagram.com/olimpopizzaria_/" target="_blank" rel="noopener" class="btn-primary-ig" id="igDirectLink">
           <i class="fa-brands fa-instagram" style="font-size: 1.1rem;"></i>
           <span>Abrir no Instagram</span>
         </a>
@@ -978,7 +866,7 @@
     </div>
   </div>
 
-  <!-- 8. FOOTER -->
+  <!-- 8. FOOTER MINIMALISTA -->
   <footer class="site-footer">
     <div class="container">
       <div class="footer-logo">
@@ -990,26 +878,21 @@
       <div class="footer-links">
         <button type="button" class="action-pill" id="btnOpenMapFooter">
           <i class="fa-solid fa-location-dot icon-map"></i>
-          <span>Mapa</span>
+          <span>Localização</span>
         </button>
 
         <button type="button" class="action-pill" id="btnOpenIgFooter">
           <i class="fa-brands fa-instagram icon-ig"></i>
-          <span>Instagram</span>
+          <span>@olimpopizzaria_</span>
         </button>
-
-        <a href="https://wa.me/5549999156336" target="_blank" rel="noopener" class="action-pill">
-          <i class="fa-brands fa-whatsapp" style="color: var(--whatsapp);"></i>
-          <span>(49) 9915-6336</span>
-        </a>
       </div>
 
       <p class="footer-copy">
-        &copy; <span id="currentYear"></span> Olimpo Pizzaria · Fraiburgo | SC · <a href="admin.html">Painel</a>
+        &copy; <span id="currentYear"></span> Olimpo Pizzaria · Cardápio Online · <a href="admin.html">Painel</a>
       </p>
     </div>
   </footer>
 
-  <script src="app.js?v=14"></script>
+  <script src="app.js?v=15"></script>
 </body>
 </html>

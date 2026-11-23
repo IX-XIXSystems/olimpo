@@ -9,10 +9,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   };
 
   const TAMANHOS_CONFIG = {
-    pequena: { nome: "Pequena", detalhe: "25cm · até 2 sabores" },
-    media:   { nome: "Média",   detalhe: "30cm · até 3 sabores" },
-    grande:  { nome: "Grande",  detalhe: "35cm · até 4 sabores" },
-    gigante: { nome: "Gigante", detalhe: "40cm · até 4 sabores" }
+    brotinho: { nome: "Brotinho", detalhe: "25cm · até 2 sabores" },
+    pequena:  { nome: "Pequena",  detalhe: "25cm · até 2 sabores" },
+    media:    { nome: "Média",    detalhe: "30cm · até 3 sabores" },
+    grande:   { nome: "Grande",   detalhe: "35cm · até 4 sabores" },
+    gigante:  { nome: "Gigante",  detalhe: "40cm · até 4 sabores" },
+    familia:  { nome: "Família",  detalhe: "40cm · até 4 sabores" }
   };
 
   const DOM = {
@@ -57,10 +59,18 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   }
 
+  // Optimiza URLs de Unsplash para carga ultra rápida en móvil
+  function otimizarImagem(url, largura = 320) {
+    if (!url) return "logo.png";
+    if (url.includes("images.unsplash.com")) {
+      return url.replace(/w=\d+/, `w=${largura}`).replace(/q=\d+/, "q=72");
+    }
+    return url;
+  }
+
   async function inicializar() {
     if (DOM.currentYear) DOM.currentYear.textContent = new Date().getFullYear();
 
-    // Actualiza automáticamente si el navegador tenía datos viejos sin dirección de Fraiburgo
     const configSalva = await OlimpoDB.obterConfiguracoes();
     if (!configSalva.endereco && typeof OlimpoDB.restaurarDadosFabrica === "function") {
       OlimpoDB.restaurarDadosFabrica();
@@ -97,9 +107,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   function renderizarInformacoesLoja() {
     const conf = state.configuracoes || {};
 
-    if (DOM.headerStoreName && conf.nomePizzaria) {
-      DOM.headerStoreName.textContent = "Olimpo";
-    }
+    if (DOM.headerStoreName) DOM.headerStoreName.textContent = "Olimpo";
 
     if (DOM.storeStatusBadge && DOM.storeStatusText) {
       const aberto = conf.aberto !== false;
@@ -208,6 +216,20 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     DOM.productsContainer.innerHTML = html;
 
+    // Marca cada imagem como lista en cuanto termina de descargar (o si ya estaba en caché)
+    DOM.productsContainer.querySelectorAll(".menu-card-thumb img").forEach(img => {
+      const reveal = () => {
+        img.classList.add("is-ready");
+        if (img.parentElement) img.parentElement.classList.add("loaded");
+      };
+      if (img.complete) {
+        reveal();
+      } else {
+        img.addEventListener("load", reveal, { once: true });
+        img.addEventListener("error", reveal, { once: true });
+      }
+    });
+
     DOM.productsContainer.querySelectorAll(".menu-card").forEach(card => {
       card.addEventListener("click", () => {
         const prod = state.produtos.find(p => p.id === card.getAttribute("data-id"));
@@ -225,7 +247,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       precoTexto = formatarMoeda(prod.precoFixo);
     }
 
-    const delay = Math.min(index * 45, 450);
+    const delay = Math.min(index * 35, 350);
+    const thumbUrl = otimizarImagem(prod.imagem, 320);
 
     return `
       <article class="menu-card card-animate ${!prod.disponivel ? "esgotado" : ""}" style="animation-delay: ${delay}ms" data-id="${prod.id}">
@@ -238,7 +261,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           <div class="menu-card-price">${precoTexto}</div>
         </div>
         <div class="menu-card-thumb">
-          <img src="${prod.imagem}" alt="${prod.nome}" loading="lazy">
+          <img src="${thumbUrl}" alt="${prod.nome}" width="94" height="94" decoding="async">
           ${!prod.disponivel ? `<span class="sold-out-pill">Esgotado</span>` : ""}
         </div>
       </article>
@@ -250,7 +273,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     DOM.modalProductCategory.textContent = cat ? cat.nome : "Cardápio";
     DOM.modalProductName.textContent = prod.nome;
     DOM.modalProductDescription.textContent = prod.descricao || "";
-    DOM.modalProductImage.src = prod.imagem;
+    DOM.modalProductImage.src = otimizarImagem(prod.imagem, 640);
 
     if (prod.precos) {
       DOM.modalSizesContainer.style.display = "block";

@@ -33,6 +33,7 @@
       --green: #10B981;
       --red: #EF4444;
       --whatsapp: #25D366;
+      --ig-gradient: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
 
       --text: #F5F6F8;
       --text-2: #B0B6C2;
@@ -99,11 +100,7 @@
       gap: 8px;
     }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+    .brand { display: flex; align-items: center; gap: 10px; }
 
     .header-logo {
       width: 36px;
@@ -114,7 +111,6 @@
       background: #000;
       flex-shrink: 0;
     }
-
     .header-logo img { width: 36px; height: 36px; object-fit: cover; }
 
     .brand-title {
@@ -125,11 +121,7 @@
       text-transform: uppercase;
     }
 
-    .header-actions {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-    }
+    .header-actions { display: flex; align-items: center; gap: 7px; }
 
     .nav-circle-btn {
       width: 34px;
@@ -140,7 +132,7 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.86rem;
+      font-size: 0.88rem;
       color: var(--text-2);
       transition: transform 0.25s var(--ease), border-color 0.25s ease, color 0.25s ease;
     }
@@ -165,16 +157,10 @@
 
     .status-pill.open { background: rgba(16, 185, 129, 0.16); color: var(--green); }
     .status-pill.closed { background: rgba(239, 68, 68, 0.16); color: var(--red); }
-
-    .status-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: currentColor;
-    }
+    .status-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
 
     /* =========================================
-       2. HERO CON ZEUS EN EL FONDO ANIMADO LENTO
+       2. HERO CON ZEUS EN EL FONDO
        ========================================= */
     .hero-profile {
       position: relative;
@@ -183,7 +169,6 @@
       overflow: hidden;
     }
 
-    /* Escenario de fondo para Zeus */
     .zeus-backdrop {
       position: absolute;
       inset: 0;
@@ -195,7 +180,6 @@
       overflow: hidden;
     }
 
-    /* Aura dorada divina detrás de Zeus */
     .zeus-aura {
       position: absolute;
       top: -20px;
@@ -214,7 +198,6 @@
       100% { opacity: 1; transform: translate3d(-50%, -8px, 0) scale(1.08); }
     }
 
-    /* Imagen de Zeus con movimiento lento, hipnótico y elegante */
     .zeus-figure {
       width: min(440px, 96vw);
       height: auto;
@@ -228,18 +211,11 @@
     }
 
     @keyframes zeusDivineDrift {
-      0% {
-        transform: translate3d(0px, 0px, 0) scale(1) rotate(0deg);
-      }
-      50% {
-        transform: translate3d(6px, -10px, 0) scale(1.035) rotate(0.6deg);
-      }
-      100% {
-        transform: translate3d(-6px, -4px, 0) scale(1.05) rotate(-0.6deg);
-      }
+      0% { transform: translate3d(0px, 0px, 0) scale(1) rotate(0deg); }
+      50% { transform: translate3d(6px, -10px, 0) scale(1.035) rotate(0.6deg); }
+      100% { transform: translate3d(-6px, -4px, 0) scale(1.05) rotate(-0.6deg); }
     }
 
-    /* Viñeta sutil para garantizar contraste perfecto del texto */
     .zeus-vignette {
       position: absolute;
       inset: 0;
@@ -248,7 +224,6 @@
       pointer-events: none;
     }
 
-    /* Logo central */
     .logo-stage {
       position: relative;
       width: 120px;
@@ -289,17 +264,9 @@
       background: #000;
       border: 1.5px solid rgba(245, 197, 24, 0.55);
       box-shadow: 0 16px 36px rgba(0, 0, 0, 0.92);
-      transition: transform 0.3s var(--ease);
     }
 
-    .logo-frame:active { transform: scale(0.95); }
-
-    .logo-frame img {
-      width: 112px;
-      height: 112px;
-      object-fit: cover;
-      transform: scale(1.03);
-    }
+    .logo-frame img { width: 112px; height: 112px; object-fit: cover; transform: scale(1.03); }
 
     .logo-sheen {
       position: absolute;
@@ -328,7 +295,6 @@
       animation: fadeSlideUp 0.7s var(--ease) 0.08s both;
     }
 
-    /* Bio de Instagram */
     .ig-bio-card {
       display: inline-flex;
       flex-direction: column;
@@ -355,21 +321,9 @@
       margin-bottom: 0.15rem;
     }
 
-    .bio-tagline {
-      color: var(--text);
-      font-weight: 600;
-      font-size: 0.95rem;
-    }
+    .bio-tagline { color: var(--text); font-weight: 600; font-size: 0.95rem; }
+    .bio-line { display: inline-flex; align-items: center; gap: 6px; font-size: 0.83rem; color: #D1D5DB; }
 
-    .bio-line {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.83rem;
-      color: #D1D5DB;
-    }
-
-    /* Botones minimalistas de Mapa e Instagram */
     .social-pills-row {
       display: flex;
       align-items: center;
@@ -383,7 +337,7 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 0.58rem 1.15rem;
+      padding: 0.6rem 1.2rem;
       border-radius: 999px;
       background: rgba(15, 17, 21, 0.85);
       backdrop-filter: blur(10px);
@@ -405,7 +359,7 @@
 
     .action-pill .icon-map { color: var(--gold); font-size: 0.92rem; }
     .action-pill .icon-ig {
-      background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+      background: var(--ig-gradient);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       font-size: 1rem;
@@ -441,7 +395,6 @@
       padding: 0 1rem;
       height: 44px;
       margin-bottom: 0.75rem;
-      transition: border-color 0.2s ease;
     }
 
     .search-box:focus-within { border-color: var(--border-gold); }
@@ -472,8 +425,6 @@
       transition: all 0.2s var(--ease);
     }
 
-    .cat-btn:active { transform: scale(0.95); }
-
     .cat-btn.active {
       background: var(--text);
       color: var(--bg);
@@ -497,11 +448,7 @@
       justify-content: space-between;
     }
 
-    .section-head small {
-      font-family: var(--font-sans);
-      font-size: 0.74rem;
-      color: var(--text-3);
-    }
+    .section-head small { font-family: var(--font-sans); font-size: 0.74rem; color: var(--text-3); }
 
     .cards-grid {
       display: grid;
@@ -536,65 +483,25 @@
       }
     }
 
-    .item-info {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      flex: 1;
-      min-width: 0;
-    }
-
-    .item-badge {
-      display: inline-block;
-      font-size: 0.65rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--gold);
-      margin-bottom: 0.2rem;
-    }
-
-    .item-title {
-      font-size: 0.95rem;
-      font-weight: 600;
-      margin-bottom: 0.25rem;
-      line-height: 1.3;
-    }
-
-    .item-desc {
-      font-size: 0.79rem;
-      color: var(--text-2);
-      line-height: 1.42;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      margin-bottom: 0.55rem;
-    }
-
+    .item-info { display: flex; flex-direction: column; justify-content: space-between; flex: 1; min-width: 0; }
+    .item-badge { display: inline-block; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gold); margin-bottom: 0.2rem; }
+    .item-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.25rem; line-height: 1.3; }
+    .item-desc { font-size: 0.79rem; color: var(--text-2); line-height: 1.42; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 0.55rem; }
     .item-price { font-size: 0.88rem; font-weight: 600; color: var(--gold-soft); }
     .item-price small { font-weight: 400; color: var(--text-3); font-size: 0.74rem; }
 
-    .item-thumb {
-      width: 92px;
-      height: 92px;
-      border-radius: 10px;
-      overflow: hidden;
-      flex-shrink: 0;
-      background: var(--elevated);
-    }
-
+    .item-thumb { width: 92px; height: 92px; border-radius: 10px; overflow: hidden; flex-shrink: 0; background: var(--elevated); }
     .item-thumb img { width: 92px; height: 92px; object-fit: cover; }
 
     /* =========================================
-       5. MODAIS
+       5. MODAIS MODERNOS (PRODUTO, MAPA E INSTAGRAM)
        ========================================= */
     .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.8);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      background: rgba(0, 0, 0, 0.82);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       z-index: 200;
       display: flex;
       align-items: flex-end;
@@ -610,32 +517,40 @@
       position: relative;
       width: 100%;
       max-width: 460px;
-      max-height: 88dvh;
+      max-height: 90dvh;
       background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 20px 20px 0 0;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px 24px 0 0;
       overflow-y: auto;
       padding-bottom: env(safe-area-inset-bottom);
-      transform: translate3d(0, 30px, 0);
-      transition: transform 0.3s var(--ease);
+      transform: translate3d(0, 34px, 0);
+      transition: transform 0.32s var(--ease);
     }
 
     .modal-backdrop.active .modal-sheet { transform: translate3d(0, 0, 0); }
 
     @media (min-width: 640px) {
       .modal-backdrop { align-items: center; padding: 1.5rem; }
-      .modal-sheet { border-radius: 20px; }
+      .modal-sheet { border-radius: 24px; }
+    }
+
+    .modal-handle {
+      width: 38px;
+      height: 4px;
+      border-radius: 99px;
+      background: rgba(255, 255, 255, 0.16);
+      margin: 10px auto 0;
     }
 
     .modal-close {
       position: absolute;
-      top: 12px;
-      right: 12px;
+      top: 14px;
+      right: 14px;
       z-index: 10;
       width: 34px;
       height: 34px;
       border-radius: 50%;
-      background: rgba(7, 8, 10, 0.78);
+      background: rgba(7, 8, 10, 0.8);
       color: #fff;
       display: flex;
       align-items: center;
@@ -666,10 +581,11 @@
     .size-item small { color: var(--text-3); margin-left: 4px; }
     .size-item .val { font-weight: 700; color: var(--gold-soft); }
 
+    /* Botones de acción en modales */
     .btn-primary-whats {
       width: 100%;
-      padding: 0.9rem;
-      border-radius: 12px;
+      padding: 0.92rem;
+      border-radius: 14px;
       background: var(--whatsapp);
       color: #07080A;
       font-weight: 700;
@@ -682,8 +598,8 @@
 
     .btn-primary-gold {
       width: 100%;
-      padding: 0.9rem;
-      border-radius: 12px;
+      padding: 0.92rem;
+      border-radius: 14px;
       background: var(--gold);
       color: #07080A;
       font-weight: 700;
@@ -692,6 +608,116 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
+    }
+
+    .btn-primary-ig {
+      width: 100%;
+      padding: 0.92rem;
+      border-radius: 14px;
+      background: var(--ig-gradient);
+      color: #FFFFFF;
+      font-weight: 700;
+      font-size: 0.92rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 8px 24px rgba(220, 39, 67, 0.3);
+    }
+
+    .btn-secondary-ghost {
+      width: 100%;
+      padding: 0.75rem;
+      border-radius: 12px;
+      background: var(--elevated);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 0.84rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 0.65rem;
+    }
+
+    /* Vista previa de perfil de Instagram dentro del modal */
+    .ig-preview-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 1rem;
+    }
+
+    .ig-avatar-ring {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      padding: 2.5px;
+      background: var(--ig-gradient);
+      flex-shrink: 0;
+    }
+
+    .ig-avatar-ring img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--surface);
+      background: #000;
+    }
+
+    .ig-stats-row {
+      display: flex;
+      gap: 16px;
+      margin-top: 6px;
+    }
+
+    .ig-stat {
+      display: flex;
+      flex-direction: column;
+      font-size: 0.74rem;
+      color: var(--text-2);
+    }
+
+    .ig-stat strong {
+      font-size: 0.92rem;
+      color: var(--text);
+    }
+
+    .ig-feed-preview {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin: 1rem 0 1.25rem;
+    }
+
+    .ig-feed-item {
+      aspect-ratio: 1 / 1;
+      border-radius: 10px;
+      overflow: hidden;
+      background: var(--elevated);
+      position: relative;
+    }
+
+    .ig-feed-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .ig-feed-item span {
+      position: absolute;
+      bottom: 6px;
+      left: 6px;
+      right: 6px;
+      font-size: 0.64rem;
+      font-weight: 700;
+      color: #fff;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     /* =========================================
@@ -744,13 +770,15 @@
         </a>
 
         <div class="header-actions">
-          <button type="button" class="nav-circle-btn" id="btnOpenMapTop" title="Localização">
+          <!-- Abre primero la ventana previa del Mapa -->
+          <button type="button" class="nav-circle-btn" id="btnOpenMapTop" title="Ver Localização">
             <i class="fa-solid fa-location-dot"></i>
           </button>
 
-          <a href="https://www.instagram.com/olimpopizzaria_/" target="_blank" rel="noopener" class="nav-circle-btn" title="Instagram @olimpopizzaria_">
+          <!-- Abre primero la ventana previa de Instagram -->
+          <button type="button" class="nav-circle-btn" id="btnOpenIgTop" title="Ver Instagram">
             <i class="fa-brands fa-instagram"></i>
-          </a>
+          </button>
 
           <div class="status-pill open" id="storeStatusBadge">
             <span class="status-dot"></span>
@@ -761,9 +789,8 @@
     </div>
   </header>
 
-  <!-- 2. HERO CON ZEUS EN EL FONDO ANIMADO LENTO -->
+  <!-- 2. HERO CON ZEUS EN EL FONDO ANIMADO -->
   <section class="hero-profile">
-    <!-- Fondo con Zeus moviéndose suavemente -->
     <div class="zeus-backdrop" aria-hidden="true">
       <div class="zeus-aura"></div>
       <img src="zeus.png" alt="" class="zeus-figure" fetchpriority="high" decoding="async">
@@ -794,10 +821,10 @@
           <span>Como Chegar</span>
         </button>
 
-        <a href="https://www.instagram.com/olimpopizzaria_/" target="_blank" rel="noopener" class="action-pill">
+        <button type="button" class="action-pill" id="btnOpenIgHero">
           <i class="fa-brands fa-instagram icon-ig"></i>
           <span>@olimpopizzaria_</span>
-        </a>
+        </button>
       </div>
     </div>
   </section>
@@ -857,32 +884,38 @@
     </div>
   </div>
 
-  <!-- 6. MODAL DE UBICACIÓN EXACTA -->
+  <!-- 6. MODAL PREVIA DE UBICACIÓN (MAPA INTERACTIVO ANTES DE SALIR) -->
   <div class="modal-backdrop" id="mapModalOverlay">
     <div class="modal-sheet">
+      <div class="modal-handle"></div>
       <button type="button" class="modal-close" id="btnCloseMapModal" aria-label="Fechar">
         <i class="fa-solid fa-xmark"></i>
       </button>
 
-      <div class="modal-body" style="padding-top: 1.75rem;">
+      <div class="modal-body">
         <span class="modal-tag">Localização Exata</span>
         <h2 class="modal-name">Olimpo Pizzaria</h2>
-        <p class="modal-text" style="margin-bottom: 1rem;">
+        <p class="modal-text" style="margin-bottom: 0.9rem;">
           🏛️ Av Adalberto Smith Burda, 303, São José<br>
           📍 Fraiburgo | SC — CEP 89580-000
         </p>
 
-        <div style="border-radius: 12px; overflow: hidden; border: 1px solid var(--border); margin-bottom: 1.1rem; height: 210px; background: var(--elevated);">
+        <div style="border-radius: 14px; overflow: hidden; border: 1px solid var(--border); margin-bottom: 1rem; height: 220px; background: var(--elevated);">
           <iframe
             title="Mapa Olimpo Pizzaria Fraiburgo"
             width="100%"
-            height="210"
+            height="220"
             style="border:0;"
             loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"
             src="https://maps.google.com/maps?q=Av%20Adalberto%20Smith%20Burda,%20303,%20Sao%20Jose,%20Fraiburgo%20-%20SC&t=&z=16&ie=UTF8&iwloc=&output=embed">
           </iframe>
         </div>
+
+        <button type="button" class="btn-secondary-ghost" id="btnCopyAddress">
+          <i class="fa-regular fa-copy"></i>
+          <span id="copyAddressLabel">Copiar Endereço</span>
+        </button>
 
         <a href="https://www.google.com/maps/search/?api=1&query=Av+Adalberto+Smith+Burda+303+Sao+Jose+Fraiburgo+SC" target="_blank" rel="noopener" class="btn-primary-gold">
           <i class="fa-solid fa-diamond-turn-right"></i>
@@ -892,7 +925,60 @@
     </div>
   </div>
 
-  <!-- 7. FOOTER -->
+  <!-- 7. MODAL PREVIA DE INSTAGRAM (ANTES DE ABRIR LA APP) -->
+  <div class="modal-backdrop" id="igModalOverlay">
+    <div class="modal-sheet">
+      <div class="modal-handle"></div>
+      <button type="button" class="modal-close" id="btnCloseIgModal" aria-label="Fechar">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="modal-body">
+        <div class="ig-preview-header">
+          <div class="ig-avatar-ring">
+            <img src="logo.png" alt="@olimpopizzaria_" width="64" height="64">
+          </div>
+          <div>
+            <span class="modal-tag">Perfil Oficial</span>
+            <h2 class="modal-name" style="margin: 0;">@olimpopizzaria_</h2>
+            <div class="ig-stats-row">
+              <div class="ig-stat"><strong>178</strong><span>posts</span></div>
+              <div class="ig-stat"><strong>4.542</strong><span>seguidores</span></div>
+              <div class="ig-stat"><strong>237</strong><span>seguindo</span></div>
+            </div>
+          </div>
+        </div>
+
+        <p class="modal-text" style="margin-bottom: 0.6rem;">
+          🇧🇷 | 🇻🇪 <strong>Onde os deuses pedem pizza!</strong><br>
+          Novidades, sorteios VIP, planos de aniversário e bastidores direto de Fraiburgo.
+        </p>
+
+        <!-- Vista previa de 3 publicaciones destacadas -->
+        <div class="ig-feed-preview">
+          <div class="ig-feed-item">
+            <img src="https://images.unsplash.com/photo-1628840042765-356cda07504e?auto=format&fit=crop&w=240&q=72" alt="Onde tudo começou" loading="lazy">
+            <span>Onde tudo começou</span>
+          </div>
+          <div class="ig-feed-item">
+            <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=240&q=72" alt="Sorteio VIP" loading="lazy">
+            <span>Sorteio VIP</span>
+          </div>
+          <div class="ig-feed-item">
+            <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=240&q=72" alt="Eventos" loading="lazy">
+            <span>Eventos</span>
+          </div>
+        </div>
+
+        <a href="https://www.instagram.com/olimpopizzaria_/" target="_blank" rel="noopener" class="btn-primary-ig">
+          <i class="fa-brands fa-instagram" style="font-size: 1.1rem;"></i>
+          <span>Abrir no Instagram</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. FOOTER -->
   <footer class="site-footer">
     <div class="container">
       <div class="footer-logo">
@@ -907,10 +993,10 @@
           <span>Mapa</span>
         </button>
 
-        <a href="https://www.instagram.com/olimpopizzaria_/" target="_blank" rel="noopener" class="action-pill">
+        <button type="button" class="action-pill" id="btnOpenIgFooter">
           <i class="fa-brands fa-instagram icon-ig"></i>
           <span>Instagram</span>
-        </a>
+        </button>
 
         <a href="https://wa.me/5549999156336" target="_blank" rel="noopener" class="action-pill">
           <i class="fa-brands fa-whatsapp" style="color: var(--whatsapp);"></i>
@@ -924,6 +1010,6 @@
     </div>
   </footer>
 
-  <script src="app.js?v=12"></script>
+  <script src="app.js?v=14"></script>
 </body>
 </html>

@@ -13,6 +13,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
   <link rel="preload" as="image" href="logo.png" fetchpriority="high">
+  <link rel="preload" as="image" href="zeus.png" fetchpriority="high">
 
   <link rel="icon" type="image/png" href="logo.png">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
@@ -34,7 +35,7 @@
       --whatsapp: #25D366;
 
       --text: #F5F6F8;
-      --text-2: #A1A7B3;
+      --text-2: #B0B6C2;
       --text-3: #6B7280;
 
       --font-display: 'Cinzel', Georgia, serif;
@@ -61,18 +62,6 @@
       padding-bottom: env(safe-area-inset-bottom);
     }
 
-    .ambient-light {
-      position: fixed;
-      top: -140px;
-      left: 50%;
-      transform: translate3d(-50%, 0, 0);
-      width: 600px;
-      height: 360px;
-      background: radial-gradient(ellipse at center, rgba(245, 197, 24, 0.11) 0%, transparent 70%);
-      pointer-events: none;
-      z-index: 0;
-    }
-
     img, svg { display: block; max-width: 100%; }
     button, input { font-family: inherit; color: inherit; border: none; outline: none; background: none; }
     button { cursor: pointer; touch-action: manipulation; }
@@ -85,7 +74,7 @@
       padding-left: max(1.15rem, env(safe-area-inset-left));
       padding-right: max(1.15rem, env(safe-area-inset-right));
       position: relative;
-      z-index: 1;
+      z-index: 2;
     }
 
     /* =========================================
@@ -96,7 +85,7 @@
       top: 0;
       z-index: 100;
       padding-top: env(safe-area-inset-top);
-      background: rgba(7, 8, 10, 0.85);
+      background: rgba(7, 8, 10, 0.82);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
@@ -146,7 +135,7 @@
       width: 34px;
       height: 34px;
       border-radius: 50%;
-      background: var(--surface);
+      background: rgba(15, 17, 21, 0.85);
       border: 1px solid var(--border);
       display: inline-flex;
       align-items: center;
@@ -174,8 +163,8 @@
       font-weight: 600;
     }
 
-    .status-pill.open { background: rgba(16, 185, 129, 0.14); color: var(--green); }
-    .status-pill.closed { background: rgba(239, 68, 68, 0.14); color: var(--red); }
+    .status-pill.open { background: rgba(16, 185, 129, 0.16); color: var(--green); }
+    .status-pill.closed { background: rgba(239, 68, 68, 0.16); color: var(--red); }
 
     .status-dot {
       width: 6px;
@@ -185,19 +174,86 @@
     }
 
     /* =========================================
-       2. HERO PERFIL PREMIUM + BIO DE INSTAGRAM
+       2. HERO CON ZEUS EN EL FONDO ANIMADO LENTO
        ========================================= */
     .hero-profile {
-      padding: 2.2rem 0 1.75rem;
+      position: relative;
+      padding: 2.3rem 0 2rem;
       text-align: center;
+      overflow: hidden;
     }
 
-    /* Logo con animación fluida elegante */
+    /* Escenario de fondo para Zeus */
+    .zeus-backdrop {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    /* Aura dorada divina detrás de Zeus */
+    .zeus-aura {
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translate3d(-50%, 0, 0);
+      width: 440px;
+      height: 440px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(245, 197, 24, 0.2) 0%, rgba(245, 197, 24, 0.05) 45%, transparent 72%);
+      filter: blur(22px);
+      animation: zeusAuraPulse 8s ease-in-out infinite alternate;
+    }
+
+    @keyframes zeusAuraPulse {
+      0% { opacity: 0.55; transform: translate3d(-50%, 0, 0) scale(0.94); }
+      100% { opacity: 1; transform: translate3d(-50%, -8px, 0) scale(1.08); }
+    }
+
+    /* Imagen de Zeus con movimiento lento, hipnótico y elegante */
+    .zeus-figure {
+      width: min(440px, 96vw);
+      height: auto;
+      margin-top: -12px;
+      opacity: 0.34;
+      filter: contrast(1.06) drop-shadow(0 12px 30px rgba(0, 0, 0, 0.9));
+      -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.95) 45%, rgba(0,0,0,0.35) 78%, transparent 100%);
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.95) 45%, rgba(0,0,0,0.35) 78%, transparent 100%);
+      will-change: transform;
+      animation: zeusDivineDrift 11s ease-in-out infinite alternate;
+    }
+
+    @keyframes zeusDivineDrift {
+      0% {
+        transform: translate3d(0px, 0px, 0) scale(1) rotate(0deg);
+      }
+      50% {
+        transform: translate3d(6px, -10px, 0) scale(1.035) rotate(0.6deg);
+      }
+      100% {
+        transform: translate3d(-6px, -4px, 0) scale(1.05) rotate(-0.6deg);
+      }
+    }
+
+    /* Viñeta sutil para garantizar contraste perfecto del texto */
+    .zeus-vignette {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 48%, rgba(7, 8, 10, 0.32) 0%, rgba(7, 8, 10, 0.88) 85%);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Logo central */
     .logo-stage {
       position: relative;
-      width: 126px;
-      height: 126px;
-      margin: 0 auto 1.25rem;
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 1.15rem;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -213,8 +269,8 @@
       position: absolute;
       inset: -4px;
       border-radius: 50%;
-      border: 1px solid rgba(245, 197, 24, 0.35);
-      box-shadow: 0 0 28px rgba(245, 197, 24, 0.2);
+      border: 1px solid rgba(245, 197, 24, 0.4);
+      box-shadow: 0 0 28px rgba(245, 197, 24, 0.25);
       animation: haloBreath 4s ease-in-out infinite alternate;
       pointer-events: none;
     }
@@ -226,21 +282,21 @@
 
     .logo-frame {
       position: relative;
-      width: 116px;
-      height: 116px;
+      width: 112px;
+      height: 112px;
       border-radius: 50%;
       overflow: hidden;
       background: #000;
-      border: 1.5px solid rgba(245, 197, 24, 0.5);
-      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.85);
+      border: 1.5px solid rgba(245, 197, 24, 0.55);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.92);
       transition: transform 0.3s var(--ease);
     }
 
     .logo-frame:active { transform: scale(0.95); }
 
     .logo-frame img {
-      width: 116px;
-      height: 116px;
+      width: 112px;
+      height: 112px;
       object-fit: cover;
       transform: scale(1.03);
     }
@@ -261,17 +317,18 @@
 
     .store-name {
       font-family: var(--font-display);
-      font-size: clamp(1.65rem, 5vw, 2.35rem);
+      font-size: clamp(1.7rem, 5vw, 2.4rem);
       font-weight: 700;
       letter-spacing: 0.04em;
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.7rem;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.85);
       background: linear-gradient(120deg, #FFFFFF 20%, #FBE170 70%, #F5C518 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       animation: fadeSlideUp 0.7s var(--ease) 0.08s both;
     }
 
-    /* Bio exacta de Instagram con estética minimalista */
+    /* Bio de Instagram */
     .ig-bio-card {
       display: inline-flex;
       flex-direction: column;
@@ -280,6 +337,7 @@
       font-size: 0.88rem;
       color: var(--text-2);
       margin-bottom: 1.35rem;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.9);
       animation: fadeSlideUp 0.7s var(--ease) 0.16s both;
     }
 
@@ -287,9 +345,11 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 3px 10px;
+      padding: 3px 11px;
       border-radius: 999px;
-      background: var(--surface);
+      background: rgba(15, 17, 21, 0.78);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
       border: 1px solid var(--border);
       font-size: 0.82rem;
       margin-bottom: 0.15rem;
@@ -298,15 +358,15 @@
     .bio-tagline {
       color: var(--text);
       font-weight: 600;
-      font-size: 0.94rem;
+      font-size: 0.95rem;
     }
 
     .bio-line {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      font-size: 0.82rem;
-      color: var(--text-2);
+      font-size: 0.83rem;
+      color: #D1D5DB;
     }
 
     /* Botones minimalistas de Mapa e Instagram */
@@ -325,8 +385,10 @@
       gap: 8px;
       padding: 0.58rem 1.15rem;
       border-radius: 999px;
-      background: var(--surface);
-      border: 1px solid var(--border);
+      background: rgba(15, 17, 21, 0.85);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       font-size: 0.82rem;
       font-weight: 600;
       color: var(--text);
@@ -361,7 +423,7 @@
       position: sticky;
       top: calc(60px + env(safe-area-inset-top));
       z-index: 90;
-      background: rgba(7, 8, 10, 0.9);
+      background: rgba(7, 8, 10, 0.92);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
       padding: 0.75rem 0 0.85rem;
@@ -420,7 +482,7 @@
     }
 
     /* =========================================
-       4. CARDÁPIO (TARJETAS MINIMALISTAS)
+       4. CARDÁPIO
        ========================================= */
     .menu-section { margin-bottom: 2.5rem; }
 
@@ -525,7 +587,7 @@
     .item-thumb img { width: 92px; height: 92px; object-fit: cover; }
 
     /* =========================================
-       5. MODAIS (PRODUTO E LOCALIZAÇÃO)
+       5. MODAIS
        ========================================= */
     .modal-backdrop {
       position: fixed;
@@ -633,7 +695,7 @@
     }
 
     /* =========================================
-       6. FOOTER MINIMALISTA
+       6. FOOTER
        ========================================= */
     .site-footer {
       margin-top: 2.5rem;
@@ -670,8 +732,6 @@
 </head>
 <body>
 
-  <div class="ambient-light" aria-hidden="true"></div>
-
   <!-- 1. HEADER LIMPIO -->
   <header class="site-header">
     <div class="container">
@@ -684,12 +744,10 @@
         </a>
 
         <div class="header-actions">
-          <!-- Botón Mapa -->
           <button type="button" class="nav-circle-btn" id="btnOpenMapTop" title="Localização">
             <i class="fa-solid fa-location-dot"></i>
           </button>
 
-          <!-- Botón Instagram -->
           <a href="https://www.instagram.com/olimpopizzaria_/" target="_blank" rel="noopener" class="nav-circle-btn" title="Instagram @olimpopizzaria_">
             <i class="fa-brands fa-instagram"></i>
           </a>
@@ -703,20 +761,26 @@
     </div>
   </header>
 
-  <!-- 2. HERO CON BIO DE INSTAGRAM EXACTA -->
+  <!-- 2. HERO CON ZEUS EN EL FONDO ANIMADO LENTO -->
   <section class="hero-profile">
+    <!-- Fondo con Zeus moviéndose suavemente -->
+    <div class="zeus-backdrop" aria-hidden="true">
+      <div class="zeus-aura"></div>
+      <img src="zeus.png" alt="" class="zeus-figure" fetchpriority="high" decoding="async">
+      <div class="zeus-vignette"></div>
+    </div>
+
     <div class="container">
       <div class="logo-stage">
         <div class="logo-halo" aria-hidden="true"></div>
         <div class="logo-frame">
-          <img src="logo.png" alt="Olimpo Pizzaria" width="116" height="116" fetchpriority="high" decoding="sync">
+          <img src="logo.png" alt="Olimpo Pizzaria" width="112" height="112" fetchpriority="high" decoding="sync">
           <div class="logo-sheen" aria-hidden="true"></div>
         </div>
       </div>
 
       <h1 class="store-name">Olimpo Pizzaria</h1>
 
-      <!-- Bio oficial de Instagram (sin "Peça agora pelo link!" ni el enlace) -->
       <div class="ig-bio-card">
         <div class="bio-flags">🇧🇷 | 🇻🇪</div>
         <p class="bio-tagline">🍕 Onde os deuses pedem pizza!</p>
@@ -724,7 +788,6 @@
         <p class="bio-line">🏛️ Av Adalberto Smith Burda, 303, São José.</p>
       </div>
 
-      <!-- Botones elegantes de Mapa e Instagram -->
       <div class="social-pills-row">
         <button type="button" class="action-pill" id="btnOpenMapHero">
           <i class="fa-solid fa-location-dot icon-map"></i>
@@ -794,7 +857,7 @@
     </div>
   </div>
 
-  <!-- 6. MODAL DE UBICACIÓN EXACTA (MAPA INTERACTIVO) -->
+  <!-- 6. MODAL DE UBICACIÓN EXACTA -->
   <div class="modal-backdrop" id="mapModalOverlay">
     <div class="modal-sheet">
       <button type="button" class="modal-close" id="btnCloseMapModal" aria-label="Fechar">
